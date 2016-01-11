@@ -1,0 +1,1583 @@
+﻿<html>
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type">
+    <title>Finanzas Internacionales</title>
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0;">
+    <link rel="stylesheet" type="text/css" href="css/af.ui.css">
+    <link rel="stylesheet" type="text/css" href="css/icons.css">
+    <script type="text/javascript" charset="utf-8" src="js/jquery.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/appframework.ui.min.js"></script>
+
+    <script>
+	$.feat.nativeTouchScroll=true;
+        $.ui.autoLaunch = false; 
+        $.ui.backButtonText = "Atrás";
+        $(document).ready(function(){
+        $.ui.launch();
+        });
+    </script>
+<script>
+function showDialog(){
+document.getElementById('help1').innerHTML ='<p class="one">Indique sólo dos tipos de cambio.<br>Recuerde que para poder calcular el tipo cruzado, una de las divisas debe ser común.</p><p align=center><button id="exit" onClick= hideDialog()>Cerrar</button><p>';
+document.getElementById('help2').innerHTML ='<p class="one">Indique el tipo comprador (C) y/o vendedor (V) de un par de divisas para conocer su recíproco.</p><p align=center><button id="exit" onClick= hideDialog()>Cerrar</button><p>';
+document.getElementById('help7').innerHTML ='<p class="one">Indique el tipo de cambio comprador (C) y vendedor (V) y los puntos swap, para calcular el forward.</p><p align=center><button id="exit" onClick= hideDialog()>Cerrar</button><p>';
+document.getElementById('help3').innerHTML ='<p class="one">Indique el tipo comprador y vendedor de tres pares de divsas para determinar si existe arbitraje triangular.</p><p align=center><button id="exit" onClick= hideDialog()>Cerrar</button><p>';
+document.getElementById('help4').innerHTML ='<p class="one">Indique <b>TODOS</b> los datos para determinar si hay arbitraje a plazos.<br>DE: Divisa extranjera (el € es siempre la divisa cotizada).<br>Tipos de interés en efectivo anual (EA) en porcentaje, sin indicar el símbolo % (ejemplo: 2,5).<br>Plazo (T) en meses.<br>Si sólo dispone de un tipo de cambio spot y forward repita el mismo dato para comprador (C) y vendedor (V).<br>Si sólo dispone de un tipo de interés, repita el mismo dato para tipos deudores (D) y acreedores (A).</p><p align=center><button id="exit" onClick= hideDialog()>Cerrar</button><p>';
+document.getElementById('help5').innerHTML ='<p class="one">Indique <b>TODOS</b> los datos para calcular la mejor cobertura.<br>DE: Divisa extranjera (el € es siempre la divisa cotizada).<br>Tipos de interés en efectivo anual (EA) en porcentaje, sin indicar el símbolo % (ejemplo: 2,5).<br>Plazo (T) en meses.<br>Si sólo dispone de un tipo de cambio spot y forward repita el mismo dato para comprador (C) y vendedor (V).<br>Si sólo dispone de un tipo de interés, repita el mismo dato para tipos deudores (D) y acreedores (A).</p><p align=center><button id="exit" onClick= hideDialog()>Cerrar</button><p>';
+document.getElementById('help6').innerHTML ='<p class="one">Indique <b>TODOS</b> los datos para reajustar la cobertura.<br>DE: Divisa extranjera (el € es siempre la divisa cotizada).<br>Tipos de interés en efectivo anual en porcentaje y sin indicar el símbolo (ejemplo: 2,5).<br>Derecho de Cobro (DC) u Obligación de Pago (OP) en Divisa Extranjera (DE) ya cubierta y que está sometida a modificación, de cantidad y/o plazo.<br>Plazo antes del cambio en las condiciones (T<sub>inicial</sub>) y Plazo después de cambiar las condiciones (T<sub>actual</sub>)en meses, pueden coincidir si solo se modifica la cantidad.<br>Si sólo dispone de un tipo de cambio spot y forward repita el mismo dato para comprador (C) y vendedor (V).<br>Si sólo dispone de un tipo de interés, repita el mismo dato para tipos deudores (D) y acreedores (A).</p><p align=center><button id="exit" onClick= hideDialog()>Cerrar</button><p>';
+document.getElementById('help8').innerHTML ='<p class="one">Indique los tipos de interés que las entidades financieras ofrecen a la empresa X y a la empresa Y para financiación en divisa A y en divisa B (en porcentaje y sin el signo %).<br>Si desea calcular el acuerdo final al que llegan ambas empresas y el coste final de financiación de cada una, indique el tipo de interés que acuerdan en el swap ambas empresas para la divisa A y el porcentaje del beneficio total que recibe la empresa X (en porcentaje y sin el signo %).<p align=center><button id="exit" onClick= hideDialog()>Cerrar</button><p>';
+document.getElementById('help9').innerHTML ='<p class="one">Indique todos los datos para determinar si hay arbitraje en el mercado de futuros sobre divisas.<br>Los tipos de interés se expresan en Efectivo Anual (E.A.) y porcentaje sin indicar el simbolo %.<br>El plazo de indica en meses.<br>Tenga en cuenta que los resultados se ofrecen considerando que la divisa B es nuestra divisa de referencia.<p align=center><button id="exit" onClick= hideDialog()>Cerrar</button><p>';
+document.getElementById('help11').innerHTML ='<p class="one">Indique todos los datos para calcular el resultado al vencimiento.<p align=center><button id="exit" onClick= hideDialog()>Cerrar</button><p>';
+document.getElementById('help12').innerHTML ='<p class="one">Indique todos los datos para calcular el valor de una opción <b>europea</b> según el modelo binomial.<br>El plazo de vencimiento de la opción (T) en meses.<br>El tipo de interés (r) en Efectivo Anual (E.A.) y porcentaje sin indicar el simbolo %.<p align=center><button id="exit" onClick= hideDialog()>Cerrar</button><p>';
+document.getElementById('help13').innerHTML ='<p class="one">Indique el tipo de activo (subyacente, call o put), la posición en el mismo: larga (comprado) o corta (vendido) y el precio de ejercicio (K) si se trata de una opción.<br>Para hacer gráficos de varios activos, vaya añadiéndolos uno a uno.<br>Este módulo requiere el uso de datos porque carga la API de google online.<p align=center><button id="exit" onClick= hideDialog()>Cerrar</button><p>';
+}
+function hideDialog(){
+document.getElementById('help1').innerHTML ='';  
+document.getElementById('help2').innerHTML ='';  
+document.getElementById('help7').innerHTML ='';
+document.getElementById('help3').innerHTML ='';
+document.getElementById('help4').innerHTML ='';
+document.getElementById('help5').innerHTML ='';
+document.getElementById('help6').innerHTML ='';
+document.getElementById('help8').innerHTML ='';
+document.getElementById('help9').innerHTML ='';
+document.getElementById('help11').innerHTML ='';
+document.getElementById('help12').innerHTML ='';
+document.getElementById('help13').innerHTML ='';
+}
+
+</script>
+
+<!-- Calcula el tipo cruzado -->
+<script>
+function calctp(inputstp)
+{
+var SAB = document.inputstp.SAB.value;
+var SAC = document.inputstp.SAC.value; 
+var SBC = document.inputstp.SBC.value;
+var SBA = document.inputstp.SBA.value;
+var SCA = document.inputstp.SCA.value; 
+var SCB = document.inputstp.SCB.value;
+var count = 0;
+document.getElementById('help1').innerHTML ='';  
+// Calcula
+if (SAB.length>0){count=count+1;}
+if (SAC.length>0){count=count+1;}
+if (SBC.length>0){count=count+1;}
+if (SBA.length>0){count=count+1;}
+if (SCA.length>0){count=count+1;}
+if (SCB.length>0){count=count+1;}
+if (count!=2){document.getElementById('resultado').innerHTML = 'No es posible calcular el tipo cruzado, por favor indique dos tipos de cambio';}
+
+else if ((SAB.length>0) && (SAC.length>0)){
+document.getElementById('resultado').innerHTML = 'El tipo cruzado S<sub>BC</sub> es ' + (SAC * (1/SAB)).toFixed(4) + '.<br>El tipo cruzado S<sub>CB</sub> es ' + (SAB / SAC).toFixed(4);
+} else if ((SAB.length>0) && (SCA.length>0)){
+document.getElementById('resultado').innerHTML = 'El tipo cruzado S<sub>BC</sub> es ' + (1/(SAB * SCA)).toFixed(4) + '.<br>El tipo cruzado S<sub>CB</sub> es ' + (SAB * SCA).toFixed(4);
+} else if ((SAB.length>0) && (SBA.length>0)){
+document.getElementById('resultado').innerHTML = 'No es posible calcular el tipo cruzado';
+} else if ((SAB.length>0) && (SCB.length>0)){
+document.getElementById('resultado').innerHTML = 'El tipo cruzado S<sub>AC</sub> es ' + (SAB / SCB).toFixed(4) + '.<br>El tipo cruzado S<sub>CA</sub> es ' + (SCB / SAB).toFixed(4);
+} else if ((SAB.length>0) && (SBC.length>0)){
+document.getElementById('resultado').innerHTML = 'El tipo cruzado S<sub>AC</sub> es ' + (SAB * SBC).toFixed(4) + '.<br>El tipo cruzado S<sub>CA</sub> es ' + (1/(SAB * SBC)).toFixed(4);
+} else if ((SBA.length>0) && (SAC.length>0)){
+document.getElementById('resultado').innerHTML = 'El tipo cruzado S<sub>BC</sub> es ' + (SBA * SAC).toFixed(4) + '.<br>El tipo cruzado S<sub>CB</sub> es ' + (1/(SBA * SAC)).toFixed(4);
+} else if ((SBA.length>0) && (SCA.length>0)){
+document.getElementById('resultado').innerHTML = 'El tipo cruzado S<sub>BC</sub> es ' + (SBA / SCA).toFixed(4) + '.<br>El tipo cruzado S<sub>CB</sub> es ' + (SCA / SBA).toFixed(4);
+} else if ((SBA.length>0) && (SCB.length>0)){
+document.getElementById('resultado').innerHTML = 'El tipo cruzado S<sub>AC</sub> es ' + (1/(SCB * SBA)).toFixed(4) + '.<br>El tipo cruzado S<sub>CA</sub> es ' + (SCB * SBA).toFixed(4);
+} else if ((SBA.length>0) && (SBC.length>0)){
+document.getElementById('resultado').innerHTML = 'El tipo cruzado S<sub>AC</sub> es ' + (SBC / SBA).toFixed(4) + '.<br>El tipo cruzado S<sub>CA</sub> es ' + (1/(SBC / SBA)).toFixed(4);
+} else if ((SAC.length>0) && (SCA.length>0)){
+document.getElementById('resultado').innerHTML = 'No es posible calcular el tipo cruzado';
+} else if ((SAC.length>0) && (SCB.length>0)){
+document.getElementById('resultado').innerHTML = 'El tipo cruzado S<sub>AB</sub> es ' + (SAC * SCB).toFixed(4) + '.<br>El tipo cruzado S<sub>BA</sub> es ' + (1 / (SAC * SCB)).toFixed(4);
+} else if ((SAC.length>0) && (SBC.length>0)){
+document.getElementById('resultado').innerHTML = 'El tipo cruzado S<sub>AB</sub> es ' + (SAC / SBC).toFixed(4) + '.<br>El tipo cruzado S<sub>CA</sub> es ' + (1/(SAC / SBC)).toFixed(4);
+} else if ((SCA.length>0) && (SCB.length>0)){
+document.getElementById('resultado').innerHTML = 'El tipo cruzado S<sub>AB</sub> es ' + ((1/SCA) * SCB).toFixed(4) + '.<br>El tipo cruzado S<sub>BA</sub> es ' + (SCA * (1/SCB)).toFixed(4);
+} else if ((SCA.length>0) && (SBC.length>0)){
+document.getElementById('resultado').innerHTML = 'El tipo cruzado S<sub>AB</sub> es ' + (SCA * SBC).toFixed(4) + '.<br>El tipo cruzado S<sub>CA</sub> es ' + (1/(SCA * SBC)).toFixed(4);
+} else if ((SCB.length>0) && (SBC.length>0)){
+document.getElementById('resultado').innerHTML = 'No es posible calcular el tipo cruzado';
+}
+}
+
+function myFormReset()
+{
+document.getElementById('help1').innerHTML ='';
+document.inputstp.SAB.value = null;
+document.inputstp.SAC.value = null;
+document.inputstp.SBC.value = null;
+document.inputstp.SBA.value = null;
+document.inputstp.SCA.value = null; 
+document.inputstp.SCB.value = null;
+}
+</script>
+
+<script>
+//Calculo tipo comprador y vendedor recíproco
+function calcrec(inputrec)
+{
+var SABc = document.inputrec.SABc.value;
+var SABv = document.inputrec.SABv.value;
+var nSABc = parseFloat(document.inputrec.SABc.value);
+var nSABv = parseFloat(document.inputrec.SABv.value);
+document.getElementById('help2').innerHTML = '';
+// Calcula
+
+if ((SABc.length>0) && (SABv.length>0) && (nSABc < nSABv)){
+document.getElementById('result2').innerHTML = '<p>El tipo comprador S<sub>BA</sub> es ' + (1/SABv).toFixed(4) + '.<br>El tipo vendedor S<sub>BA</sub> es ' + (1/SABc).toFixed(4) + '.';
+} else if ((SABc==="") && (SABv.length>0)) {
+document.getElementById('result2').innerHTML = '<p>El tipo comprador S<sub>BA</sub> es ' + (1/SABv).toFixed(4) + '.';
+} else if ((SABc.length>0) && (SABv==="")) {
+document.getElementById('result2').innerHTML = '<p>El tipo vendedor S<sub>BA</sub> es ' + (1/SABc).toFixed(4) + '.';
+} else {document.getElementById('result2').innerHTML = '<p>Revise los datos introducidos<p>';
+}
+}
+
+function myFormResetrec()
+{
+document.getElementById('result2').innerHTML = '';
+document.getElementById('help2').innerHTML = '';
+document.inputrec.SABc.value = null;
+document.inputrec.SABv.value = null;
+}
+</script>
+<!-- Calcula forward con puntos swap -->
+<script>
+function CountDecimalDigits(number)
+{
+  var char_array = number.toString().split(""); // split every single char
+  var not_decimal = char_array.lastIndexOf(".");
+  return (not_decimal<0)?0:char_array.length - not_decimal;
+}
+function calcsw(inputsw){
+var SABc = document.inputsw.SABc.value;
+var SABv = document.inputsw.SABv.value;
+var swc = document.inputsw.swc.value;
+var swv = document.inputsw.swv.value;
+document.getElementById('help7').innerHTML ='';
+// Calcula
+
+if ((SABc.length>0) && (SABv.length>0) && (swc.length>0) && (swv.length>0) && (parseFloat(SABc) < parseFloat(SABv)) && (parseFloat(swc) != parseFloat(swv))){
+	var dec = CountDecimalDigits(parseFloat(SABc))-1;
+	var divisor = Math.pow(10, dec);
+	if (parseFloat(swc)<parseFloat(swv)){
+		var Fc = (parseFloat(SABc) + (parseFloat(swc)/divisor)).toFixed(4);
+		var Fv = (parseFloat(SABv) + (parseFloat(swv)/divisor)).toFixed(4);
+		document.getElementById('result7').innerHTML = '<p>El Forward comprador es ' + Fc + '.<br>El forward vendedor es ' + Fv + '.';
+	} else {
+		var Fc = (parseFloat(SABc) - (parseFloat(swc)/divisor)).toFixed(4);
+		var Fv = (parseFloat(SABv) - (parseFloat(swv)/divisor)).toFixed(4);
+		document.getElementById('result7').innerHTML = '<p>El Forward comprador es ' + Fc + '.<br>El forward vendedor es ' + Fv + '.';
+	}
+} else {
+	document.getElementById('result7').innerHTML = '<p>Por favor, revise los datos';
+}
+}
+
+function myFormResetsw()
+{
+document.getElementById('help7').innerHTML ='';  	
+document.inputsw.SABc.value = null;
+document.inputsw.SABv.value = null;
+document.inputsw.swc.value = null;
+document.inputsw.swv.value = null;
+}
+</script>
+
+<!-- Calcula arbitraje triangular -->
+<script>
+
+function calcat(inputat)
+{
+var SABc = document.inputat.SABc.value;
+var SABv = document.inputat.SABv.value;
+var SACc = document.inputat.SACc.value;
+var SACv = document.inputat.SACv.value; 
+var SBCc = document.inputat.SBCc.value;
+var SBCv = document.inputat.SBCv.value;
+var SCAc = document.inputat.SCAc.value;
+var SCAv = document.inputat.SCAv.value; 
+var SCBc = document.inputat.SCBc.value;
+var SCBv = document.inputat.SCBv.value;
+var count = 0;
+var nSABc = parseFloat(document.inputat.SABc.value);
+var nSABv = parseFloat(document.inputat.SABv.value);
+var nSACc = parseFloat(document.inputat.SACc.value);
+var nSACv = parseFloat(document.inputat.SACv.value); 
+var nSBCc = parseFloat(document.inputat.SBCc.value);
+var nSBCv = parseFloat(document.inputat.SBCv.value);
+var nSCAc = parseFloat(document.inputat.SCAc.value);
+var nSCAv = parseFloat(document.inputat.SCAv.value); 
+var nSCBc = parseFloat(document.inputat.SCBc.value);
+var nSCBv = parseFloat(document.inputat.SCBv.value);
+document.getElementById('help3').innerHTML ='';
+
+// Calcula
+if (SABc.length>0){count=count+1;}
+if (SABv.length>0){count=count+1;}
+if (SACc.length>0){count=count+1;}
+if (SACv.length>0){count=count+1;}
+if (SBCc.length>0){count=count+1;}
+if (SBCv.length>0){count=count+1;}
+if (SCAc.length>0){count=count+1;}
+if (SCAv.length>0){count=count+1;}
+if (SCBc.length>0){count=count+1;}
+if (SCBv.length>0){count=count+1;}
+
+if (count>6){document.getElementById('result3').innerHTML = 'Por favor revise los datos, indique sólo tres pares de tipos de cambio';}
+
+else if ((SABc==="") || (SABv==="")){document.getElementById('result3').innerHTML = 'Es necesario especificar el tipo de cambio de intercambio directo S<sub>AB</sub>';}
+
+else if (((SACc==="")||(SACv==="")) && ((SCAc==="")||(SCAv===""))){document.getElementById('result3').innerHTML = 'Es necesario especificar el tipo de cambio entre la divisa A y la divisa C';}
+
+else if (((SBCc==="")||(SBCv==="")) && ((SCBc==="")||(SCBv===""))){document.getElementById('result3').innerHTML = 'Es necesario especificar el tipo de cambio entre la divisa B y la divisa C';}
+
+else if ((nSABc>nSABv)||(nSACc>nSACv)||(nSCAc>nSCAv)||(nSBCc>nSBCv)||(nSCBc>nSCBv)){document.getElementById('result3').innerHTML = 'Revise los datos, los tipos compradores no pueden ser superiores a los vendedores';}
+
+else if ((SACc.length>0) && (SCBc.length>0)){
+	var IIc=(SACc*SCBc).toFixed(4);
+	var IIv=(SACv*SCBv).toFixed(4);
+	var nIIc=parseFloat(IIc);
+	var nIIv=parseFloat(IIv);
+	var HTML = '<table class=result><tr><td></td><td>C</td><td>V</td></tr><tr class=top><td>ID<sub>AB</sub></td><td>'+(SABc).toFixed(4)+'</td><td>'+(SABv).toFixed(4)+'</td></tr><tr class=bottom><td>II<sub>AB_C</sub></td><td>'+IIc+'</td><td>'+IIv+'</td></tr><tr><td></td><td><small>Cobramos<br>(vendemos)</small></td><td><small>Pagamos<br>(compramos)</small></td></tr></table>';
+	document.getElementById('result3a').innerHTML = HTML;
+	if (nSABc>nIIv){
+		var beneficio=(SABc-IIv).toFixed(4);
+		document.getElementById('result3').innerHTML = '<p>Hay arbitraje triangular<p>Compramos divisa B en Intercambio Indirecto (AxCxB) pagando ' + IIv + ' unidades de A y la vendemos en Intercambio Directo cobrando ' + SABc + ' unidades de A, obteniendo un beneficio de ' + beneficio + ' unidades de A por cada unidad de B en arbitraje';}
+	else if (nIIc>nSABv){
+		var beneficio=(IIc-SABv).toFixed(4);
+		document.getElementById('result3').innerHTML = '<p>Hay arbitraje triangular<p>Compramos divisa B en Intercambio Directo  pagando ' + SABv + ' unidades de A y la vendemos en Intercambio Indirecto cobrando ' + IIc + ' unidades de A, obteniendo un beneficio de ' + beneficio + ' unidades de A por cada unidad de B en arbitraje';}
+	else {
+		document.getElementById('result3').innerHTML = 'No hay arbitraje';}
+}
+else if ((SACc.length>0) && (SBCc.length>0)){
+	var IIc=(SACc/SBCv).toFixed(4);
+	var IIv=(SACv/SBCc).toFixed(4);
+	var nIIc=parseFloat(IIc);
+	var nIIv=parseFloat(IIv);
+	var HTML = '<table class=result><tr><td></td><td>C</td><td>V</td></tr><tr class=top><td>ID<sub>AB</sub></td><td class=sol>'+(SABc).toFixed(4)+'</td><td>'+(SABv).toFixed(4)+'</td></tr><tr class=bottom><td>II<sub>AB_C</sub></td><td>'+IIc+'</td><td class=sol>'+IIv+'</td></tr><tr><td></td><td><small>Cobramos<br>(vendemos)</small></td><td><small>Pagamos<br>(compramos)</small></td></tr></table>';
+	document.getElementById('result3a').innerHTML = HTML;
+	if (nSABc>nIIv){
+		var beneficio=(SABc-IIv).toFixed(4);
+		document.getElementById('result3').innerHTML = '<p>Hay arbitraje triangular<p>Compramos divisa B en Intercambio Indirecto (AxCxB) pagando ' + IIv + ' unidades de A y la vendemos en Intercambio Directo cobrando ' + SABc + ' unidades de A, obteniendo un beneficio de ' + beneficio + ' unidades de A por cada unidad de B en arbitraje';}
+	else if (nIIc>nSABv){
+		var beneficio=(IIc-SABv).toFixed(4);
+		document.getElementById('result3').innerHTML = '<p>Hay arbitraje triangular<p>Compramos divisa B en Intercambio Directo  pagando ' + SABv + ' unidades de A y la vendemos en Intercambio Indirecto cobrando ' + IIc + ' unidades de A, obteniendo un beneficio de ' + beneficio + ' unidades de A por cada unidad de B en arbitraje';}
+	else {
+		document.getElementById('result3').innerHTML = 'No hay arbitraje';}
+}
+else if ((SCAc.length>0) && (SCBc.length>0)){
+	var IIc=(SCBc/SCAv).toFixed(4);
+	var IIv=(SCBv/SCAc).toFixed(4);
+	var nIIc=parseFloat(IIc);
+	var nIIv=parseFloat(IIv);
+	var HTML = '<table class=result><tr><td></td><td>C</td><td>V</td></tr><tr class=top><td>ID<sub>AB</sub></td><td class=sol>'+(SABc).toFixed(4)+'</td><td>'+(SABv).toFixed(4)+'</td></tr><tr class=bottom><td>II<sub>AB_C</sub></td><td>'+IIc+'</td><td class=sol>'+IIv+'</td></tr><tr><td></td><td><small>Cobramos<br>(vendemos)</small></td><td><small>Pagamos<br>(compramos)</small></td></tr></table>';
+	document.getElementById('result3a').innerHTML = HTML;
+
+	if (nSABc>nIIv){
+		var beneficio=(SABc-IIv).toFixed(4);
+		document.getElementById('result3').innerHTML = '<p>Hay arbitraje triangular<p>Compramos divisa B en Intercambio Indirecto (AxCxB) pagando ' + IIv + ' unidades de A y la vendemos en Intercambio Directo cobrando ' + SABc + ' unidades de A, obteniendo un beneficio de ' + beneficio + ' unidades de A por cada unidad de B en arbitraje';}
+	else if (nIIc>nSABv){
+		var beneficio=(IIc-SABv).toFixed(4);
+		document.getElementById('result3').innerHTML = '<p>Hay arbitraje triangular<p>Compramos divisa B en Intercambio Directo  pagando ' + SABv + ' unidades de A y la vendemos en Intercambio Indirecto cobrando ' + IIc + ' unidades de A, obteniendo un beneficio de ' + beneficio + ' unidades de A por cada unidad de B en arbitraje';}
+	else {
+		document.getElementById('result3').innerHTML = 'No hay arbitraje';}
+}
+else if ((SCAc.length>0) && (SBCc.length>0)){
+	var IIc=(1/(SCAv*SBCv)).toFixed(4);
+	var IIv=(1/(SCAc*SBCc)).toFixed(4);
+	var nIIc=parseFloat(IIc);
+	var nIIv=parseFloat(IIv);
+	var HTML = '<table class=result><tr><td></td><td>C</td><td>V</td></tr><tr class=top><td>ID<sub>AB</sub></td><td class=sol>'+(SABc).toFixed(4)+'</td><td>'+(SABv).toFixed(4)+'</td></tr><tr class=bottom><td>II<sub>AB_C</sub></td><td>'+IIc+'</td><td class=sol>'+IIv+'</td></tr><tr><td></td><td><small>Cobramos<br>(vendemos)</small></td><td><small>Pagamos<br>(compramos)</small></td></tr></table>';
+	document.getElementById('result3a').innerHTML = HTML;
+
+	if (nSABc>nIIv){
+		var beneficio=(SABc-IIv).toFixed(4);
+		document.getElementById('result3').innerHTML = '<p>Hay arbitraje triangular<p>Compramos divisa B en Intercambio Indirecto (AxCxB) pagando ' + IIv + ' unidades de A y la vendemos en Intercambio Directo cobrando ' + SABc + ' unidades de A, obteniendo un beneficio de ' + beneficio + ' unidades de A por cada unidad de B en arbitraje';}
+	else if (nIIc>nSABv){
+		var beneficio=(IIc-SABv).toFixed(4);
+		document.getElementById('result3').innerHTML = '<p>Hay arbitraje triangular<p>Compramos divisa B en Intercambio Directo  pagando ' + SABv + ' unidades de A y la vendemos en Intercambio Indirecto cobrando ' + IIc + ' unidades de A, obteniendo un beneficio de ' + beneficio + ' unidades de A por cada unidad de B en arbitraje';}
+	else {
+		document.getElementById('result3').innerHTML = 'No hay arbitraje';}
+}
+}
+
+function myFormResetat()
+{
+document.getElementById('help3').innerHTML ='';
+document.inputat.SABc.value = null;
+document.inputat.SABv.value = null;
+document.inputat.SACc.value = null;
+document.inputat.SACv.value = null;
+document.inputat.SCAc.value = null;
+document.inputat.SCAv.value = null;
+document.inputat.SCBc.value = null;
+document.inputat.SCBv.value = null;
+document.inputat.SBCc.value = null;
+document.inputat.SBCv.value = null;
+}
+</script>
+
+<!-- Calcula arbitraje a plazos -->
+<script>
+
+function calcap(inputap)
+{
+var SABc = document.inputap.SABc.value;
+var SABv = document.inputap.SABv.value;
+var FABc = document.inputap.FABc.value;
+var FABv = document.inputap.FABv.value; 
+var rBd = document.inputap.rBd.value;
+var rBa = document.inputap.rBa.value;
+var rAd = document.inputap.rAd.value;
+var rAa = document.inputap.rAa.value; 
+var t = document.inputap.t.value;
+var count = 0;
+document.getElementById('help4').innerHTML ='';
+// Calcula
+if (SABc.length!=0){count=count+1;}
+if (SABv.length>0){count=count+1;}
+if (FABc.length>0){count=count+1;}
+if (FABv.length>0){count=count+1;}
+if (rBd.length>0){count=count+1;}
+if (rBa.length>0){count=count+1;}
+if (rAd.length>0){count=count+1;}
+if (rAa.length>0){count=count+1;}
+if (t.length>0){count=count+1;}
+if (count!=9){document.getElementById('result4').innerHTML = 'Es necesario indicar todos los datos para poder determinar si existe o no arbitraje a plazos.';}
+
+else if ((parseFloat(SABc)>parseFloat(SABv))||(parseFloat(FABc)>parseFloat(FABv))||(parseFloat(rBd)>parseFloat(rBa))||(parseFloat(rAd)>parseFloat(rAa))){document.getElementById('result4').innerHTML = 'Revise los datos, los tipos compradores no pueden ser superiores a los vendedores, ni los tipos de interés deudores superiores a los acreedores';}
+
+else {
+	var DCAD=((SABc*(1+(rAd/100)*(t/12)))/FABv).toFixed(4);
+	var OPAD=(1+(rBa/100)*(t/12)).toFixed(4);
+	var resultadoAD=(DCAD-OPAD).toFixed(4);
+	var DCAI=((1/SABv)*(1+(rBd/100)*(t/12))).toFixed(4);
+	var OPAI=((1+(rAa/100)*(t/12))/FABc).toFixed(4);
+	var resultadoAI=(DCAI-OPAI).toFixed(4);
+	if (resultadoAD>0){
+		document.getElementById('result4').innerHTML = '<p>Hay arbitraje directo:Endeudamiento en €, €xDE, Depósito en DE, Venta a plazo de DE.<p>Nos endeudamos en € pagando ' + OPAD + ' € dentro de ' + t + ' meses (OP<sub>€,' + t + '</sub>), cambiamos el € por divisa extranjera (' + SABc + ' unidades de divisa extranjera) e invertimos durante ' + t + ' meses esa cantidad generando ' + (SABc*(1+(rAd/100)*(t/12))).toFixed(4) + ' unidades de divisa extranjera que vendemos en el mercado forward obteniendo ' + DCAD + ' euros (DC<sub>€,' + t + '</sub>). Por tanto, el beneficio por arbitraje es de ' + resultadoAD + ' € por cada € que se pida en préstamo';}
+	else if (resultadoAI>0){
+		document.getElementById('result4').innerHTML = '<p>Hay arbitraje indirecto: Endeudamiento en DE, DEx€, Depósito en €, Compra a plazo de DE.<p>Nos endeudamos en divisa extranjera y compramos a plazo la cantidad necesaria para pagar ese préstamo, para ello necesitamos ' + OPAI + ' € dentro de ' + t + ' meses (OP<sub>€,' + t + '</sub>). Cambiamos la divisa extranjera por € (' + (1/SABv).toFixed(4) + ' ) que invertimos durante ' + t + ' meses generando ' + DCAI + ' € (DC<sub>€,' + t + '</sub>). Por tanto, el beneficio por arbitraje es de ' + resultadoAI + ' € por cada unidad de divisa extranjera que se pida en préstamo';}
+	else {document.getElementById('result4').innerHTML = 'No hay arbitraje, el mercado está en equilibrio.';}
+}
+
+}
+
+function myFormResetap()
+{
+document.getElementById('help4').innerHTML ='';
+document.getElementById('result4').innerHTML ='';
+document.inputap.SABc.value = null;
+document.inputap.SABv.value = null;
+document.inputap.FABc.value = null;
+document.inputap.FABv.value = null;
+document.inputap.rBd.value = null;
+document.inputap.rBa.value = null;
+document.inputap.rAd.value = null;
+document.inputap.rAa.value = null;
+document.inputap.t.value = null;
+}
+</script>
+
+<!-- Calcula cobertura -->
+<script>
+
+function calccob(inputcob)
+{
+var SABc = document.inputcob.SABc.value;
+var SABv = document.inputcob.SABv.value;
+var FABc = document.inputcob.FABc.value;
+var FABv = document.inputcob.FABv.value; 
+var rBd = document.inputcob.rBd.value;
+var rBa = document.inputcob.rBa.value;
+var rAd = document.inputcob.rAd.value;
+var rAa = document.inputcob.rAa.value; 
+var t = document.inputcob.t.value;
+var tipo = document.inputcob.tipo.value;
+var amount = document.inputcob.amount.value;
+document.getElementById('help5').innerHTML ='';
+var count = 0;
+// Calcula
+if (SABc.length>0){count=count+1;}
+if (SABv.length>0){count=count+1;}
+if (FABc.length>0){count=count+1;}
+if (FABv.length>0){count=count+1;}
+if (rBd.length>0){count=count+1;}
+if (rBa.length>0){count=count+1;}
+if (rAd.length>0){count=count+1;}
+if (rAa.length>0){count=count+1;}
+if (t.length>0){count=count+1;}
+if (tipo.length>0){count=count+1;}
+if (amount.length>0){count=count+1;}
+
+if (count!=11){document.getElementById('result5').innerHTML = 'Es necesario indicar todos los datos para poder calcular la cobertura.';}
+
+else if ((parseFloat(SABc)>parseFloat(SABv))||(parseFloat(FABc)>parseFloat(FABv))||(parseFloat(rBd)>parseFloat(rBa))||(parseFloat(rAd)>parseFloat(rAa))){document.getElementById('result5').innerHTML = 'Revise los datos, los tipos compradores no pueden ser superiores a los vendedores, ni los tipos de interés deudores superiores a los acreedores';}
+
+else if (tipo=="DC") {
+	var DCSCt=(amount/FABv).toFixed(2);
+	var DCSC0=(DCSCt/(1+(rBd/100)*(t/12))).toFixed(2);
+	var prestamode=(amount/(1+(rAa/100)*(t/12))).toFixed(2);
+	var DCSI0=(prestamode/SABv).toFixed(2);
+	if (parseFloat(DCSC0) > parseFloat(DCSI0)){
+		document.getElementById('result5').innerHTML = '<p>La mejor alternativa es realizar la cobertura con el <b>seguro de cambio</b> (mercado a plazo de divisas).<p>La venta a plazo ' + t + ' meses de nuestro DC en divisa extranjera genera un DC en € dentro de ' + t + ' meses de <b>' + DCSCt+ ' €</b>, que equivalen a un DC hoy de <b>' + DCSC0 + ' €</b>.<p> La cobertura con el sintético, consistente en pedir hoy un préstamo en divisa extranjera por ' + prestamode + ' a devolver dentro de ' + t + ' meses y cambiar hoy esa cantidad por €, genera un DC en € de <b>' + DCSI0 + '</b>';}
+	else if (parseFloat(DCSC0) < parseFloat(DCSI0)){
+		document.getElementById('result5').innerHTML = '<p>La mejor alternativa es realizar la cobertura con el <b>sintético</b>.<p>La venta a plazo ' + t + ' meses de nuestro DC en divisa extranjera genera un DC en € dentro de ' + t + ' meses de <b>' + DCSCt+ ' €</b>, que equivalen a un DC hoy de <b>' + DCSC0 + ' €</b>.<p> La cobertura con el sintético, consistente en pedir hoy un préstamo en divisa extranjera por ' + prestamode + ' a devolver dentro de ' + t + ' meses y cambiar hoy esa cantidad por €, genera un DC en € de <b>' + DCSI0 + '</b>';}
+	else {document.getElementById('result5').innerHTML = 'Resulta indiferente realizar la cobertura en el mercado de divisas (seguro de cambio):venta de divisa extranjera a plazo o en los mercados monetarios (sintético): solicitar préstamo en divisa extranjera. En ambos casos se genera un DC en € hoy de <b>' + DCSI0 + '</b>';}
+}
+else {
+	var OPSCt=(amount/FABc).toFixed(2);
+	var OPSC0=(OPSCt/(1+(rBa/100)*(t/12))).toFixed(2);
+	var invertde=(amount/(1+(rAd/100)*(t/12))).toFixed(2);
+	var OPSI0=(invertde/SABc).toFixed(2);
+	if (parseFloat(OPSC0) < parseFloat(OPSI0)){
+		document.getElementById('result5').innerHTML = '<p>La mejor alternativa es realizar la cobertura con el <b>seguro de cambio</b> (mercado a plazo de divisas).<p>La compra a plazo ' + t + ' meses de nuestra OP en divisa extranjera genera una OP en € dentro de ' + t + ' meses de <b>' + OPSCt+ ' €</b>, que equivalen a una OP hoy de <b>' + OPSC0 + ' €</b>.<p> La cobertura con el sintético, consistente en invertir hoy ' + invertde + ' unidades de divisa extranjera en un depósito con vencimiento dentro de ' + t + ' meses, para poder efectuar la inversión debemos comprar hoy esa cantidad lo que supone pagar <b>' + OPSI0 + ' €</b>';}
+	else if (parseFloat(DCSC0) > parseFloat(DCSI0)){
+		document.getElementById('result5').innerHTML = '<p>La mejor alternativa es realizar la cobertura con el <b>sintético</b>.<p>La compra a plazo ' + t + ' meses de nuestra OP en divisa extranjera genera una OP en € dentro de ' + t + ' meses de <b>' + OPSCt+ ' €</b>, que equivalen a una OP hoy de <b>' + OPSC0 + ' €</b>.<p> La cobertura con el sintético, consistente en invertir hoy ' + invertde + ' unidades de divisa extranjera en un depósito con vencimiento dentro de ' + t + ' meses, para poder efectuar la inversión debemos comprar hoy esa cantidad lo que supone pagar <b>' + OPSI0 + ' €</b>';}
+	else {document.getElementById('result5').innerHTML = 'Resulta indiferente realizar la cobertura en el mercado de divisas (seguro de cambio): compra de divisa extranjera a plazo o en los mercados monetarios (sintético): realizar un depósito en divisa extranjera. En ambos casos se genera una OP en € hoy de <b>' + OPSI0 + '</b>';}
+}
+}
+
+function myFormResetcob()
+{
+document.getElementById('help5').innerHTML ='';
+document.getElementById('result5').innerHTML = '';
+document.inputcob.SABc.value = null;
+document.inputcob.SABv.value = null;
+document.inputcob.FABc.value = null;
+document.inputcob.FABv.value = null;
+document.inputcob.rBd.value = null;
+document.inputcob.rBa.value = null;
+document.inputcob.rAd.value = null;
+document.inputcob.rAa.value = null;
+document.inputcob.t.value = null;
+document.inputcob.tipo.value = null;
+document.inputcob.amount.value = null;
+}
+</script>
+
+<!-- Calcula reajuste cobertura -->
+<script>
+function calcrcob(inputrcob)
+{
+var SABc = document.inputrcob.SABc.value;
+var SABv = document.inputrcob.SABv.value;
+var FABc1 = document.inputrcob.FABc1.value;
+var FABv1 = document.inputrcob.FABv1.value; 
+var FABc2 = document.inputrcob.FABc2.value;
+var FABv2 = document.inputrcob.FABv2.value; 
+var rBd1 = document.inputrcob.rBd1.value;
+var rBa1 = document.inputrcob.rBa1.value;
+var rAd1 = document.inputrcob.rAd1.value;
+var rAa1 = document.inputrcob.rAa1.value; 
+var rBd2 = document.inputrcob.rBd2.value;
+var rBa2 = document.inputrcob.rBa2.value;
+var rAd2 = document.inputrcob.rAd2.value;
+var rAa2 = document.inputrcob.rAa2.value; 
+var t1 = document.inputrcob.t1.value;
+var t2 = document.inputrcob.t2.value;
+var tipo = document.inputrcob.tipo.value;
+var amount1 = document.inputrcob.amount1.value;
+var amount2 = document.inputrcob.amount2.value;
+document.getElementById('help6').innerHTML ='';
+if ((parseFloat(SABc)>parseFloat(SABv))||(parseFloat(FABc1)>parseFloat(FABv1))||(parseFloat(FABc2)>parseFloat(FABv2))||(parseFloat(rBd1)>parseFloat(rBa1))||(parseFloat(rAd1)>parseFloat(rAa1))||(parseFloat(rBd2)>parseFloat(rBa2))||(parseFloat(rAd2)>parseFloat(rAa2))){document.getElementById('result6').innerHTML = 'Revise los datos, los tipos compradores no pueden ser superiores a los vendedores, ni los tipos de interés deudores superiores a los acreedores';
+	} else if (tipo=="DC") { 
+//solo cambia cantidad no plazo
+	if ((parseFloat(t1)==parseFloat(t2))&&(t1.length>0)){
+		if ((parseFloat(amount1)==parseFloat(amount2))&&(amount1.length>0)){
+		document.getElementById('result6').innerHTML = '<p>No es necesario reajustar la cobertura, coincide la cantidad y el plazo iniciales con los actuales';
+		} else if ((amount1.length>0)&&(amount2.length>0)){
+		var diferencia=amount1-amount2;
+			if (diferencia>0){
+				if (FABc1.length>0){var OP1=(diferencia/FABc1).toFixed(2);
+				document.getElementById('result6').innerHTML = '<p>Para reajustar la cobertura es necesario <b>comprar</b> ' +diferencia+ ' unidades de divisa extranjera a plazo ' +t1+ 'M lo que genera una <b>OP</b> en € en ese plazo de <b>' + OP1 + ' €</b>.';
+				} else {document.getElementById('result6').innerHTML = '<p>Por favor, proporcione un valor para el tipo de cambio comprador F<sub>DE€</sub> para el T<sub>inicial</sub>';
+				}
+			} else if (diferencia<0){
+				if (FABv1.length>0){var DC1=(-diferencia/FABv1).toFixed(2);
+				document.getElementById('result6').innerHTML = '<p>Para reajustar la cobertura es necesario <b>vender</b> ' +-diferencia+ ' unidades de divisa extranjera a plazo ' +t1+ 'M lo que genera un <b>DC</b> en € en ese plazo de <b>' + DC1 + ' €</b>.';
+				} else {document.getElementById('result6').innerHTML = '<p>Por favor, proporcione un valor para el tipo de cambio vendedor F<sub>DE€</sub> para el T<sub>inicial</sub>';
+				}
+			} else {document.getElementById('result6').innerHTML = '<p>Faltan datos';}
+		}
+	//Cierre mismo plazo
+	//Cambia el plazo
+	} else if (parseFloat(t1)!=parseFloat(t2)){
+		//Para t1 hoy
+		if((parseFloat(t1)==0) && (t2.length>0) && (SABc.length>0) && (FABc2.length>0) && (FABv2.length>0) && (rBa2.length>0) && (rBd2.length>0) && (rAa2.length>0) && (amount1.length>0) && (amount2.length>0)){
+			var pagosc0=(amount1/SABc).toFixed(2);
+			var cobrasc2=(amount2/FABv2).toFixed(2);
+			var cobrasc0=(cobrasc2/(1+(rBd2/100)*(t2/12))).toFixed(2);
+			var netosc0=(cobrasc0-pagosc0).toFixed(2);
+			//Sintetico pedir prestamo para pagar OP en 0
+			var pagosi12=(amount1*(1+(rAa2/100)*(t2/12))).toFixed(2);
+			var difsi12=(amount2-pagosi12).toFixed(2);
+			if (difsi12>0){var netosi12=(difsi12/FABv2).toFixed(2);
+					var netosi10=(netosi12/(1+(rBd2/100)*(t2/12))).toFixed(2);
+			} else {var netosi12=(difsi12/FABc2).toFixed(2);
+					var netosi10=(netosi12/(1+(rBa2/100)*(t2/12))).toFixed(2);
+			}
+			var prestamo=(amount2/(1+(rAa2/100)*(t2/12))).toFixed(2);
+			var diferencia=(prestamo-amount1).toFixed(2);
+			if (diferencia>0){var netosi20=(diferencia/SABv).toFixed(2);
+			} else {var netosi20=(diferencia/SABc).toFixed(2);
+			}
+						//Comprobar que sintetico es mejor cuadrar t1 o t2
+			if (netosi10>netosi20){var mejor=1; var netosi0=netosi10;} else {var mejor=2; var netosi0=netosi20;}
+			//Si es mejor cuadrar t1
+			if (mejor==1){
+				if((netosc0>=0)&&(netosi0>=0)){var mejorsc0=(netosc0-netosi0).toFixed(2);
+					if(mejorsc0>0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura en el <b>mercado de divisas</b>.<br>Para reajustar la cobertura es necesario <b>comprar</b> hoy ' +amount1+ ' unidades de divisa extranjera que genera una <b>OP<sub>€0</sub></b> de ' + pagosc0+ ' y simultáneamente <b>vender</b> a plazo '+t2+'M ' +amount2+ 'unidades de divisa extranjera que genera un <b>DC<sub>€'+t2+'</sub></b> de ' +cobrasc2+' que equivalen a ' +cobrasc0+ '€ hoy. El resultado neto de ambas operaciones es un <b>DC<sub>€0 de '+netosc0+ '.';
+					} else if (mejorsc0<0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura con el <b>sintético</b>.<br>Para reajustar la cobertura es necesario <b>pedir un préstamo</b> hoy por' +amount1+ ' unidades de divisa extranjera a devolver dentro de '+t2+'M, que genera una <b>OP<sub>DE'+t2+'M</sub></b> de ' + pagosi2+ ' unidades de divisa extranjera que atenderemos con el DC a recibir en ese plazo, resultando un excedente de ' +difsi12+ 'que se vende a plazos, generando un DC<sub>€' +t2+'</sub> de '+netosi2+' que equivale a ' +netosi0+ '€ hoy.';
+					} else {document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>indiferente</b> realizar el reajuste de la cobertura en el <b>mercado de divisas</b> o con el <b>sintético</b>.';
+					}
+				} else if((netosc0>=0)&&(netosi0<0)){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera una OP<sub>€0</sub> de ' +-netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura en el <b>mercado de divisas</b>.<br>Para reajustar la cobertura es necesario <b>comprar</b> hoy ' +amount1+ ' unidades de divisa extranjera que genera una <b>OP<sub>€0</sub></b> de ' + pagosc0+ ' y simultáneamente <b>vender</b> a plazo '+t2+'M ' +amount2+ 'unidades de divisa extranjera que genera un <b>DC<sub>€'+t2+'</sub></b> de ' +cobrasc2+' que equivalen a ' +cobrasc0+ '€ hoy. El resultado neto de ambas operaciones es un <b>DC<sub>€0 de '+netosc0+ '.';
+				} else if((netosc0<0)&&(netosi0>=0)){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera una OP<sub>€0</sub> de ' + -netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura con el <b>sintético</b>.<br>Para reajustar la cobertura es necesario <b>pedir un préstamo</b> hoy por' +amount1+ ' unidades de divisa extranjera a devolver dentro de '+t2+'M, que genera una <b>OP<sub>DE'+t2+'M</sub></b> de ' + pagosi2+ ' unidades de divisa extranjera que atenderemos con el DC a recibir en ese plazo, resultando un excedente de ' +difsi2+ 'que se vende a plazos, generando un DC<sub>€' +t2+'</sub> de '+netosi2+' que equivale a ' +netosi0+ '€ hoy.';
+				} else if((netosc0<0)&&(netosi0<0)){
+					if(netosc0>netosi0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera una OP<sub>€0</sub> de ' + -netosc0 +'<br>El reajuste con el sintético genera una OP<sub>€0</sub> de ' +-netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura en el <b>mercado de divisas</b>.<br>Para reajustar la cobertura es necesario <b>comprar</b> hoy ' +amount1+ ' unidades de divisa extranjera que genera una <b>OP<sub>€0</sub></b> de ' + pagosc0+ ' y simultáneamente <b>vender</b> a plazo '+t2+'M ' +amount2+ 'unidades de divisa extranjera que genera un <b>DC<sub>€'+t2+'</sub></b> de ' +cobrasc2+' que equivalen a ' +cobrasc0+ '€ hoy. El resultado neto de ambas operaciones es una <b>OP<sub>€0 de '+-netosc0+ '.';
+					} else if (netosc0<netosi0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera una OP<sub>€0</sub> de ' + -netosc0 +'<br>El reajuste con el sintético genera una OP<sub>€0</sub> de ' +-netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura con el <b>sintético</b>.<br>Para reajustar la cobertura es necesario <b>pedir un préstamo</b> hoy por' +amount1+ ' unidades de divisa extranjera a devolver dentro de '+t2+'M, que genera una <b>OP<sub>DE'+t2+'M</sub></b> de ' + pagosi2+ ' unidades de divisa extranjera que atenderemos con el DC a recibir en ese plazo, resultando un deficit de ' +difsi2+ 'que se compra a plazos, generando una OP<sub>€' +t2+'</sub> de '+-netosi2+' que equivale a ' +-netosi0+ '€ hoy.';
+					} else if (netosc0==netosi0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera una OP<sub>€0</sub> de ' + -netosc0 +'<br>El reajuste con el sintético genera una OP<sub>€0</sub> de ' +-netosi0+ '<br> Por tanto es <b>indiferente</b> realizar el reajuste de la cobertura en el <b>mercado de divisas</b> o con el <b>sintético</b>.';
+					}
+				}
+			//Cierre mejor cuadrar t1 y apertura mejor cuadrar t2
+			} else if (mejor==2){
+				if((netosc0>=0)&&(netosi0>=0)){var mejorsc0=(netosc0-netosi0).toFixed(2);
+					if(mejorsc0>0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura en el <b>mercado de divisas</b>.<br>Para reajustar la cobertura es necesario <b>comprar</b> hoy ' +amount1+ ' unidades de divisa extranjera que genera una <b>OP<sub>€0</sub></b> de ' + pagosc0+ ' y simultáneamente <b>vender</b> a plazo '+t2+'M ' +amount2+ 'unidades de divisa extranjera que genera un <b>DC<sub>€'+t2+'</sub></b> de ' +cobrasc2+' que equivalen a ' +cobrasc0+ '€ hoy. El resultado neto de ambas operaciones es un <b>DC<sub>€0 de '+netosc0+ '.';
+					} else if (mejorsc0<0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura con el <b>sintético</b>.<br>Para reajustar la cobertura es necesario <b>pedir un préstamo</b> hoy por' +prestamo+ ' unidades de divisa extranjera a devolver dentro de '+t2+'M, que genera una <b>OP<sub>DE'+t2+'M</sub></b> equivalente al DC en divisa extranjera que recibiremos en ese momento. El principal del préstamo solicitado es superior a la OP en divisa extranjera que debemos atender hoy, por lo que la diferencia se vende en el mercado al contado, generando un DC<sub>€0M</sub> de '+netosi0+ '.';
+					} else {document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>indiferente</b> realizar el reajuste de la cobertura en el <b>mercado de divisas</b> o con el <b>sintético</b>.';
+					}
+				} else if((netosc0>=0)&&(netosi0<0)){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera una OP<sub>€0</sub> de ' +-netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura en el <b>mercado de divisas</b>.<br>Para reajustar la cobertura es necesario <b>comprar</b> hoy ' +amount1+ ' unidades de divisa extranjera que genera una <b>OP<sub>€0</sub></b> de ' + pagosc0+ ' y simultáneamente <b>vender</b> a plazo '+t2+'M ' +amount2+ 'unidades de divisa extranjera que genera un <b>DC<sub>€'+t2+'</sub></b> de ' +cobrasc2+' que equivalen a ' +cobrasc0+ '€ hoy. El resultado neto de ambas operaciones es un <b>DC<sub>€0 de '+netosc0+ '.';
+				} else if((netosc0<0)&&(netosi0>=0)){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera una OP<sub>€0</sub> de ' + -netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura con el <b>sintético</b>.<br>Para reajustar la cobertura es necesario <b>pedir un préstamo</b> hoy por' +prestamo+ ' unidades de divisa extranjera a devolver dentro de '+t2+'M, que genera una <b>OP<sub>DE'+t2+'M</sub></b> equivalente al DC en divisa extranjera que recibiremos en ese momento. El principal del préstamo solicitado es superior a la OP en divisa extranjera que debemos atender hoy, por lo que la diferencia se vende en el mercado al contado, generando un DC<sub>€0M</sub> de '+netosi0+ '.';
+				} else if((netosc0<0)&&(netosi0<0)){
+					if(netosc0>netosi0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera una OP<sub>€0</sub> de ' + -netosc0 +'<br>El reajuste con el sintético genera una OP<sub>€0</sub> de ' +-netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura en el <b>mercado de divisas</b>.<br>Para reajustar la cobertura es necesario <b>comprar</b> hoy ' +amount1+ ' unidades de divisa extranjera que genera una <b>OP<sub>€0</sub></b> de ' + pagosc0+ ' y simultáneamente <b>vender</b> a plazo '+t2+'M ' +amount2+ 'unidades de divisa extranjera que genera un <b>DC<sub>€'+t2+'</sub></b> de ' +cobrasc2+' que equivalen a ' +cobrasc0+ '€ hoy. El resultado neto de ambas operaciones es una <b>OP<sub>€0 de '+-netosc0+ '.';
+					} else if (netosc0<netosi0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera una OP<sub>€0</sub> de ' + -netosc0 +'<br>El reajuste con el sintético genera una OP<sub>€0</sub> de ' +-netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura con el <b>sintético</b>.<br>Para reajustar la cobertura es necesario <b>pedir un préstamo</b> hoy por' +prestamo+ ' unidades de divisa extranjera a devolver dentro de '+t2+'M, que genera una <b>OP<sub>DE'+t2+'M</sub></b> equivalente al DC en divisa extranjera que recibiremos en ese momento. El principal del préstamo solicitado es superior a la OP en divisa extranjera que debemos atender hoy, por lo que la diferencia se vende en el mercado al contado, generando un DC<sub>€0M</sub> de '+netosi0+ '.';
+					} else if (netosc0==netosi0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera una OP<sub>€0</sub> de ' + -netosc0 +'<br>El reajuste con el sintético genera una OP<sub>€0</sub> de ' +-netosi0+ '<br> Por tanto es <b>indiferente</b> realizar el reajuste de la cobertura en el <b>mercado de divisas</b> o con el <b>sintético</b>.';
+					}
+				}
+			}
+		//Cierre t1 hoy
+		}
+		//Para t2 hoy
+		if((parseFloat(t2)==0) && (t2.length>0) && (SABv.length>0) && (FABc2.length>0) && (FABv2.length>0) && (rBd2.length>0) && (rBa2.length>0) && (rAd2.length>0) && (amount1.length>0) && (amount2.length>0)){
+			var cobrasc0=(amount2/SABv).toFixed(2);
+			var pagosc2=(amount1/FABc2).toFixed(2);
+			var pagosc0=(pagosc2/(1+(rBa2/100)*(t2/12))).toFixed(2);
+			var netosc0=(cobrasc0-pagosc0).toFixed(2);
+			//Cuadrar t1
+			var cobrosi12=(amount2*(1+(rAd2/100)*(t2/12))).toFixed(2);
+			var difsi2=(cobrosi12-amount1).toFixed(2);
+			if (difsi2>0){var netosi12=(difsi2/FABv2).toFixed(2);
+					var netosi10=(netosi12/(1+(rBd2/100)*(t2/12))).toFixed(2);
+			} else {var netosi12=(difsi2/FABc2).toFixed(2);
+					var netosi10=(netosi2/(1+(rBa2/100)*(t2/12))).toFixed(2);
+			}		
+			//Cuadrar t2
+			var inversion=(amount1/(1+(rAd2/100)*(t2/12))).toFixed(2);
+			var diferencia=(amount2-inversion).toFixed(2);
+			if (diferencia>0){var netosi20=(diferencia/SABv).toFixed(2);
+			} else {var netosi20=(diferencia/SABc).toFixed(2);
+			}
+			//Comprobar que sintetico es mejor cuadrar t1 o t2
+			if (netosi10>netosi20){var mejor=1; var netosi0=netosi10;} else {var mejor=2; var netosi0=netosi20;}
+			//Si es mejor cuadrar t1
+			if (mejor==1){
+				if((netosc0>=0)&&(netosi0>=0)){var mejorsc0=(netosc0-netosi0).toFixed(2);
+					if(mejorsc0>0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura en el <b>mercado de divisas</b>.<br>Para reajustar la cobertura es necesario <b>vender</b> hoy ' +amount2+ ' unidades de divisa extranjera que genera un <b>DC<sub>€0</sub></b> de ' + cobrasc0+ ' y simultáneamente <b>comprar</b> a plazo '+t2+'M ' +amount1+ 'unidades de divisa extranjera que genera una <b>OP<sub>€'+t2+'</sub></b> de ' +pagosc2+' que equivalen a ' +pagosc0+ '€ hoy. El resultado neto de ambas operaciones es un <b>DC<sub>€0 de '+netosc0+ '.';
+					} else if (mejorsc0<0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura con el <b>sintético</b>.<br>Para reajustar la cobertura es necesario <b>invertir</b> hoy por' +amount2+ ' unidades de divisa extranjera a plazo '+t2+'M, lo que genera un <b>DC<sub>DE'+t2+'M</sub></b> de ' + cobrosi12+ ' unidades de divisa extranjera que utilizaremos para atender la OP<sub>DE'+t2+'M</sub>, resultando un excedente de ' +difsi2+ 'que se vende a plazo, generando un DC<sub>€' +t2+'</sub> de '+netosi12+' que equivale a ' +netosi0+ '€ hoy.';
+					} else {document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>indiferente</b> realizar el reajuste de la cobertura en el <b>mercado de divisas</b> o con el <b>sintético</b>.';
+					}
+				} else if((netosc0>=0)&&(netosi0<0)){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera una OP<sub>€0</sub> de ' +-netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura en el <b>mercado de divisas</b>.<br>Para reajustar la cobertura es necesario <b>vender</b> hoy ' +amount2+ ' unidades de divisa extranjera que genera un <b>DC<sub>€0</sub></b> de ' + cobrasc0+ ' y simultáneamente <b>comprar</b> a plazo '+t2+'M ' +amount1+ 'unidades de divisa extranjera que genera una <b>OP<sub>€'+t2+'</sub></b> de ' +pagosc2+' que equivalen a ' +pagosc0+ '€ hoy. El resultado neto de ambas operaciones es un <b>DC<sub>€0 de '+netosc0+ '.';
+				} else if((netosc0<0)&&(netosi0>=0)){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera una OP<sub>€0</sub> de ' + -netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura con el <b>sintético</b>.<br>Para reajustar la cobertura es necesario <b>invertir</b> hoy por' +amount2+ ' unidades de divisa extranjera a plazo '+t2+'M, lo que genera un <b>DC<sub>DE'+t2+'M</sub></b> de ' + cobrosi12+ ' unidades de divisa extranjera que utilizaremos para atender la OP<sub>DE'+t2+'M</sub>, resultando un excedente de ' +difsi2+ 'que se vende a plazo, generando un DC<sub>€' +t2+'</sub> de '+netosi12+' que equivale a ' +netosi0+ '€ hoy.';
+				} else if((netosc0<0)&&(netosi0<0)){
+					if(netosc0>netosi0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera una OP<sub>€0</sub> de ' + -netosc0 +'<br>El reajuste con el sintético genera una OP<sub>€0</sub> de ' +-netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura en el <b>mercado de divisas</b>.<br>Para reajustar la cobertura es necesario <b>vender</b> hoy ' +amount2+ ' unidades de divisa extranjera que genera un <b>DC<sub>€0</sub></b> de ' + cobrasc0+ ' y simultáneamente <b>comprar</b> a plazo '+t2+'M ' +amount1+ 'unidades de divisa extranjera que genera una <b>OP<sub>€'+t2+'</sub></b> de ' +pagosc2+' que equivalen a ' +pagosc0+ '€ hoy. El resultado neto de ambas operaciones es una <b>OP<sub>€0 de '+-netosc0+ '.';
+					} else if (netosc0<netosi0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera una OP<sub>€0</sub> de ' + -netosc0 +'<br>El reajuste con el sintético genera una OP<sub>€0</sub> de ' +-netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura con el <b>sintético</b>.<br>Para reajustar la cobertura es necesario <b>invertir</b> hoy por' +amount2+ ' unidades de divisa extranjera a plazo '+t2+'M, lo que genera un <b>DC<sub>DE'+t2+'M</sub></b> de ' + cobrosi12+ ' unidades de divisa extranjera que utilizaremos para atender la OP<sub>DE'+t2+'M</sub>, resultando un deficit de ' +difsi2+ 'que se compra a plazo, generando una OP<sub>€' +t2+'</sub> de '+-netosi12+' que equivale a ' +-netosi0+ '€ hoy.';
+					} else if (netosc0==netosi0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera una OP<sub>€0</sub> de ' + -netosc0 +'<br>El reajuste con el sintético genera una OP<sub>€0</sub> de ' +-netosi0+ '<br> Por tanto es <b>indiferente</b> realizar el reajuste de la cobertura en el <b>mercado de divisas</b> o con el <b>sintético</b>.';
+					}
+				}
+			//Cierre mejor cuadrar t1 y apertura mejor cuadrar t2
+			} else if (mejor==2){
+				if((netosc0>=0)&&(netosi0>=0)){var mejorsc0=(netosc0-netosi0).toFixed(2);
+					if(mejorsc0>0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura en el <b>mercado de divisas</b>.<br>Para reajustar la cobertura es necesario <b>vender</b> hoy ' +amount2+ ' unidades de divisa extranjera que genera un <b>DC<sub>€0</sub></b> de ' + cobrasc0+ ' y simultáneamente <b>comprar</b> a plazo '+t2+'M ' +amount1+ 'unidades de divisa extranjera que genera una <b>OP<sub>€'+t2+'</sub></b> de ' +pagosc2+' que equivalen a ' +pagosc0+ '€ hoy. El resultado neto de ambas operaciones es un <b>DC<sub>€0 de '+netosc0+ '.';
+					} else if (mejorsc0<0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura con el <b>sintético</b>.<br>Para reajustar la cobertura es necesario <b>invertir</b> hoy por' +inversion+ ' unidades de divisa extranjera a plazo '+t2+'M, lo que genera un <b>DC<sub>DE'+t2+'M</sub></b> equivalente a la OP<sub>DE'+t2+'M</sub>, resultando un excedente hoy de ' +diferencia+ 'que se vende al contado, generando un DC<sub>€0</sub> de '+netosi0+ '.';
+					} else {document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>indiferente</b> realizar el reajuste de la cobertura en el <b>mercado de divisas</b> o con el <b>sintético</b>.';
+					}
+				} else if((netosc0>=0)&&(netosi0<0)){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera una OP<sub>€0</sub> de ' +-netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura en el <b>mercado de divisas</b>.<br>Para reajustar la cobertura es necesario <b>vender</b> hoy ' +amount2+ ' unidades de divisa extranjera que genera un <b>DC<sub>€0</sub></b> de ' + cobrasc0+ ' y simultáneamente <b>comprar</b> a plazo '+t2+'M ' +amount1+ 'unidades de divisa extranjera que genera una <b>OP<sub>€'+t2+'</sub></b> de ' +pagosc2+' que equivalen a ' +pagosc0+ '€ hoy. El resultado neto de ambas operaciones es un <b>DC<sub>€0 de '+netosc0+ '.';
+				} else if((netosc0<0)&&(netosi0>=0)){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura con el <b>sintético</b>.<br>Para reajustar la cobertura es necesario <b>invertir</b> hoy por' +inversion+ ' unidades de divisa extranjera a plazo '+t2+'M, lo que genera un <b>DC<sub>DE'+t2+'M</sub></b> equivalente a la OP<sub>DE'+t2+'M</sub>, resultando un excedente hoy de ' +diferencia+ 'que se vende al contado, generando un DC<sub>€0</sub> de '+netosi0+ '.';
+				} else if((netosc0<0)&&(netosi0<0)){
+					if(netosc0>netosi0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera una OP<sub>€0</sub> de ' + -netosc0 +'<br>El reajuste con el sintético genera una OP<sub>€0</sub> de ' +-netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura en el <b>mercado de divisas</b>.<br>Para reajustar la cobertura es necesario <b>vender</b> hoy ' +amount2+ ' unidades de divisa extranjera que genera un <b>DC<sub>€0</sub></b> de ' + cobrasc0+ ' y simultáneamente <b>comprar</b> a plazo '+t2+'M ' +amount1+ 'unidades de divisa extranjera que genera una <b>OP<sub>€'+t2+'</sub></b> de ' +pagosc2+' que equivalen a ' +pagosc0+ '€ hoy. El resultado neto de ambas operaciones es una <b>OP<sub>€0 de '+-netosc0+ '.';
+					} else if (netosc0<netosi0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera una OP<sub>€0</sub> de ' + -netosc0 +'<br>El reajuste con el sintético genera una OP<sub>€0</sub> de ' +-netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura con el <b>sintético</b>.<br>Para reajustar la cobertura es necesario <b>invertir</b> hoy por' +inversion+ ' unidades de divisa extranjera a plazo '+t2+'M, lo que genera un <b>DC<sub>DE'+t2+'M</sub></b> equivalente a la OP<sub>DE'+t2+'M</sub>, resultando un deficit hoy de ' +-diferencia+ 'que se compra al contado, generando una OP<sub>€0</sub> de '+-netosi0+ '.';
+					} else if (netosc0==netosi0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera una OP<sub>€0</sub> de ' + -netosc0 +'<br>El reajuste con el sintético genera una OP<sub>€0</sub> de ' +-netosi0+ '<br> Por tanto es <b>indiferente</b> realizar el reajuste de la cobertura en el <b>mercado de divisas</b> o con el <b>sintético</b>.';
+					}
+				}				
+			}
+		//Cierre t2 hoy y apertura t1 y t2 !=0
+		} else if ((t2.length>0) && (t1.length>0) && (SABv.length>0)  && (SABc.length>0) && (FABc2.length>0) && (FABv2.length>0)  && (FABc1.length>0) && (FABv1.length>0) && (rBd2.length>0) && (rBa2.length>0) && (rBd1.length>0) && (rBa1.length>0) && (rAd1.length>0) && (rAa2.length>0) && (amount1.length>0) && (amount2.length>0) ){
+			var cobrasc2=(amount2/FABv2).toFixed(2);
+			var cobrasc0=(cobrasc2/(1+(rBd2/100)*(t2/12))).toFixed(2);
+			var pagosc1=(amount1/FABc1).toFixed(2);
+			var pagosc0=(pagosc1/(1+(rBa1/100)*(t1/12))).toFixed(2);
+			var netosc0=(cobrasc0-pagosc0).toFixed(2);
+			//Cuadrar t1
+			var inversion1=(amount1/(1+(rAd1/100)*(t1/12))).toFixed(2);
+			var pagosi2t1=(inversion1*(1+(rAa2/100)*(t2/12))).toFixed(2);
+			var diferencia2t1=(amount2-pagosi2t1).toFixed(2);
+			if (diferencia2t1>0){var netosi2t1=(diferencia2t1/FABv2).toFixed(2);
+					var netosi0t1=(netosi2t1/(1+(rBd2/100)*(t2/12))).toFixed(2);
+			} else {var netosi2t1=(diferencia2t1/FABc2).toFixed(2);
+					var netosi0t1=(netosi2t1/(1+(rBa2/100)*(t2/12))).toFixed(2);
+			}		
+			//Cuadrar t2
+			var prestamo2=(amount2/(1+(rAa2/100)*(t2/12))).toFixed(2);
+			var cobrosi1t2=(prestamo2*(1+(rAd1/100)*(t1/12))).toFixed(2);
+			var diferencia1t2=(cobrosi1t2-amount1).toFixed(2);
+			if (diferencia1t2>0){var netosi1t2=(diferencia1t2/FABv1).toFixed(2);
+					var netosi0t2=(netosi1t2/(1+(rBd1/100)*(t1/12))).toFixed(2);
+			} else {var netosi1t2=(diferencia1t2/FABc1).toFixed(2);
+					var netosi0t2=(netosi1t2/(1+(rBa1/100)*(t1/12))).toFixed(2);
+			}
+			//Cuadrar ambos plazos
+			var diferencia0=(prestamo2-inversion1).toFixed(2);
+			if (diferencia0>0){var netosi0t1t2=(diferencia0/SABv).toFixed(2);
+			} else {var netosi0t1t2=(diferencia0/SABc).toFixed(2);
+			}
+			//Comprobar que sintetico es mejor cuadrar t1, cuadrar t2 o cuadrar ambos
+			if ((netosi0t1>netosi0t2)||(netosi0t1>netosi0t1t2)){var mejor=1; var netosi0=netosi0t1;} else if ((netosi0t2>netosi0t1) || (netosi0t2>netosi0t1t2)){var mejor=2; var netosi0=netosi0t2;} else {var mejor=3; var netosi0=netosi0t1t2;}
+			//Si es mejor cuadrar t1
+			if (mejor==1){
+				if((netosc0>=0)&&(netosi0>=0)){var mejorsc0=(netosc0-netosi0).toFixed(2);
+					if(mejorsc0>0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura en el <b>mercado de divisas</b>.<br>Para reajustar la cobertura es necesario <b>comprar</b> a plazo ' +t1+ ' ' +amount1+ ' unidades de divisa extranjera que genera una <b>OP<sub>€' +t1+ '</sub></b> de ' + pagosc1+ ' (equivalente a una OP<sub>€0</sub> de' +pagosc0+ ') y simultáneamente <b>vender</b> a plazo '+t2+'M ' +amount2+ 'unidades de divisa extranjera que genera un <b>DC<sub>€'+t2+'</sub></b> de ' +cobrasc2+' que equivalen a ' +cobrasc0+ '€ hoy. El resultado neto de ambas operaciones es un <b>DC<sub>€0 de '+netosc0+ '.';
+					} else if (mejorsc0<0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura con el <b>sintético</b> (<i>cuadrar plazo ' +t1+ 'M</i>).<br>Para reajustar la cobertura es necesario <b>pedir un préstamo</b> hoy por' +inversion1+ ' unidades de divisa extranjera a devolver dentro de '+t2+'M, que genera una <b>OP<sub>DE'+t2+'M</sub></b> de ' + pagosi2t1+ ' unidades de divisa extranjera que atenderemos con el DC a recibir en ese plazo, resultando un excedente de ' +diferencia2t1+ 'que se vende a plazos, generando un DC<sub>€' +t2+'</sub> de '+netosi2t1+' que equivale a ' +netosi0+ '€ hoy. El principal del préstamo solicitado se invierte hasta ' +t1+ 'M generando un DC en divisa extranjera que coincide con la OP en divisa extranjera que ya tenemos en ese plazo';
+					} else {document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>indiferente</b> realizar el reajuste de la cobertura en el <b>mercado de divisas</b> o con el <b>sintético</b>.';
+					}
+				} else if((netosc0>=0)&&(netosi0<0)){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera una OP<sub>€0</sub> de ' +-netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura en el <b>mercado de divisas</b>.<br>Para reajustar la cobertura es necesario <b>comprar</b> a plazo ' +t1+ ' ' +amount1+ ' unidades de divisa extranjera que genera una <b>OP<sub>€' +t1+ '</sub></b> de ' + pagosc1+ ' (equivalente a una OP<sub>€0</sub> de' +pagosc0+ ') y simultáneamente <b>vender</b> a plazo '+t2+'M ' +amount2+ 'unidades de divisa extranjera que genera un <b>DC<sub>€'+t2+'</sub></b> de ' +cobrasc2+' que equivalen a ' +cobrasc0+ '€ hoy. El resultado neto de ambas operaciones es un <b>DC<sub>€0 de '+netosc0+ '.';
+				} else if((netosc0<0)&&(netosi0>=0)){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera una OP<sub>€0</sub> de ' + -netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura con el <b>sintético</b> (<i>cuadrar plazo ' +t1+ 'M</i>).<br>Para reajustar la cobertura es necesario <b>pedir un préstamo</b> hoy por' +inversion1+ ' unidades de divisa extranjera a devolver dentro de '+t2+'M, que genera una <b>OP<sub>DE'+t2+'M</sub></b> de ' + pagosi2t1+ ' unidades de divisa extranjera que atenderemos con el DC a recibir en ese plazo, resultando un excedente de ' +diferencia2t1+ 'que se vende a plazos, generando un DC<sub>€' +t2+'</sub> de '+netosi2t1+' que equivale a ' +netosi0+ '€ hoy.  El principal del préstamo solicitado se invierte hasta ' +t1+ 'M generando un DC en divisa extranjera que coincide con la OP en divisa extranjera que ya tenemos en ese plazo';
+				} else if((netosc0<0)&&(netosi0<0)){
+					if(netosc0>netosi0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera una OP<sub>€0</sub> de ' + -netosc0 +'<br>El reajuste con el sintético genera una OP<sub>€0</sub> de ' +-netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura en el <b>mercado de divisas</b>.<br>Para reajustar la cobertura es necesario <b>comprar</b> a plazo ' +t1+ ' ' +amount1+ ' unidades de divisa extranjera que genera una <b>OP<sub>€' +t1+ '</sub></b> de ' + pagosc1+ ' (equivalente a una OP<sub>€0</sub> de' +pagosc0+ ') y simultáneamente <b>vender</b> a plazo '+t2+'M ' +amount2+ 'unidades de divisa extranjera que genera un <b>DC<sub>€'+t2+'</sub></b> de ' +cobrasc2+' que equivalen a ' +cobrasc0+ '€ hoy. El resultado neto de ambas operaciones es una <b>OP<sub>€0 de '+-netosc0+ '.';
+					} else if (netosc0<netosi0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera una OP<sub>€0</sub> de ' + -netosc0 +'<br>El reajuste con el sintético genera una OP<sub>€0</sub> de ' +-netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura con el <b>sintético</b> (<i>cuadrar plazo ' +t1+ 'M</i>).<br>Para reajustar la cobertura es necesario <b>pedir un préstamo</b> hoy por' +inversion1+ ' unidades de divisa extranjera a devolver dentro de '+t2+'M, que genera una <b>OP<sub>DE'+t2+'M</sub></b> de ' + pagosi2t1+ ' unidades de divisa extranjera que atenderemos con el DC a recibir en ese plazo, resultando un deficit de ' +-diferencia2t1+ 'que se compra a plazos, generando una OP<sub>€' +t2+'</sub> de '+-netosi2t1+' que equivale a ' +-netosi0+ '€ hoy.  El principal del préstamo solicitado se invierte hasta ' +t1+ 'M generando un DC en divisa extranjera que coincide con la OP en divisa extranjera que ya tenemos en ese plazo';
+					} else if (netosc0==netosi0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera una OP<sub>€0</sub> de ' + -netosc0 +'<br>El reajuste con el sintético genera una OP<sub>€0</sub> de ' +-netosi0+ '<br> Por tanto es <b>indiferente</b> realizar el reajuste de la cobertura en el <b>mercado de divisas</b> o con el <b>sintético</b>.';
+					}
+				}
+			//Cierre mejor cuadrar t1 y apertura mejor cuadrar t2
+			} else if (mejor==2){
+				if((netosc0>=0)&&(netosi0>=0)){var mejorsc0=(netosc0-netosi0).toFixed(2);
+					if(mejorsc0>0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura en el <b>mercado de divisas</b>.<br>Para reajustar la cobertura es necesario <b>comprar</b> a plazo ' +t1+ ' ' +amount1+ ' unidades de divisa extranjera que genera una <b>OP<sub>€' +t1+ '</sub></b> de ' + pagosc1+ ' (equivalente a una OP<sub>€0</sub> de' +pagosc0+ ') y simultáneamente <b>vender</b> a plazo '+t2+'M ' +amount2+ 'unidades de divisa extranjera que genera un <b>DC<sub>€'+t2+'</sub></b> de ' +cobrasc2+' que equivalen a ' +cobrasc0+ '€ hoy. El resultado neto de ambas operaciones es un <b>DC<sub>€0 de '+netosc0+ '.';
+					} else if (mejorsc0<0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura con el <b>sintético</b> (<i>cuadrar plazo ' +t2+ 'M</i>).<br>Para reajustar la cobertura es necesario <b>pedir un préstamo</b> hoy por' +prestamo2+ ' unidades de divisa extranjera a devolver dentro de '+t2+'M, que genera una <b>OP<sub>DE'+t2+'M</sub></b> que coincide con el DC que ya tenemos en ese plazo, el principal del préstamo se invierte a plazo ' + t1+ 'M generando un DC<sub>DE' +t1+'</sub> de '+cobrosi1t2+' y un excedente en ese plazo una vez atendida la OP que ya tenemos en el mismo de ' +diferencia1t2+ 'unidades de divisa extranjera que se vende a plazo' +t1+'M y genera un DC</sub>€'+t1+'M</sub> de ' + netosi1t2+ '€ que equivale a un DC</sub>€0</sub> de ' +netosi0+ '.'; 
+					} else {document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>indiferente</b> realizar el reajuste de la cobertura en el <b>mercado de divisas</b> o con el <b>sintético</b>.';
+					}
+				} else if((netosc0>=0)&&(netosi0<0)){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera una OP<sub>€0</sub> de ' +-netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura en el <b>mercado de divisas</b>.<br>Para reajustar la cobertura es necesario <b>comprar</b> a plazo ' +t1+ ' ' +amount1+ ' unidades de divisa extranjera que genera una <b>OP<sub>€' +t1+ '</sub></b> de ' + pagosc1+ ' (equivalente a una OP<sub>€0</sub> de' +pagosc0+ ') y simultáneamente <b>vender</b> a plazo '+t2+'M ' +amount2+ 'unidades de divisa extranjera que genera un <b>DC<sub>€'+t2+'</sub></b> de ' +cobrasc2+' que equivalen a ' +cobrasc0+ '€ hoy. El resultado neto de ambas operaciones es un <b>DC<sub>€0 de '+netosc0+ '.';
+				} else if((netosc0<0)&&(netosi0>=0)){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura con el <b>sintético</b> (<i>cuadrar plazo ' +t2+ 'M</i>).<br>Para reajustar la cobertura es necesario <b>pedir un préstamo</b> hoy por' +prestamo2+ ' unidades de divisa extranjera a devolver dentro de '+t2+'M, que genera una <b>OP<sub>DE'+t2+'M</sub></b> que coincide con el DC que ya tenemos en ese plazo, el principal del préstamo se invierte a plazo ' + t1+ 'M generando un DC<sub>DE' +t1+'</sub> de '+cobrosi1t2+' y un excedente en ese plazo una vez atendida la OP que ya tenemos en el mismo de ' +diferencia1t2+ 'unidades de divisa extranjera que se vende a plazo' +t1+'M y genera un DC</sub>€'+t1+'M</sub> de ' + netosi1t2+ '€ que equivale a un DC</sub>€0</sub> de ' +netosi0+ '.';
+				} else if((netosc0<0)&&(netosi0<0)){
+					if(netosc0>netosi0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera una OP<sub>€0</sub> de ' + -netosc0 +'<br>El reajuste con el sintético genera una OP<sub>€0</sub> de ' +-netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura en el <b>mercado de divisas</b>.<br>Para reajustar la cobertura es necesario <b>comprar</b> a plazo ' +t1+ ' ' +amount1+ ' unidades de divisa extranjera que genera una <b>OP<sub>€' +t1+ '</sub></b> de ' + pagosc1+ ' (equivalente a una OP<sub>€0</sub> de' +pagosc0+ ') y simultáneamente <b>vender</b> a plazo '+t2+'M ' +amount2+ 'unidades de divisa extranjera que genera un <b>DC<sub>€'+t2+'</sub></b> de ' +cobrasc2+' que equivalen a ' +cobrasc0+ '€ hoy. El resultado neto de ambas operaciones es una <b>OP<sub>€0 de '+-netosc0+ '.';
+					} else if (netosc0<netosi0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera una OP<sub>€0</sub> de ' + -netosc0 +'<br>El reajuste con el sintético genera una OP<sub>€0</sub> de ' +-netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura con el <b>sintético</b> (<i>cuadrar plazo ' +t2+ 'M</i>).<br>Para reajustar la cobertura es necesario <b>pedir un préstamo</b> hoy por' +prestamo2+ ' unidades de divisa extranjera a devolver dentro de '+t2+'M, que genera una <b>OP<sub>DE'+t2+'M</sub></b> que coincide con el DC que ya tenemos en ese plazo, el principal del préstamo se invierte a plazo ' + t1+ 'M generando un DC<sub>DE' +t1+'</sub> de '+cobrosi1t2+' y un deficit en ese plazo una vez atendida la OP que ya tenemos en el mismo de ' +-diferencia1t2+ 'unidades de divisa extranjera que se compra a plazo' +t1+'M y genera una OP</sub>€'+t1+'M</sub> de ' + -netosi1t2+ '€ que equivale a una OP</sub>€0</sub> de ' +-netosi0+ '.';
+					} else if (netosc0==netosi0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera una OP<sub>€0</sub> de ' + -netosc0 +'<br>El reajuste con el sintético genera una OP<sub>€0</sub> de ' +-netosi0+ '<br> Por tanto es <b>indiferente</b> realizar el reajuste de la cobertura en el <b>mercado de divisas</b> o con el <b>sintético</b>.';
+					}
+				}
+			//Cierre mejor cuadrar t2 y apertura mejor cuadrar ambos
+			} else if (mejor==3){
+				if((netosc0>=0)&&(netosi0>=0)){var mejorsc0=(netosc0-netosi0).toFixed(2);
+					if(mejorsc0>0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura en el <b>mercado de divisas</b>.<br>Para reajustar la cobertura es necesario <b>comprar</b> a plazo ' +t1+ ' ' +amount1+ ' unidades de divisa extranjera que genera una <b>OP<sub>€' +t1+ '</sub></b> de ' + pagosc1+ ' (equivalente a una OP<sub>€0</sub> de' +pagosc0+ ') y simultáneamente <b>vender</b> a plazo '+t2+'M ' +amount2+ 'unidades de divisa extranjera que genera un <b>DC<sub>€'+t2+'</sub></b> de ' +cobrasc2+' que equivalen a ' +cobrasc0+ '€ hoy. El resultado neto de ambas operaciones es un <b>DC<sub>€0 de '+netosc0+ '.';
+					} else if (mejorsc0<0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura con el <b>sintético</b> (<i>cuadrar ambos plazos</i>).<br>Para reajustar la cobertura es necesario <b>pedir un préstamo</b> hoy por' +inversion1+ ' unidades de divisa extranjera a devolver dentro de '+t2+'M, que genera una <b>OP<sub>DE'+t2+'M</sub></b> que coincide con el DC que ya tenemos en ese plazo y simultáneamente invertir '+prestamo2+ ' a plazo ' + t1+ 'M generando un DC<sub>DE' +t1+'</sub> que equivale a la OP que ya tenemos en ese plazo, ambas operaciones genera un excedente hoy de ' + diferencia0+ 'unidades de divisa extranjera que se vende al contado obteniendo un DC</sub>€0</sub> de ' +netosi0+ '.'; 
+					} else {document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>indiferente</b> realizar el reajuste de la cobertura en el <b>mercado de divisas</b> o con el <b>sintético</b>.';
+					}
+				} else if((netosc0>=0)&&(netosi0<0)){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera una OP<sub>€0</sub> de ' +-netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura en el <b>mercado de divisas</b>.<br>Para reajustar la cobertura es necesario <b>comprar</b> a plazo ' +t1+ ' ' +amount1+ ' unidades de divisa extranjera que genera una <b>OP<sub>€' +t1+ '</sub></b> de ' + pagosc1+ ' (equivalente a una OP<sub>€0</sub> de' +pagosc0+ ') y simultáneamente <b>vender</b> a plazo '+t2+'M ' +amount2+ 'unidades de divisa extranjera que genera un <b>DC<sub>€'+t2+'</sub></b> de ' +cobrasc2+' que equivalen a ' +cobrasc0+ '€ hoy. El resultado neto de ambas operaciones es un <b>DC<sub>€0 de '+netosc0+ '.';
+				} else if((netosc0<0)&&(netosi0>=0)){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura con el <b>sintético</b> (<i>cuadrar ambos plazos</i>).<br>Para reajustar la cobertura es necesario <b>pedir un préstamo</b> hoy por' +inversion1+ ' unidades de divisa extranjera a devolver dentro de '+t2+'M, que genera una <b>OP<sub>DE'+t2+'M</sub></b> que coincide con el DC que ya tenemos en ese plazo y simultáneamente invertir '+prestamo2+ ' a plazo ' + t1+ 'M generando un DC<sub>DE' +t1+'</sub> que equivale a la OP que ya tenemos en ese plazo, ambas operaciones genera un excedente hoy de ' + diferencia0+ 'unidades de divisa extranjera que se vende al contado obteniendo un DC</sub>€0</sub> de ' +netosi0+ '.';
+				} else if((netosc0<0)&&(netosi0<0)){
+					if(netosc0>netosi0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera una OP<sub>€0</sub> de ' + -netosc0 +'<br>El reajuste con el sintético genera una OP<sub>€0</sub> de ' +-netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura en el <b>mercado de divisas</b>.<br>Para reajustar la cobertura es necesario <b>comprar</b> a plazo ' +t1+ ' ' +amount1+ ' unidades de divisa extranjera que genera una <b>OP<sub>€' +t1+ '</sub></b> de ' + pagosc1+ ' (equivalente a una OP<sub>€0</sub> de' +pagosc0+ ') y simultáneamente <b>vender</b> a plazo '+t2+'M ' +amount2+ 'unidades de divisa extranjera que genera un <b>DC<sub>€'+t2+'</sub></b> de ' +cobrasc2+' que equivalen a ' +cobrasc0+ '€ hoy. El resultado neto de ambas operaciones es una <b>OP<sub>€0 de '+-netosc0+ '.';
+					} else if (netosc0<netosi0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera una OP<sub>€0</sub> de ' + -netosc0 +'<br>El reajuste con el sintético genera una OP<sub>€0</sub> de ' +-netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura con el <b>sintético</b> (<i>cuadrar ambos plazos</i>).<br>Para reajustar la cobertura es necesario <b>pedir un préstamo</b> hoy por' +inversion1+ ' unidades de divisa extranjera a devolver dentro de '+t2+'M, que genera una <b>OP<sub>DE'+t2+'M</sub></b> que coincide con el DC que ya tenemos en ese plazo y simultáneamente invertir '+prestamo2+ ' a plazo ' + t1+ 'M generando un DC<sub>DE' +t1+'</sub> que equivale a la OP que ya tenemos en ese plazo, ambas operaciones genera un deficit hoy de ' + -diferencia0+ 'unidades de divisa extranjera que se compra al contado generando una OP</sub>€0</sub> de ' +-netosi0+ '.';
+					} else if (netosc0==netosi0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera una OP<sub>€0</sub> de ' + -netosc0 +'<br>El reajuste con el sintético genera una OP<sub>€0</sub> de ' +-netosi0+ '<br> Por tanto es <b>indiferente</b> realizar el reajuste de la cobertura en el <b>mercado de divisas</b> o con el <b>sintético</b>.';
+					}
+				}
+			}			
+		}
+	//Cierre cambia plazo
+	}	
+//Cierre DC apertura OP
+} else if (tipo=="OP") {
+//solo cambia cantidad no plazo
+	if ((parseFloat(t1)==parseFloat(t2))&&(t1.length>0)){
+		if ((parseFloat(amount1)==parseFloat(amount2))&&(amount1.length>0)){
+		document.getElementById('result6').innerHTML = '<p>No es necesario reajustar la cobertura, coincide la cantidad y el plazo iniciales con los actuales';
+		} else if ((amount1.length>0)&&(amount2.length>0)){
+			var diferencia=amount1-amount2;
+			if (diferencia>0){
+				if (FABv1.length>0){var DC1=(diferencia/FABv1).toFixed(2);
+				document.getElementById('result6').innerHTML = '<p>Para reajustar la cobertura es necesario <b>vender</b> ' +diferencia+ ' unidades de divisa extranjera a plazo ' +t1+ 'M lo que genera un <b>DC</b> en € en ese plazo de <b>' + DC1 + ' €</b>.';
+				} else {document.getElementById('result6').innerHTML = '<p>Por favor, proporcione un valor para el tipo de cambio vendedor F<sub>DE€</sub> para el T<sub>inicial</sub>';
+				}
+			} else if (diferencia<0){
+				if (FABc1.length>0){var OP1=(-diferencia/FABc1).toFixed(2);
+				document.getElementById('result6').innerHTML = '<p>Para reajustar la cobertura es necesario <b>comprar</b> ' +-diferencia+ ' unidades de divisa extranjera a plazo ' +t1+ 'M lo que genera una <b>OP</b> en € en ese plazo de <b>' + OP1 + ' €</b>.';
+				} else {document.getElementById('result6').innerHTML = '<p>Por favor, proporcione un valor para el tipo de cambio comprador F<sub>DE€</sub> para el T<sub>inicial</sub>';
+				}
+			} else {document.getElementById('result6').innerHTML = '<p>Faltan datos';}
+		}
+	//Cierre mismo plazo
+	//Cambia el plazo
+	} else if (parseFloat(t1)!=parseFloat(t2)){
+		//Para t1 hoy
+		if((parseFloat(t1)==0) && (t2.length>0) && (SABv.length>0) && (FABc2.length>0) && (FABv2.length>0) && (rBa2.length>0) && (rBd2.length>0) && (rAd2.length>0) && (amount1.length>0) && (amount2.length>0)){
+			var cobrasc0=(amount1/SABv).toFixed(2);
+			var pagosc2=(amount2/FABc2).toFixed(2);
+			var pagosc0=(pagosc2/(1+(rBa2/100)*(t2/12))).toFixed(2);
+			var netosc0=(cobrasc0-pagosc0).toFixed(2);
+			//Sintetico invertir el DC en o hasta t2
+			var cobrosi12=(amount1*(1+(rAd2/100)*(t2/12))).toFixed(2);
+			var difsi12=(cobrosi12-amount2).toFixed(2);
+			if (difsi12>0){var netosi12=(difsi12/FABv2).toFixed(2);
+					var netosi10=(netosi12/(1+(rBd2/100)*(t2/12))).toFixed(2);
+			} else {var netosi12=(difsi12/FABc2).toFixed(2);
+					var netosi10=(netosi12/(1+(rBa2/100)*(t2/12))).toFixed(2);
+			}
+			var deposito=(amount2/(1+(rAd2/100)*(t2/12))).toFixed(2);
+			var diferencia=(amount1-deposito).toFixed(2);
+			if (diferencia>0){var netosi20=(diferencia/SABv).toFixed(2);
+			} else {var netosi20=(diferencia/SABc).toFixed(2);
+			}
+						//Comprobar que sintetico es mejor cuadrar t1 o t2
+			if (netosi10>netosi20){var mejor=1; var netosi0=netosi10;} else {var mejor=2; var netosi0=netosi20;}
+			//Si es mejor cuadrar t1
+			if (mejor==1){
+				if((netosc0>=0)&&(netosi0>=0)){var mejorsc0=(netosc0-netosi0).toFixed(2);
+					if(mejorsc0>0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura en el <b>mercado de divisas</b>.<br>Para reajustar la cobertura es necesario <b>vender</b> hoy ' +amount1+ ' unidades de divisa extranjera que genera un <b>DC<sub>€0</sub></b> de ' + cobrasc0+ ' y simultáneamente <b>comprar</b> a plazo '+t2+'M ' +amount2+ 'unidades de divisa extranjera que genera una <b>OP<sub>€'+t2+'</sub></b> de ' +pagosc2+' que equivalen a ' +pagosc0+ '€ hoy. El resultado neto de ambas operaciones es un <b>DC<sub>€0 de '+netosc0+ '.';
+					} else if (mejorsc0<0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura con el <b>sintético</b>.<br>Para reajustar la cobertura es necesario <b>invertir</b> hoy hasta ' +t2+'M, ' +amount1+ ' unidades de divisa extranjera, que genera un <b>DC<sub>DE'+t2+'M</sub></b> de ' + cobrosi2+ ' unidades de divisa extranjera que servirá para atender la OP en ese plazo, resultando un excedente de ' +difsi12+ 'que se vende a plazos, generando un DC<sub>€' +t2+'</sub> de '+netosi2+' que equivale a ' +netosi0+ '€ hoy.';
+					} else {document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>indiferente</b> realizar el reajuste de la cobertura en el <b>mercado de divisas</b> o con el <b>sintético</b>.';
+					}
+				} else if((netosc0>=0)&&(netosi0<0)){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura en el <b>mercado de divisas</b>.<br>Para reajustar la cobertura es necesario <b>vender</b> hoy ' +amount1+ ' unidades de divisa extranjera que genera un <b>DC<sub>€0</sub></b> de ' + cobrasc0+ ' y simultáneamente <b>comprar</b> a plazo '+t2+'M ' +amount2+ 'unidades de divisa extranjera que genera una <b>OP<sub>€'+t2+'</sub></b> de ' +pagosc2+' que equivalen a ' +pagosc0+ '€ hoy. El resultado neto de ambas operaciones es un <b>DC<sub>€0 de '+netosc0+ '.';
+				} else if((netosc0<0)&&(netosi0>=0)){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura con el <b>sintético</b>.<br>Para reajustar la cobertura es necesario <b>invertir</b> hoy hasta ' +t2+'M, ' +amount1+ ' unidades de divisa extranjera, que genera un <b>DC<sub>DE'+t2+'M</sub></b> de ' + cobrosi2+ ' unidades de divisa extranjera que servirá para atender la OP en ese plazo, resultando un excedente de ' +difsi12+ 'que se vende a plazos, generando un DC<sub>€' +t2+'</sub> de '+netosi2+' que equivale a ' +netosi0+ '€ hoy.';
+				} else if((netosc0<0)&&(netosi0<0)){
+					if(netosc0>netosi0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera una OP<sub>€0</sub> de ' + -netosc0 +'<br>El reajuste con el sintético genera una OP<sub>€0</sub> de ' +-netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura en el <b>mercado de divisas</b>.<br>Para reajustar la cobertura es necesario <b>vender</b> hoy ' +amount1+ ' unidades de divisa extranjera que genera un <b>DC<sub>€0</sub></b> de ' + cobrasc0+ ' y simultáneamente <b>comprar</b> a plazo '+t2+'M ' +amount2+ 'unidades de divisa extranjera que genera una <b>OP<sub>€'+t2+'</sub></b> de ' +pagosc2+' que equivalen a ' +pagosc0+ '€ hoy. El resultado neto de ambas operaciones es una <b>OP<sub>€0 de '+-netosc0+ '.';
+					} else if (netosc0<netosi0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera una OP<sub>€0</sub> de ' + -netosc0 +'<br>El reajuste con el sintético genera una OP<sub>€0</sub> de ' +-netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura con el <b>sintético</b>.<br>Para reajustar la cobertura es necesario <b>invertir</b> hoy hasta ' +t2+'M, ' +amount1+ ' unidades de divisa extranjera, que genera un <b>DC<sub>DE'+t2+'M</sub></b> de ' + cobrosi2+ ' unidades de divisa extranjera que es insuficiente para atender la OP en ese plazo, resultando un deficit de ' +-difsi12+ 'que se compra a plazos, generando una OP<sub>€' +t2+'</sub> de '+-netosi2+' que equivale a ' +-netosi0+ '€ hoy.';
+					} else if (netosc0==netosi0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera una OP<sub>€0</sub> de ' + -netosc0 +'<br>El reajuste con el sintético genera una OP<sub>€0</sub> de ' +-netosi0+ '<br> Por tanto es <b>indiferente</b> realizar el reajuste de la cobertura en el <b>mercado de divisas</b> o con el <b>sintético</b>.';
+					}
+				}
+			//Cierre mejor cuadrar t1 y apertura mejor cuadrar t2
+			} else if (mejor==2){
+				if((netosc0>=0)&&(netosi0>=0)){var mejorsc0=(netosc0-netosi0).toFixed(2);
+					if(mejorsc0>0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura en el <b>mercado de divisas</b>.<br>Para reajustar la cobertura es necesario <b>vender</b> hoy ' +amount1+ ' unidades de divisa extranjera que genera un <b>DC<sub>€0</sub></b> de ' + cobrasc0+ ' y simultáneamente <b>comprar</b> a plazo '+t2+'M ' +amount2+ 'unidades de divisa extranjera que genera una <b>OP<sub>€'+t2+'</sub></b> de ' +pagosc2+' que equivalen a ' +pagosc0+ '€ hoy. El resultado neto de ambas operaciones es un <b>DC<sub>€0 de '+netosc0+ '.';
+					} else if (mejorsc0<0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura con el <b>sintético</b>.<br>Para reajustar la cobertura es necesario <b>invertir</b> hoy hasta ' +t2+'M, ' +deposito+ ' unidades de divisa extranjera, que genera un <b>DC<sub>DE'+t2+'M</sub></b> equivalente a la OP que tenemos en ese plazo. La cantidad que es necesario invertir es inferior a la disponible (DC<sub>DE0</sub>): ' +amount1+', resultando un excedente de ' +diferencia+ 'que se vende al contado, generando un DC<sub>€0</sub> de ' +netosi0+ '€ hoy.';
+					} else {document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>indiferente</b> realizar el reajuste de la cobertura en el <b>mercado de divisas</b> o con el <b>sintético</b>.';
+					}
+				} else if((netosc0>=0)&&(netosi0<0)){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura en el <b>mercado de divisas</b>.<br>Para reajustar la cobertura es necesario <b>vender</b> hoy ' +amount1+ ' unidades de divisa extranjera que genera un <b>DC<sub>€0</sub></b> de ' + cobrasc0+ ' y simultáneamente <b>comprar</b> a plazo '+t2+'M ' +amount2+ 'unidades de divisa extranjera que genera una <b>OP<sub>€'+t2+'</sub></b> de ' +pagosc2+' que equivalen a ' +pagosc0+ '€ hoy. El resultado neto de ambas operaciones es un <b>DC<sub>€0 de '+netosc0+ '.';
+				} else if((netosc0<0)&&(netosi0>=0)){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura con el <b>sintético</b>.<br>Para reajustar la cobertura es necesario <b>invertir</b> hoy hasta ' +t2+'M, ' +deposito+ ' unidades de divisa extranjera, que genera un <b>DC<sub>DE'+t2+'M</sub></b> equivalente a la OP que tenemos en ese plazo. La cantidad que es necesario invertir es inferior a la disponible (DC<sub>DE0</sub>): ' +amount1+', resultando un excedente de ' +diferencia+ 'que se vende al contado, generando un DC<sub>€0</sub> de ' +netosi0+ '€ hoy.';
+				} else if((netosc0<0)&&(netosi0<0)){
+					if(netosc0>netosi0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera una OP<sub>€0</sub> de ' + -netosc0 +'<br>El reajuste con el sintético genera una OP<sub>€0</sub> de ' +-netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura en el <b>mercado de divisas</b>.<br>Para reajustar la cobertura es necesario <b>vender</b> hoy ' +amount1+ ' unidades de divisa extranjera que genera un <b>DC<sub>€0</sub></b> de ' + cobrasc0+ ' y simultáneamente <b>comprar</b> a plazo '+t2+'M ' +amount2+ 'unidades de divisa extranjera que genera una <b>OP<sub>€'+t2+'</sub></b> de ' +pagosc2+' que equivalen a ' +pagosc0+ '€ hoy. El resultado neto de ambas operaciones es una <b>OP<sub>€0 de '+-netosc0+ '.';
+					} else if (netosc0<netosi0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera una OP<sub>€0</sub> de ' + -netosc0 +'<br>El reajuste con el sintético genera una OP<sub>€0</sub> de ' +-netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura con el <b>sintético</b>.<br>Para reajustar la cobertura es necesario <b>invertir</b> hoy hasta ' +t2+'M, ' +deposito+ ' unidades de divisa extranjera, que genera un <b>DC<sub>DE'+t2+'M</sub></b> equivalente a la OP que tenemos en ese plazo. La cantidad que es necesario invertir es superior a la disponible (DC<sub>DE0</sub>): ' +amount1+', resultando un deficit de ' +-diferencia+ 'que se compra al contado, generando una OP<sub>€0</sub> de ' + -netosi0+ '€ hoy.';
+					} else if (netosc0==netosi0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera una OP<sub>€0</sub> de ' + -netosc0 +'<br>El reajuste con el sintético genera una OP<sub>€0</sub> de ' +-netosi0+ '<br> Por tanto es <b>indiferente</b> realizar el reajuste de la cobertura en el <b>mercado de divisas</b> o con el <b>sintético</b>.';
+					}
+				}
+			}
+		//Cierre t1 hoy
+		}
+		//Para t2 hoy
+		if((parseFloat(t2)==0) && (t1.length>0) && (SABc.length>0) && (SABv.length>0) && (FABc2.length>0) && (FABv1.length>0) && (rBd1.length>0) && (rBa2.length>0) && (rAa2.length>0) && (rAa1.length>0) && (amount1.length>0) && (amount2.length>0)){
+			var pagosc0=(amount2/SABc).toFixed(2);
+			var cobrasc2=(amount1/FABv1).toFixed(2);
+			var cobrasc0=(cobrasc2/(1+(rBd1/100)*(t1/12))).toFixed(2);
+			var netosc0=(cobrasc0-pagosc0).toFixed(2);
+			//Cuadrar t1
+			var prestamo=(amount1/(1+(rAa1/100)*(t1/12))).toFixed(2);
+			var difsi0=(prestamo-amount2).toFixed(2);
+			if (difsi0>0){var netosi0=(difsi0/SABv).toFixed(2);
+			} else {var netosi0=(difsi0/SABc).toFixed(2);
+			}		
+			//Cuadrar t2
+			var pagosit1=(amount2*(1+(rAa2/100)*(t1/12))).toFixed(2);
+			var diferencia=(amount1-pagosit1).toFixed(2);
+			if (diferencia>0){var netosi1=(diferencia/FABv1).toFixed(2);
+				var netosi0=(netosi1/(1+(rBd1/100)*(t1/12))).toFixed(2);
+			} else {var netosi1=(diferencia/FABc1).toFixed(2);
+				var netosi0=(netosi1/(1+(rBa1/100)*(t1/12))).toFixed(2);
+			}
+			//Comprobar que sintetico es mejor cuadrar t1 o t2
+			if (netosi10>netosi20){var mejor=1; var netosi0=netosi10;} else {var mejor=2; var netosi0=netosi20;}
+			//Si es mejor cuadrar t1
+			if (mejor==1){
+				if((netosc0>=0)&&(netosi0>=0)){var mejorsc0=(netosc0-netosi0).toFixed(2);
+					if(mejorsc0>0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura en el <b>mercado de divisas</b>.<br>Para reajustar la cobertura es necesario <b>comprar</b> hoy ' +amount2+ ' unidades de divisa extranjera que genera una <b>OP<sub>€0</sub></b> de ' + pagosc0+ ' y simultáneamente <b>vender</b> a plazo '+t1+'M ' +amount1+ 'unidades de divisa extranjera que genera un <b>DC<sub>€'+t1+'</sub></b> de ' +cobrasc2+' que equivalen a ' +cobrasc0+ '€ hoy. El resultado neto de ambas operaciones es un <b>DC<sub>€0 de '+netosc0+ '.';
+					} else if (mejorsc0<0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura con el <b>sintético</b>.<br>Para reajustar la cobertura es necesario <b>pedir un préstamo</b> hoy por' +prestamo+ ' unidades de divisa extranjera a devolver en plazo '+t1+'M, lo que genera una <b>OP<sub>DE'+t1+'M</sub></b> equivalente al DC que tenemos en ese plazo. El principal del préstamo se utiliza para atender la OP<sub>DE0</sub>, resultando un excedente de ' +difsi0+ 'que se vende al contado, generando un DC<sub>€0</sub> de '+netosi0+'.';
+					} else {document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>indiferente</b> realizar el reajuste de la cobertura en el <b>mercado de divisas</b> o con el <b>sintético</b>.';
+					}
+				} else if((netosc0>=0)&&(netosi0<0)){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura en el <b>mercado de divisas</b>.<br>Para reajustar la cobertura es necesario <b>comprar</b> hoy ' +amount2+ ' unidades de divisa extranjera que genera una <b>OP<sub>€0</sub></b> de ' + pagosc0+ ' y simultáneamente <b>vender</b> a plazo '+t1+'M ' +amount1+ 'unidades de divisa extranjera que genera un <b>DC<sub>€'+t1+'</sub></b> de ' +cobrasc2+' que equivalen a ' +cobrasc0+ '€ hoy. El resultado neto de ambas operaciones es un <b>DC<sub>€0 de '+netosc0+ '.';
+				} else if((netosc0<0)&&(netosi0>=0)){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura con el <b>sintético</b>.<br>Para reajustar la cobertura es necesario <b>pedir un préstamo</b> hoy por' +prestamo+ ' unidades de divisa extranjera a devolver en plazo '+t1+'M, lo que genera una <b>OP<sub>DE'+t1+'M</sub></b> equivalente al DC que tenemos en ese plazo. El principal del préstamo se utiliza para atender la OP<sub>DE0</sub>, resultando un excedente de ' +difsi0+ 'que se vende al contado, generando un DC<sub>€0</sub> de '+netosi0+'.';
+				} else if((netosc0<0)&&(netosi0<0)){
+					if(netosc0>netosi0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera una OP<sub>€0</sub> de ' + -netosc0 +'<br>El reajuste con el sintético genera una OP<sub>€0</sub> de ' +-netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura en el <b>mercado de divisas</b>.<br>Para reajustar la cobertura es necesario <b>comprar</b> hoy ' +amount2+ ' unidades de divisa extranjera que genera una <b>OP<sub>€0</sub></b> de ' + pagosc0+ ' y simultáneamente <b>vender</b> a plazo '+t1+'M ' +amount1+ 'unidades de divisa extranjera que genera un <b>DC<sub>€'+t1+'</sub></b> de ' +cobrasc2+' que equivalen a ' +cobrasc0+ '€ hoy. El resultado neto de ambas operaciones es una <b>OP<sub>€0 de '+-netosc0+ '.';
+					} else if (netosc0<netosi0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera una OP<sub>€0</sub> de ' + -netosc0 +'<br>El reajuste con el sintético genera una OP<sub>€0</sub> de ' +-netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura con el <b>sintético</b>.<br>Para reajustar la cobertura es necesario <b>pedir un préstamo</b> hoy por' +prestamo+ ' unidades de divisa extranjera a devolver en plazo '+t1+'M, lo que genera una <b>OP<sub>DE'+t1+'M</sub></b> equivalente al DC que tenemos en ese plazo. El principal del préstamo no es suficiente para atender la OP<sub>DE0</sub>, resultando un deficit de ' +-difsi0+ 'que se compra al contado, generando una OP<sub>€0</sub> de '+-netosi0+'.';
+					} else if (netosc0==netosi0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera una OP<sub>€0</sub> de ' + -netosc0 +'<br>El reajuste con el sintético genera una OP<sub>€0</sub> de ' +-netosi0+ '<br> Por tanto es <b>indiferente</b> realizar el reajuste de la cobertura en el <b>mercado de divisas</b> o con el <b>sintético</b>.';
+					}
+				}
+			//Cierre mejor cuadrar t1 y apertura mejor cuadrar t2
+			} else if (mejor==2){
+				if((netosc0>=0)&&(netosi0>=0)){var mejorsc0=(netosc0-netosi0).toFixed(2);
+					if(mejorsc0>0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura en el <b>mercado de divisas</b>.<br>Para reajustar la cobertura es necesario <b>comprar</b> hoy ' +amount2+ ' unidades de divisa extranjera que genera una <b>OP<sub>€0</sub></b> de ' + pagosc0+ ' y simultáneamente <b>vender</b> a plazo '+t1+'M ' +amount1+ 'unidades de divisa extranjera que genera un <b>DC<sub>€'+t1+'</sub></b> de ' +cobrasc2+' que equivalen a ' +cobrasc0+ '€ hoy. El resultado neto de ambas operaciones es un <b>DC<sub>€0 de '+netosc0+ '.';
+					} else if (mejorsc0<0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura con el <b>sintético</b>.<br>Para reajustar la cobertura es necesario <b>pedir un préstamo</b> hoy a devolver en ' +t1+' para atender la OP en divisa extranjera que tenemos. El préstamo genera una OP<sub>DE' +t1+ 'M</sub> de '+pagosit1+' unidades de divisa extranjera que atenderemos con el DC que tenemos en ese plazo, resultando un excedente de ' +diferencia+ 'que se vende a plazo ' +t1+'M, generando un DC<sub>€' +t1+'M</sub> de '+netosi1+' que equivale a un DC<sub>€0</sub> de '+netosi0+'.';
+					} else {document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>indiferente</b> realizar el reajuste de la cobertura en el <b>mercado de divisas</b> o con el <b>sintético</b>.';
+					}
+				} else if((netosc0>=0)&&(netosi0<0)){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura en el <b>mercado de divisas</b>.<br>Para reajustar la cobertura es necesario <b>comprar</b> hoy ' +amount2+ ' unidades de divisa extranjera que genera una <b>OP<sub>€0</sub></b> de ' + pagosc0+ ' y simultáneamente <b>vender</b> a plazo '+t1+'M ' +amount1+ 'unidades de divisa extranjera que genera un <b>DC<sub>€'+t1+'</sub></b> de ' +cobrasc2+' que equivalen a ' +cobrasc0+ '€ hoy. El resultado neto de ambas operaciones es un <b>DC<sub>€0 de '+netosc0+ '.';
+				} else if((netosc0<0)&&(netosi0>=0)){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura con el <b>sintético</b>.<br>Para reajustar la cobertura es necesario <b>pedir un préstamo</b> hoy a devolver en ' +t1+' para atender la OP en divisa extranjera que tenemos. El préstamo genera una OP<sub>DE' +t1+ 'M</sub> de '+pagosit1+' unidades de divisa extranjera que atenderemos con el DC que tenemos en ese plazo, resultando un excedente de ' +diferencia+ 'que se vende a plazo ' +t1+'M, generando un DC<sub>€' +t1+'M</sub> de '+netosi1+' que equivale a un DC<sub>€0</sub> de '+netosi0+'.';
+				} else if((netosc0<0)&&(netosi0<0)){
+					if(netosc0>netosi0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera una OP<sub>€0</sub> de ' + -netosc0 +'<br>El reajuste con el sintético genera una OP<sub>€0</sub> de ' +-netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura en el <b>mercado de divisas</b>.<br>Para reajustar la cobertura es necesario <b>comprar</b> hoy ' +amount2+ ' unidades de divisa extranjera que genera una <b>OP<sub>€0</sub></b> de ' + pagosc0+ ' y simultáneamente <b>vender</b> a plazo '+t1+'M ' +amount1+ 'unidades de divisa extranjera que genera un <b>DC<sub>€'+t1+'</sub></b> de ' +cobrasc2+' que equivalen a ' +cobrasc0+ '€ hoy. El resultado neto de ambas operaciones es una <b>OP<sub>€0 de '+-netosc0+ '.';
+					} else if (netosc0<netosi0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera una OP<sub>€0</sub> de ' + -netosc0 +'<br>El reajuste con el sintético genera una OP<sub>€0</sub> de ' +-netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura con el <b>sintético</b>.<br>Para reajustar la cobertura es necesario <b>pedir un préstamo</b> hoy a devolver en ' +t1+' para atender la OP en divisa extranjera que tenemos. El préstamo genera una OP<sub>DE' +t1+ 'M</sub> de '+pagosit1+' unidades de divisa extranjera que es mayor que el DC que tenemos en ese plazo, resultando un deficit de ' +-diferencia+ 'que se compra a plazo ' +t1+'M, generando una OP<sub>€' +t1+'M</sub> de '+-netosi1+' que equivale a una OP<sub>€0</sub> de '+-netosi0+'.';
+					} else if (netosc0==netosi0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera una OP<sub>€0</sub> de ' + -netosc0 +'<br>El reajuste con el sintético genera una OP<sub>€0</sub> de ' +-netosi0+ '<br> Por tanto es <b>indiferente</b> realizar el reajuste de la cobertura en el <b>mercado de divisas</b> o con el <b>sintético</b>.';
+					}
+				}				
+			}
+		//Cierre t2 hoy y apertura t1 y t2 !=0
+		} else if ((t2.length>0) && (t1.length>0) && (SABv.length>0)  && (SABc.length>0) && (FABc2.length>0) && (FABv2.length>0)  && (FABc1.length>0) && (FABv1.length>0) && (rBd2.length>0) && (rBa2.length>0) && (rBd1.length>0) && (rBa1.length>0) && (rAd1.length>0) && (rAa2.length>0) && (amount1.length>0) && (amount2.length>0) ){
+			var cobrasc1=(amount1/FABv1).toFixed(2);
+			var cobrasc0=(cobrasc1/(1+(rBd1/100)*(t1/12))).toFixed(2);
+			var pagosc2=(amount2/FABc2).toFixed(2);
+			var pagosc0=(pagosc2/(1+(rBa2/100)*(t2/12))).toFixed(2);
+			var netosc0=(cobrasc0-pagosc0).toFixed(2);
+			//Cuadrar t1
+			var prestamo1=(amount1/(1+(rAa1/100)*(t1/12))).toFixed(2);
+			var cobrosi2t1=(prestamo1*(1+(rAd2/100)*(t2/12))).toFixed(2);
+			var diferencia2t1=(cobrosi2t1-amount2).toFixed(2);
+			if (diferencia2t1>0){var netosi2t1=(diferencia2t1/FABv2).toFixed(2);
+					var netosi0t1=(netosi2t1/(1+(rBd2/100)*(t2/12))).toFixed(2);
+			} else {var netosi2t1=(diferencia2t1/FABc2).toFixed(2);
+					var netosi0t1=(netosi2t1/(1+(rBa2/100)*(t2/12))).toFixed(2);
+			}
+			//Cuadrar t2
+			var inversion2=(amount2/(1+(rAd2/100)*(t2/12))).toFixed(2);
+			var pagosi1t2=(inversion2*(1+(rAa1/100)*(t1/12))).toFixed(2);
+			var diferencia1t2=(amount1-pagosi1t2).toFixed(2);
+			if (diferencia1t2>0){var netosi1t2=(diferencia1t2/FABv1).toFixed(2);
+					var netosi0t2=(netosi1t2/(1+(rBd1/100)*(t1/12))).toFixed(2);
+			} else {var netosi1t2=(diferencia1t2/FABc1).toFixed(2);
+					var netosi0t2=(netosi1t2/(1+(rBa1/100)*(t1/12))).toFixed(2);
+			}		
+			//Cuadrar ambos plazos
+			var diferencia0=(inversion2-prestamo1).toFixed(2);
+			if (diferencia0>0){var netosi0t1t2=(diferencia0/SABv).toFixed(2);
+			} else {var netosi0t1t2=(diferencia0/SABc).toFixed(2);
+			}
+			//Comprobar que sintetico es mejor cuadrar t1, cuadrar t2 o cuadrar ambos
+			if ((netosi0t1>netosi0t2)||(netosi0t1>netosi0t1t2)){var mejor=1; var netosi0=netosi0t1;} else if ((netosi0t2>netosi0t1) || (netosi0t2>netosi0t1t2)){var mejor=2; var netosi0=netosi0t2;} else {var mejor=3; var netosi0=netosi0t1t2;}
+			//Si es mejor cuadrar t1
+			if (mejor==1){
+				if((netosc0>=0)&&(netosi0>=0)){var mejorsc0=(netosc0-netosi0).toFixed(2);
+					if(mejorsc0>0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura en el <b>mercado de divisas</b>.<br>Para reajustar la cobertura es necesario <b>vender</b> a plazo ' +t1+ ' ' +amount1+ ' unidades de divisa extranjera que genera un <b>DC<sub>€' +t1+ '</sub></b> de ' + cobrasc1+ ' (equivalente a un DC<sub>€0</sub> de' +cobrasc0+ ') y simultáneamente <b>comprar</b> a plazo '+t2+'M ' +amount2+ 'unidades de divisa extranjera que genera una <b>OP<sub>€'+t2+'</sub></b> de ' +pagosc2+' que equivalen a ' +pagosc0+ '€ hoy. El resultado neto de ambas operaciones es un <b>DC<sub>€0 de '+netosc0+ '.';
+					} else if (mejorsc0<0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura con el <b>sintético</b> (<i>cuadrar plazo ' +t1+ 'M</i>).<br>Para reajustar la cobertura es necesario <b>pedir un préstamo</b> hoy por' +prestamo1+ ' unidades de divisa extranjera a devolver dentro de '+t1+'M, que genera una <b>OP<sub>DE'+t1+'M</sub></b> equivalente al DC que tenemos en ese plazo. El principal del préstamo se invierte hasta ' + t2+ 'M, generando un DC<sub>DE'+t2+'M</sub> con la que atendemos la OP que tenemos en ese plazo y generando un excedente de ' +diferencia2t1+ 'que se vende a plazos, generando un DC<sub>€' +t2+'</sub> de '+netosi2t1+' que equivale a ' +netosi0+ '€ hoy.';
+					} else {document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>indiferente</b> realizar el reajuste de la cobertura en el <b>mercado de divisas</b> o con el <b>sintético</b>.';
+					}
+				} else if((netosc0>=0)&&(netosi0<0)){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura en el <b>mercado de divisas</b>.<br>Para reajustar la cobertura es necesario <b>vender</b> a plazo ' +t1+ ' ' +amount1+ ' unidades de divisa extranjera que genera un <b>DC<sub>€' +t1+ '</sub></b> de ' + cobrasc1+ ' (equivalente a un DC<sub>€0</sub> de' +cobrasc0+ ') y simultáneamente <b>comprar</b> a plazo '+t2+'M ' +amount2+ 'unidades de divisa extranjera que genera una <b>OP<sub>€'+t2+'</sub></b> de ' +pagosc2+' que equivalen a ' +pagosc0+ '€ hoy. El resultado neto de ambas operaciones es un <b>DC<sub>€0 de '+netosc0+ '.';
+				} else if((netosc0<0)&&(netosi0>=0)){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura con el <b>sintético</b> (<i>cuadrar plazo ' +t1+ 'M</i>).<br>Para reajustar la cobertura es necesario <b>pedir un préstamo</b> hoy por' +prestamo1+ ' unidades de divisa extranjera a devolver dentro de '+t1+'M, que genera una <b>OP<sub>DE'+t1+'M</sub></b> equivalente al DC que tenemos en ese plazo. El principal del préstamo se invierte hasta ' + t2+ 'M, generando un DC<sub>DE'+t2+'M</sub> con la que atendemos la OP que tenemos en ese plazo y generando un excedente de ' +diferencia2t1+ 'que se vende a plazos, generando un DC<sub>€' +t2+'</sub> de '+netosi2t1+' que equivale a ' +netosi0+ '€ hoy.';
+				} else if((netosc0<0)&&(netosi0<0)){
+					if(netosc0>netosi0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera una OP<sub>€0</sub> de ' + -netosc0 +'<br>El reajuste con el sintético genera una OP<sub>€0</sub> de ' +-netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura en el <b>mercado de divisas</b>.<br>Para reajustar la cobertura es necesario <b>vender</b> a plazo ' +t1+ ' ' +amount1+ ' unidades de divisa extranjera que genera un <b>DC<sub>€' +t1+ '</sub></b> de ' + cobrasc1+ ' (equivalente a un DC<sub>€0</sub> de' +cobrasc0+ ') y simultáneamente <b>comprar</b> a plazo '+t2+'M ' +amount2+ 'unidades de divisa extranjera que genera una <b>OP<sub>€'+t2+'</sub></b> de ' +pagosc2+' que equivalen a ' +pagosc0+ '€ hoy. El resultado neto de ambas operaciones es una <b>OPC<sub>€0 de '+-netosc0+ '.';
+					} else if (netosc0<netosi0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera una OP<sub>€0</sub> de ' + -netosc0 +'<br>El reajuste con el sintético genera una OP<sub>€0</sub> de ' +-netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura con el <b>sintético</b> (<i>cuadrar plazo ' +t1+ 'M</i>).<br>Para reajustar la cobertura es necesario <b>pedir un préstamo</b> hoy por' +prestamo1+ ' unidades de divisa extranjera a devolver dentro de '+t1+'M, que genera una <b>OP<sub>DE'+t1+'M</sub></b> equivalente al DC que tenemos en ese plazo. El principal del préstamo se invierte hasta ' + t2+ 'M, generando un DC<sub>DE'+t2+'M</sub> que es insuficiente para atender la OP que tenemos en ese plazo, resultando un deficit de ' +-diferencia2t1+ 'que se compra a plazos, generando una OP<sub>€' +t2+'</sub> de '+-netosi2t1+' que equivale a ' +-netosi0+ '€ hoy.';
+					} else if (netosc0==netosi0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera una OP<sub>€0</sub> de ' + -netosc0 +'<br>El reajuste con el sintético genera una OP<sub>€0</sub> de ' +-netosi0+ '<br> Por tanto es <b>indiferente</b> realizar el reajuste de la cobertura en el <b>mercado de divisas</b> o con el <b>sintético</b>.';
+					}
+				}
+			//Cierre mejor cuadrar t1 y apertura mejor cuadrar t2
+			} else if (mejor==2){
+				if((netosc0>=0)&&(netosi0>=0)){var mejorsc0=(netosc0-netosi0).toFixed(2);
+					if(mejorsc0>0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura en el <b>mercado de divisas</b>.<br>Para reajustar la cobertura es necesario <b>vender</b> a plazo ' +t1+ ' ' +amount1+ ' unidades de divisa extranjera que genera un <b>DC<sub>€' +t1+ '</sub></b> de ' + cobrasc1+ ' (equivalente a un DC<sub>€0</sub> de' +cobrasc0+ ') y simultáneamente <b>comprar</b> a plazo '+t2+'M ' +amount2+ 'unidades de divisa extranjera que genera una <b>OP<sub>€'+t2+'</sub></b> de ' +pagosc2+' que equivalen a ' +pagosc0+ '€ hoy. El resultado neto de ambas operaciones es un <b>DC<sub>€0 de '+netosc0+ '.';
+					} else if (mejorsc0<0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura con el <b>sintético</b> (<i>cuadrar plazo ' +t2+ 'M</i>).<br>Para reajustar la cobertura es necesario <b>pedir un préstamo</b> hoy por' +inversion2+ ' unidades de divisa extranjera a devolver dentro de '+t1+'M, que genera una <b>OP<sub>DE'+t1+'M</sub></b> de '+pagosi1t2+' que atenderemos con el DC que tenemos en ese plazo, resultando en un excedente de ' +diferencia1t2+' unidades de divisa extranjera que se venden a plazo ' +t1+ 'M, generando un DC<sub>€'+t1+'M</sub> de ' +netosi1t2+' que equivale a DC<sub>€0</sub> de '+netosi0+'.<br>El principal del préstamo se invierte hasta ' + t2+ 'M, generando un DC<sub>DE'+t2+'M</sub> equivalente a la OP que tenemos en ese plazo.'; 
+					} else {document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>indiferente</b> realizar el reajuste de la cobertura en el <b>mercado de divisas</b> o con el <b>sintético</b>.';
+					}
+				} else if((netosc0>=0)&&(netosi0<0)){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura en el <b>mercado de divisas</b>.<br>Para reajustar la cobertura es necesario <b>vender</b> a plazo ' +t1+ ' ' +amount1+ ' unidades de divisa extranjera que genera un <b>DC<sub>€' +t1+ '</sub></b> de ' + cobrasc1+ ' (equivalente a un DC<sub>€0</sub> de' +cobrasc0+ ') y simultáneamente <b>comprar</b> a plazo '+t2+'M ' +amount2+ 'unidades de divisa extranjera que genera una <b>OP<sub>€'+t2+'</sub></b> de ' +pagosc2+' que equivalen a ' +pagosc0+ '€ hoy. El resultado neto de ambas operaciones es un <b>DC<sub>€0 de '+netosc0+ '.';
+				} else if((netosc0<0)&&(netosi0>=0)){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura con el <b>sintético</b> (<i>cuadrar plazo ' +t2+ 'M</i>).<br>Para reajustar la cobertura es necesario <b>pedir un préstamo</b> hoy por' +inversion2+ ' unidades de divisa extranjera a devolver dentro de '+t1+'M, que genera una <b>OP<sub>DE'+t1+'M</sub></b> de '+pagosi1t2+' que atenderemos con el DC que tenemos en ese plazo, resultando en un excedente de ' +diferencia1t2+' unidades de divisa extranjera que se venden a plazo ' +t1+ 'M, generando un DC<sub>€'+t1+'M</sub> de ' +netosi1t2+' que equivale a DC<sub>€0</sub> de '+netosi0+'.<br>El principal del préstamo se invierte hasta ' + t2+ 'M, generando un DC<sub>DE'+t2+'M</sub> equivalente a la OP que tenemos en ese plazo.';
+				} else if((netosc0<0)&&(netosi0<0)){
+					if(netosc0>netosi0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera una OP<sub>€0</sub> de ' + -netosc0 +'<br>El reajuste con el sintético genera una OP<sub>€0</sub> de ' +-netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura en el <b>mercado de divisas</b>.<br>Para reajustar la cobertura es necesario <b>vender</b> a plazo ' +t1+ ' ' +amount1+ ' unidades de divisa extranjera que genera un <b>DC<sub>€' +t1+ '</sub></b> de ' + cobrasc1+ ' (equivalente a un DC<sub>€0</sub> de' +cobrasc0+ ') y simultáneamente <b>comprar</b> a plazo '+t2+'M ' +amount2+ 'unidades de divisa extranjera que genera una <b>OP<sub>€'+t2+'</sub></b> de ' +pagosc2+' que equivalen a ' +pagosc0+ '€ hoy. El resultado neto de ambas operaciones es una <b>OP<sub>€0 de '+-netosc0+ '.';
+					} else if (netosc0<netosi0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera una OP<sub>€0</sub> de ' + -netosc0 +'<br>El reajuste con el sintético genera una OP<sub>€0</sub> de ' +-netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura con el <b>sintético</b> (<i>cuadrar plazo ' +t2+ 'M</i>).<br>Para reajustar la cobertura es necesario <b>pedir un préstamo</b> hoy por' +inversion2+ ' unidades de divisa extranjera a devolver dentro de '+t1+'M, que genera una <b>OP<sub>DE'+t1+'M</sub></b> de '+pagosi1t2+' que no podremos atender con el DC que tenemos en ese plazo, resultando en un deficit de ' +-diferencia1t2+' unidades de divisa extranjera que se compran a plazo ' +t1+ 'M, generando una OP<sub>€'+t1+'M</sub> de ' +-netosi1t2+' que equivale a una OP<sub>€0</sub> de '+-netosi0+'.<br>El principal del préstamo se invierte hasta ' + t2+ 'M, generando un DC<sub>DE'+t2+'M</sub> equivalente a la OP que tenemos en ese plazo.';
+					} else if (netosc0==netosi0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera una OP<sub>€0</sub> de ' + -netosc0 +'<br>El reajuste con el sintético genera una OP<sub>€0</sub> de ' +-netosi0+ '<br> Por tanto es <b>indiferente</b> realizar el reajuste de la cobertura en el <b>mercado de divisas</b> o con el <b>sintético</b>.';
+					}
+				}
+			//Cierre mejor cuadrar t2 y apertura mejor cuadrar ambos
+			} else if (mejor==3){
+				if((netosc0>=0)&&(netosi0>=0)){var mejorsc0=(netosc0-netosi0).toFixed(2);
+					if(mejorsc0>0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura en el <b>mercado de divisas</b>.<br>Para reajustar la cobertura es necesario <b>vender</b> a plazo ' +t1+ ' ' +amount1+ ' unidades de divisa extranjera que genera un <b>DC<sub>€' +t1+ '</sub></b> de ' + cobrasc1+ ' (equivalente a un DC<sub>€0</sub> de' +cobrasc0+ ') y simultáneamente <b>comprar</b> a plazo '+t2+'M ' +amount2+ 'unidades de divisa extranjera que genera una <b>OP<sub>€'+t2+'</sub></b> de ' +pagosc2+' que equivalen a ' +pagosc0+ '€ hoy. El resultado neto de ambas operaciones es un <b>DC<sub>€0 de '+netosc0+ '.';
+					} else if (mejorsc0<0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura con el <b>sintético</b> (<i>cuadrar ambos plazos</i>).<br>Para reajustar la cobertura es necesario <b>pedir un préstamo</b> hoy por' +inversion2+ ' unidades de divisa extranjera a devolver dentro de '+t1+'M, que genera una <b>OP<sub>DE'+t1+'M</sub></b> que coincide con el DC que ya tenemos en ese plazo y simultáneamente invertir '+prestamo1+ ' a plazo ' + t2+ 'M generando un DC<sub>DE' +t2+'</sub> que equivale a la OP que ya tenemos en ese plazo, ambas operaciones genera un excedente hoy de ' + diferencia0+ 'unidades de divisa extranjera que se vende al contado obteniendo un DC</sub>€0</sub> de ' +netosi0+ '.'; 
+					} else {document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>indiferente</b> realizar el reajuste de la cobertura en el <b>mercado de divisas</b> o con el <b>sintético</b>.';
+					}
+				} else if((netosc0>=0)&&(netosi0<0)){document.getElementById('result6').innerHTML =  '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura en el <b>mercado de divisas</b>.<br>Para reajustar la cobertura es necesario <b>vender</b> a plazo ' +t1+ ' ' +amount1+ ' unidades de divisa extranjera que genera un <b>DC<sub>€' +t1+ '</sub></b> de ' + cobrasc1+ ' (equivalente a un DC<sub>€0</sub> de' +cobrasc0+ ') y simultáneamente <b>comprar</b> a plazo '+t2+'M ' +amount2+ 'unidades de divisa extranjera que genera una <b>OP<sub>€'+t2+'</sub></b> de ' +pagosc2+' que equivalen a ' +pagosc0+ '€ hoy. El resultado neto de ambas operaciones es un <b>DC<sub>€0 de '+netosc0+ '.';
+				} else if((netosc0<0)&&(netosi0>=0)){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera un DC<sub>€0</sub> de ' + netosc0 +'<br>El reajuste con el sintético genera un DC<sub>€0</sub> de ' +netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura con el <b>sintético</b> (<i>cuadrar ambos plazos</i>).<br>Para reajustar la cobertura es necesario <b>pedir un préstamo</b> hoy por' +inversion2+ ' unidades de divisa extranjera a devolver dentro de '+t1+'M, que genera una <b>OP<sub>DE'+t1+'M</sub></b> que coincide con el DC que ya tenemos en ese plazo y simultáneamente invertir '+prestamo1+ ' a plazo ' + t2+ 'M generando un DC<sub>DE' +t2+'</sub> que equivale a la OP que ya tenemos en ese plazo, ambas operaciones genera un excedente hoy de ' + diferencia0+ 'unidades de divisa extranjera que se vende al contado obteniendo un DC</sub>€0</sub> de ' +netosi0+ '.';
+				} else if((netosc0<0)&&(netosi0<0)){
+					if(netosc0>netosi0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera una OP<sub>€0</sub> de ' + -netosc0 +'<br>El reajuste con el sintético genera una OP<sub>€0</sub> de ' +-netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura en el <b>mercado de divisas</b>.<br>>Para reajustar la cobertura es necesario <b>vender</b> a plazo ' +t1+ ' ' +amount1+ ' unidades de divisa extranjera que genera un <b>DC<sub>€' +t1+ '</sub></b> de ' + cobrasc1+ ' (equivalente a un DC<sub>€0</sub> de' +cobrasc0+ ') y simultáneamente <b>comprar</b> a plazo '+t2+'M ' +amount2+ 'unidades de divisa extranjera que genera una <b>OP<sub>€'+t2+'</sub></b> de ' +pagosc2+' que equivalen a ' +pagosc0+ '€ hoy. El resultado neto de ambas operaciones es una <b>OP<sub>€0 de '+-netosc0+ '.';
+					} else if (netosc0<netosi0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera una OP<sub>€0</sub> de ' + -netosc0 +'<br>El reajuste con el sintético genera una OP<sub>€0</sub> de ' +-netosi0+ '<br> Por tanto es <b>mejor</b> el reajuste de la cobertura con el <b>sintético</b> (<i>cuadrar ambos plazos</i>).<br>Para reajustar la cobertura es necesario <b>pedir un préstamo</b> hoy por' +inversion2+ ' unidades de divisa extranjera a devolver dentro de '+t1+'M, que genera una <b>OP<sub>DE'+t1+'M</sub></b> que coincide con el DC que ya tenemos en ese plazo y simultáneamente invertir '+prestamo1+ ' a plazo ' + t2+ 'M generando un DC<sub>DE' +t2+'</sub> que equivale a la OP que ya tenemos en ese plazo, ambas operaciones genera un deficit hoy de ' + -diferencia0+ 'unidades de divisa extranjera que se compra al contado generando una OP</sub>€0</sub> de ' +-netosi0+ '.';
+					} else if (netosc0==netosi0){document.getElementById('result6').innerHTML = '<p>El reajuste en el mercado de divisas genera una OP<sub>€0</sub> de ' + -netosc0 +'<br>El reajuste con el sintético genera una OP<sub>€0</sub> de ' +-netosi0+ '<br> Por tanto es <b>indiferente</b> realizar el reajuste de la cobertura en el <b>mercado de divisas</b> o con el <b>sintético</b>.';
+					}
+				}
+			}			
+		}
+	//Cierre cambia plazo
+	}	
+//Cierre de OP	
+} else {document.getElementById('result6').innerHTML = 'Por favor, determine si está modificando la cobertura de un DC o de una OP';
+}
+//Cierre de función
+}
+
+function myFormResetrcob()
+{
+document.getElementById('help6').innerHTML ='';
+document.getElementById('result6').innerHTML = '';
+document.inputrcob.SABc.value = null;
+document.inputrcob.SABv.value = null;
+document.inputrcob.FABc1.value = null;
+document.inputrcob.FABv1.value = null;
+document.inputrcob.FABc2.value = null;
+document.inputrcob.FABv2.value = null;
+document.inputrcob.rBd1.value = null;
+document.inputrcob.rBa1.value = null;
+document.inputrcob.rAd1.value = null;
+document.inputrcob.rAa1.value = null;
+document.inputrcob.rBd2.value = null;
+document.inputrcob.rBa2.value = null;
+document.inputrcob.rAd2.value = null;
+document.inputrcob.rAa2.value = null;
+document.inputrcob.t1.value = null;
+document.inputrcob.t2.value = null;
+document.inputrcob.tipo.value = null;
+document.inputrcob.amount1.value = null;
+document.inputrcob.amount2.value = null;
+}
+</script>
+<!-- Calcula swap de divisas -->
+<script>
+function calcswap(inputswap)
+{
+var Fax = document.inputswap.Fax.value;
+var Fbx = document.inputswap.Fbx.value;
+var Fay = document.inputswap.Fay.value;
+var Fby = document.inputswap.Fby.value;
+var Faw0 = document.inputswap.Faw0.value;
+var benx = document.inputswap.benx.value;
+var count = 0;
+document.getElementById('help8').innerHTML ='';  
+// Calcula
+if (Fax.length>0){count=count+1;}
+if (Fay.length>0){count=count+1;}
+if (Fbx.length>0){count=count+1;}
+if (Fby.length>0){count=count+1;}
+if (count!=4){document.getElementById('result8d').innerHTML = 'Tiene que completar al menos <b>todos</b> los datos de la tabla';}
+else {
+	document.getElementById('result8d').innerHTML ='';
+	var difa = parseFloat(Fay)-parseFloat(Fax);
+	var difb = parseFloat(Fby)-parseFloat(Fbx);
+	var beneficio=Math.abs(difa-difb);
+	if (beneficio==0) {document.getElementById('result8d').innerHTML ='Es imposible un acuerdo swap';}
+	if (parseFloat(difa)>parseFloat(difb)){
+		var HTML = '<table class=result><tr><td></td><td>X</td><td>Y</td></tr><tr class=top><td>Paga</td><td>'+Fax+'+FBw</td><td>'+Fby+'+FAw</td></tr><tr class=bottom><td>Cobra</td><td>FAw</td><td>FBw</td></tr></table>';
+		document.getElementById('result8a').innerHTML = HTML +'<br>La empresa X elige financiarse con su banco en divisa A porque es donde tiene ventaja competitiva y la empresa Y elige financiarse con su banco en divisa B';
+		document.getElementById('result8b').innerHTML ='<p>La condición de la empresa X para negociar el swap con Y es: '+Fax+'+FBw-FAw < '+Fbx+'.<br>La condición de la empresa Y para negociar el swap con X es: '+Fby+'+FAw-FBw < '+Fay+'.<br>Por tanto, para que exista swap la relación entre ambos tipos de interés es: '+(Fax-Fbx).toFixed(2)+'< FAw-FBw < ' +(Fay-Fby).toFixed(2)+' cualquier valor de FAw y FBw que cumpla lo anterior genera beneficios (menor coste de financiación) para ambas empresas.<br>El beneficio del swap es ' +beneficio+'.';
+		if (benx.length>0){
+			document.getElementById('result8c').innerHTML ='<p>La empresa X se financia en divisa B, con un coste final de ' +(Fbx-(beneficio*(benx/100))).toFixed(2)+ '%.<br>La empresa Y se financia en divisa A, con un coste final de ' +(Fay-(beneficio*(1-benx/100))).toFixed(2)+ '%.';
+			if (Faw0.length>0){
+				var posicion = ((Fax-Fbx)+beneficio*(benx/100)).toFixed(2);
+				document.getElementById('result8d').innerHTML ='<p>La empresa X acuerda en el swap pagar a la empresa Y ' +(Faw0-posicion).toFixed(2)+ '% (sobre divisa B) y la empresa Y en el swap paga a la empresa X ' +(parseFloat(Faw0)).toFixed(2)+'% (sobre divisa A)';
+			}
+		}
+	} else {
+		var HTML = '<table class=result><tr><td></td><td>X</td><td>Y</td></tr><tr class=top><td>Paga</td><td>'+Fbx+'+FAw</td><td>'+Fay+'+FBw</td></tr><tr class=bottom><td>Cobra</td><td>FBw</td><td>FAw</td></tr></table>';
+		document.getElementById('result8a').innerHTML = HTML +'<br>La empresa X elige financiarse con su banco en divisa B porque es donde tiene ventaja competitiva y la empresa Y elige financiarse con su banco en divisa A';
+		document.getElementById('result8b').innerHTML ='<p>La condición de la empresa X para negociar el swap con Y es: '+Fbx+'+FAw-FBw < '+Fax+'.<br>La condición de la empresa Y para negociar el swap con X es: '+Fay+'+FBw-FAw < '+Fby+'.<br>Por tanto, para que exista swap la relación entre ambos tipos de interés es: '+(Fay-Fby).toFixed(2)+'< FAw-FBw < ' +(Fax-Fbx).toFixed(2)+' cualquier valor de FAw y FBw que cumpla lo anterior genera beneficios (menor coste de financiación) para ambas empresas.<br>El beneficio del swap es ' +beneficio+'.';
+		if (benx.length>0){
+			document.getElementById('result8c').innerHTML ='<p>La empresa X se financia en divisa A, con un coste final de ' +(Fax-(beneficio*(benx/100))).toFixed(2)+ '%.<br>La empresa Y se financia en divisa B, con un coste final de ' +(Fby-(beneficio*(1-benx/100))).toFixed(2)+ '%.';
+			if (Faw0.length>0){
+				var posicion = ((Fax-Fbx)-beneficio*(benx/100)).toFixed(2);
+				document.getElementById('result8d').innerHTML ='<p>La empresa X acuerda en el swap pagar a la empresa Y ' +(parseFloat(Faw0)).toFixed(2)+ '% (sobre divisa A) y la empresa Y en el swap paga a la empresa X ' +(Faw0-posicion).toFixed(2)+ '% (sobre divisa B)';
+			}
+		}
+
+	}
+}
+}
+function myFormResetswap()
+{
+document.getElementById('help8').innerHTML ='';
+document.inputswap.Fax.value = null;
+document.inputswap.Fbx.value = null;
+document.inputswap.Fay.value = null;
+document.inputswap.Fby.value = null;
+document.inputswap.Faw0.value = null;
+document.inputswap.benx.value = null;
+}
+</script>
+<!-- Calcula arbitraje futuros divisas -->
+<script>
+function calcarbfd(inputarbfd)
+{
+var FAB = document.inputarbfd.FAB.value;
+var SAB = document.inputarbfd.SAB.value;
+var ra = document.inputarbfd.ra.value;
+var rb = document.inputarbfd.rb.value;
+var T = document.inputarbfd.T.value;
+var count = 0;
+document.getElementById('help9').innerHTML ='';  
+// Calcula
+if (FAB.length>0){count=count+1;}
+if (SAB.length>0){count=count+1;}
+if (ra.length>0){count=count+1;}
+if (rb.length>0){count=count+1;}
+if (T.length>0){count=count+1;}
+if (count!=5){document.getElementById('result9').innerHTML = 'Tiene que indicar <b>todos</b> los datos.';}
+else {
+	var Ftico = (SAB*((1+((ra/100)*(T/12)))/((1+((ra/100)*(T/12)))))).toFixed(2);
+	if (parseFloat(FAB)<Ftico){
+		var depositoa = (FAB /(1+(ra/100)*(T/12))).toFixed(6);
+		var prestamob = (depositoa / SAB).toFixed(6);
+		var beneficio = (1-prestamob*(1+(rb/100)*(T/12))).toFixed(6);
+		document.getElementById('result9').innerHTML ='<p>El futuro está "barato". Las operaciones de arbitraje a realizar <b>hoy</b> son:<br><ul>Comprar futuro que genera un DC 1 unidad de divisa B y una OP de ' +FAB+' unidades de divisa A al vencimiento</ul><ul>Pedir financiación en divisa B por ' +prestamob+ ' a devolver al vencimiento del futuro</ul><ul>Con este dinero comprar divisa A.</ul><ul>Invertir hasta el vencimiento del futuro la divisa comprada en el punto anterior, generando un DC de ' +FAB+' unidades de A.</ul><p>El resultado neto de todas estas operaciones es un DC<sub>B,'+T+'M</sub> de ' +beneficio;
+	} else if (parseFloat(FAB)>Ftico){
+		var prestamoa = (FAB /(1+(ra/100)*(T/12))).toFixed(6);
+		var depositob = (prestamoa / SAB).toFixed(6);
+		var beneficio = (depositob*(1+(rb/100)*(T/12))-1).toFixed(6);
+		document.getElementById('result9').innerHTML ='<p>El futuro está "caro". Las operaciones de arbitraje a realizar <b>hoy</b> son:<br><ul>Vender futuro que genera una OP de 1 unidad de divisa B y un DC de ' +FAB+' unidades de divisa A al vencimiento</ul><ul>Pedir financiación en divisa A por ' +prestamoa+ ' a devolver al vencimiento del futuro</ul><ul>Con este dinero comprar divisa B.</ul><ul>Invertir hasta el vencimiento del futuro la divisa comprada en el punto anterior, generando un DC de ' +depositob+' unidades de B.</ul><p>El resultado neto de todas estas operaciones es un DC<sub>B,'+T+'M</sub> de ' +beneficio;
+	} else {
+		document.getElementById('result9').innerHTML ='<p>No hay arbitraje';
+	}
+}
+}
+function myFormResetarbfd()
+{
+document.getElementById('help9').innerHTML ='';
+document.getElementById('result9').innerHTML ='';
+document.inputarbfd.FAB.value = null;
+document.inputarbfd.SAB.value = null;
+document.inputarbfd.ra.value = null;
+document.inputarbfd.rb.value = null;
+document.inputarbfd.T.value = null;
+}
+</script>
+<!-- Calcula opciones resultado básico -->
+<script>
+function calcopbasic(inputopbasic)
+{
+var operacion = document.inputopbasic.operacion.value;
+var tipo = document.inputopbasic.tipo.value;
+var prima = document.inputopbasic.prima.value;
+var K = document.inputopbasic.K.value;
+var ST = document.inputopbasic.ST.value;
+var count = 0;
+document.getElementById('help11').innerHTML = '';  
+// Calcula
+if (operacion.length>0){count=count+1;}
+if (tipo.length>0){count=count+1;}
+if (prima.length>0){count=count+1;}
+if (K.length>0){count=count+1;}
+if (ST.length>0){count=count+1;}
+
+if (count!=5){document.getElementById('result11').innerHTML = 'Tiene que indicar <b>todos</b> los datos.';}
+else {
+	if (tipo=="Call"){
+		var breakeven = (parseFloat(K)+parseFloat(prima)).toFixed(2);
+		var rbruto = Math.max(0,(parseFloat(ST)-parseFloat(K)));
+		if (operacion=="C"){
+			document.getElementById('result11').innerHTML = '<p>El resultado neto de la compra de call es ' + (rbruto-parseFloat(prima)).toFixed(2)+ '<br>El <i>breakeven</i> es ' +breakeven+ ' [precios del subyacente al vencimiento (S<sub>T</sub>) por encima de este valor generan beneficios]';
+		} else {
+			document.getElementById('result11').innerHTML = '<p>El resultado neto de la venta de call es ' + (-rbruto+parseFloat(prima)).toFixed(2)+ '<br>El <i>breakeven</i> es ' +breakeven+ ' [precios del subyacente al vencimiento (S<sub>T</sub>) por debajo de este valor generan beneficios]';
+		}
+	} else {
+		var breakeven = (parseFloat(K)-parseFloat(prima)).toFixed(2);
+		var rbruto = Math.max(0,(parseFloat(K)-parseFloat(ST)));
+		if (operacion=="C"){
+			document.getElementById('result11').innerHTML = '<p>El resultado neto de la compra de put es ' + (rbruto-parseFloat(prima)).toFixed(2)+ '<br>El <i>breakeven</i> es ' +breakeven+ ' [precios del subyacente al vencimiento (S<sub>T</sub>) por debajo de este valor generan beneficios]';
+		} else {
+			document.getElementById('result11').innerHTML = '<p>El resultado neto de la venta de call es ' + (-rbruto+parseFloat(prima)).toFixed(2)+ '<br>El <i>breakeven</i> es ' +breakeven+ ' [precios del subyacente al vencimiento (S<sub>T</sub>) por encima de este valor generan beneficios]';
+		}
+
+	}
+}
+}
+
+function myFormResetopbasic()
+{
+document.getElementById('help11').innerHTML ='';
+document.getElementById('result11').innerHTML ='';
+document.inputopbasic.operacion.value = null;
+document.inputopbasic.tipo.value = null;
+document.inputopbasic.prima.value = null;
+document.inputopbasic.K.value = null;
+document.inputopbasic.ST.value = null;
+}
+</script>
+<!-- Calcula opciones binomial -->
+<script>
+function calcopbin(inputopbin)
+{
+var pasos = document.inputopbin.pasos.value;
+var K = document.inputopbin.K.value;
+var S0 = document.inputopbin.S0.value;
+var T = document.inputopbin.T.value;
+var r = document.inputopbin.r.value;
+var u = document.inputopbin.u.value;
+var d = document.inputopbin.d.value;
+var count = 0;
+document.getElementById('help12').innerHTML = '';
+// Calcula
+if (pasos.length>0){count=count+1;}
+if (K.length>0){count=count+1;}
+if (S0.length>0){count=count+1;}
+if (T.length>0){count=count+1;}
+if (r.length>0){count=count+1;}
+if (u.length>0){count=count+1;}
+if (d.length>0){count=count+1;}
+if (count!=7){document.getElementById('result12').innerHTML = 'Tiene que indicar <b>todos</b> los datos.';}
+else if (u>1 && d<1 && d>0) {
+	if (pasos=="1"){
+		var Su = (S0*u).toFixed(4);
+		var Sd = (S0*d).toFixed(4);
+		var Cu = Math.max(0,(Su-K));
+		var Cd = Math.max(0,(Sd-K));
+		var Pu = Math.max(0,(K-Su));
+		var Pd = Math.max(0,(K-Sd));
+		var p = (1+((r/100)*(T/12))-d)/(parseFloat(u)-parseFloat(d));
+		if (p>1){document.getElementById('result12').innerHTML = '<p>Revise u y/o d y/o r.';}
+		else{
+			var call = ((Cu*p+Cd*(1-p))/(1+(r/100)*(T/12))).toFixed(4);
+			var put = ((Pu*p+Pd*(1-p))/(1+(r/100)*(T/12))).toFixed(4);
+			document.getElementById('result12').innerHTML = '<p>El valor de la call hoy es ' +call+'.<br>El valor de la put hoy es '+put;
+		}	
+	} else {
+		var Suu = (S0*u*u).toFixed(4);
+		var Sud = (S0*d*u).toFixed(4);
+		var Sdd = (S0*d*d).toFixed(4);
+		var Cuu = Math.max(0,Suu-K);
+		var Cud = Math.max(0,Sud-K);
+		var Cdd = Math.max(0,Sdd-K);
+		var Puu = Math.max(0,K-Suu);
+		var Pud = Math.max(0,K-Sud);
+		var Pdd = Math.max(0,K-Sdd);
+		var p = (1+((r/100)*(T/24))-d)/(parseFloat(u)-parseFloat(d));
+		if (p>1){document.getElementById('result12').innerHTML = '<p>Revise u y/o d y/o r.';}
+		else{
+			var Cu = ((Cuu*p+Cud*(1-p))/(1+(r/100)*(T/24))).toFixed(4);
+			var Cd = ((Cud*p+Cdd*(1-p))/(1+(r/100)*(T/24))).toFixed(4);
+			var call = ((Cu*p+Cd*(1-p))/(1+(r/100)*(T/24))).toFixed(4);
+			var Pu = ((Puu*p+Pud*(1-p))/(1+(r/100)*(T/24))).toFixed(4);
+			var Pd = ((Pud*p+Pdd*(1-p))/(1+(r/100)*(T/24))).toFixed(4);
+			var put = ((Pu*p+Pd*(1-p))/(1+(r/100)*(T/24))).toFixed(4);
+			document.getElementById('result12').innerHTML = '<p>El valor de la call hoy es ' +call+'.<br>El valor de la put hoy es '+put;
+		}
+	}	 
+} else {document.getElementById('result12').innerHTML = 'Revise los datos de u (u>1) y/o d (0<d<1)';}
+}
+
+function myFormResetopbin()
+{
+document.getElementById('help12').innerHTML ='';
+document.getElementById('result12').innerHTML ='';
+document.inputopbin.pasos.value = null;
+document.inputopbin.K.value = null;
+document.inputopbin.S0.value = null;
+document.inputopbin.u.value = null;
+document.inputopbin.d.value = null;
+document.inputopbin.T.value = null;
+document.inputopbin.r.value = null;
+}
+</script>
+<script>
+function showdraw()
+{
+	document.getElementById('chart_div').style.display = 'block';
+}
+</script>
+
+</head>
+  <body>  
+    <div id="afui">
+      <div id="content" style="">
+      	<div class="panel" title="Finanzas Internacionales" id="menu" data-footer="none" selected="True">
+  			<header>
+            <h1>Finanzas Internacionales</h1>
+          	</header>
+          	<br>
+          	<ul class="list inset">
+			<li><a class="icon folder" href="#menusolt2">Divisas</a></li>           
+			<li><a class="icon folder" href="#menusolt3">Derivados</a></li>
+           	<li class="divider"></li>
+            <li><a class="icon info" href="#itemB">Acerca de</a></li>
+			</ul>
+          
+      	</div>
+        <!--List View Page-->
+		<div class="panel" title="Acerca de" id="itemB" data-footer="none" selected="true">
+          <header>
+            <h1>Acerca de</h1>
+            <a id="backButton" class="button backButton">Atrás</a><a class="button icon home" style="float:right" href="#menu"></a> 
+          </header>
+          <br align="justify">
+          App desarrollada por Sandra Morini para la asignatura Finanzas Internacionales del Grado de Contabilidad y Finanzas de la ULL.
+          <br>Cualquier sugerencia se puede hacer llegar a <a href = "mailto:smorini@ull.edu.es?subject=APP Finanzas Internacionales";>smorini@ull.edu.es</a>
+          <hr>
+          Créditos:
+          Librerias y hojas de estilo: Appframework, jquery, API de Google.<br>
+          Compilación: phonegap.<br> 
+          Gráficas de opciones: código modificado a partir del de Boris Treskunov.<br><hr>
+          Puede encontrar actualizaciones de la app <a onclick="navigator.app.loadUrl('https://google.com/', { openExternal:true });">aquí</a>
+
+        <div class="panel" title="Solver Tema 2" id="menusolt2" data-footer="none" selected="true">
+          <header>
+            <h1>Solver Divisas</h1>
+            <a id="backButton" class="button backButton">Atrás</a><a class="button icon home" style="float:right" href="#menu"></a> 
+          </header>
+          <br>
+          <ul class="list inset">
+			<li><a class="icon target" href="#item2">Tipo comprador-vendedor</a></li>           
+			<li><a class="icon target" href="#item7">Puntos swap</a></li>
+			<li><a class="icon target" href="#item1">Tipos cruzados</a></li>
+           	<li><a class="icon target" href="#item3">Arbitraje Triangular</a></li>
+            <li><a class="icon target" href="#item4">Arbitraje a Plazos (AD / AI)</a></li>
+            <li><a class="icon target" href="#item5">Cobertura con Forward y Sintético</a></li>
+            <li><a class="icon target" href="#item6">Reajuste de cobertura</a></li>
+           </ul>
+        </div>
+        <div class="panel" title="Solver Tema 3" id="menusolt3" data-footer="none" selected="true">
+          <header>
+            <h1>Solver Derivados</h1>
+            <a id="backButton" class="button backButton">Atrás</a><a class="button icon home" style="float:right" href="#menu"></a> 
+          </header>
+          <br>
+          <ul class="list inset">
+			<li><a class="icon target" href="#item8">Swaps</a></li>           
+			<li><a class="icon target" href="#item9">Futuros (arbitraje)</a></li>
+			<li><a class="icon target" href="#item11">Opciones (resultado básico)</a></li>
+			<li><a class="icon target" href="#item12">Opciones (binomial)</a></li>
+			<li><a class="icon target" href="#item13">Opciones (gráficas)</a></li>
+			</ul>
+        </div>
+        <!--Detail View Pages for each list items-->
+        
+
+<!-- Para tipo comprador vendedor -->
+
+<div class="panel" title="Tipo comprador-vendedor" id="item2" data-footer="none"><header>
+            <h1>Reciprocidad</h1>
+		            <a id='backButton' class='button backButton'  href="#menusolt2">Atrás</a>
+	                <a class="button icon home" style="float:right" href="#menu"></a>
+	       </header>
+	<p class="block" id="help2"> </p>
+	<p class="block" id="result2"> </p>
+	<FORM NAME="inputrec">
+		<TABLE>
+		<TR><TD>&nbsp;</td><td>C</td><td>V</td></tr>
+		<tr><td>S<sub>AB</sub></td><td><INPUT TYPE="number" NAME="SABc" step=0.01></TD><TD><INPUT TYPE="number" NAME="SABv" step=0.01></TD></TR>
+		</TABLE><p align="center">
+	<INPUT TYPE="button"  VALUE="Calcular" ONCLICK="return calcrec()">
+	<input type="button" onClick="return myFormResetrec()" value="Reiniciar">
+	<input type="button" onClick="showDialog()" value="Instrucciones">
+	</p></FORM>
+</div>
+
+<!-- Para  puntos swap -->
+
+<div class="panel" title="Puntos swap" id="item7" data-footer="none">
+      	<header>
+            <h1>Puntos swap</h1>
+            <a id="backButton" class="button backButton"  href="#menusolt2">Atrás</a><a class="button icon home" style="float:right" href="#menu"></a>
+        </header>
+		<p class="block" id="help7"> </p>
+   		<p class="block" id="result7"> </p>
+		<FORM NAME="inputsw">
+		<TABLE>
+			<TR><TD>&nbsp;</td><td>C</td><td>V</td></tr>
+			<tr><td>S<sub>AB</sub></td><td><INPUT TYPE="number" NAME="SABc" step=0.01></TD><TD><INPUT TYPE="number" NAME="SABv" step=0.01></TD></TR>
+			<tr><td>sw<sub>AB</sub></td><td><INPUT TYPE="number" NAME="swc" step=0.01></TD><TD><INPUT TYPE="number" NAME="swv" step=0.01></TD></TR>
+		</TABLE>
+		<p align="center">
+		<INPUT TYPE="button"  VALUE="Calcular" ONCLICK="return calcsw()">
+		<input type="button" onClick="return myFormResetsw()" value="Reiniciar">
+		<input type="button" onClick="showDialog()" value="Instrucciones">	
+		</p>
+		</FORM>
+</div>
+<!-- Para tipos cruzados -->
+<div class="panel" title="Tipos cruzados" id="item1" data-footer="none">
+	<header>
+        <h1>Tipos cruzados</h1>
+        <a id="backButton" class="button backButton" href="#menusolt2">Atrás</a><a class="button icon home" style="float:right" href="#menu"></a>
+    </header>
+    <p class="block" id="help1"> </p>
+	<p class="block" id="resultado"> </p>
+	<FORM NAME="inputstp">
+		<TABLE>
+			<TR><TD>
+			S<sub>AB</sub> = <INPUT TYPE="number" NAME="SAB" SIZE=3 autofocus step=0.01></TD><TD> 
+			S<sub>AC</sub> = <INPUT TYPE="number" NAME="SAC" SIZE=3 step=0.01></TD><TD> 
+			S<sub>BC</sub> = <INPUT TYPE="number" NAME="SBC" SIZE=3 step=0.01></TD></TR>
+			<TR><TD>
+			S<sub>BA</sub> = <INPUT TYPE="number" NAME="SBA" SIZE=3 step=0.01></TD><TD> 
+			S<sub>CA</sub> = <INPUT TYPE="number" NAME="SCA" SIZE=3 step=0.01></TD><TD> 
+			S<sub>CB</sub> = <INPUT TYPE="number" NAME="SCB" SIZE=3 step=0.01></TD></TR>	
+		</TABLE>
+		<p align="center">
+		<INPUT TYPE="button"  VALUE="Calcular"  SIZE = 3  ONCLICK="return calctp()">
+		<input type="button" onClick="return myFormReset()" value="Reiniciar">
+		<input type="button" onClick="showDialog()" value="Instrucciones">	
+		</p>
+	</FORM>
+</div>
+<!-- Para arbitraje triangular -->
+<div class="panel" title="Arbitraje Triangular" id="item3" data-footer="none">
+	<header>
+            <h1>Arbitraje Triangular</h1>
+            <a id="backButton" class="button backButton" href="#menusolt2">Atrás</a><a class="button icon home" style="float:right" href="#menu"></a>
+    </header>
+	<p class="block" id="help3"> </p>
+	<p class="block" id="result3a"></p>
+	<p class="block" id="result3"></p>
+	<FORM NAME="inputat">
+	<TABLE>
+		<TR><TD>&nbsp;</td><td>C</td><td>V</td><TD>&nbsp;</td><TD>&nbsp;</td><td>C</td><td>V</td></tr>
+		<tr><td>S<sub>AB</sub></td><td><INPUT TYPE="number" NAME="SABc" step=0.01></TD><TD><INPUT TYPE="number" NAME="SABv" step=0.01></TD></TR>
+		<tr><td>S<sub>AC</sub></td><td><INPUT TYPE="number" NAME="SACc" step=0.01></TD><TD>	<INPUT TYPE="number" NAME="SACv" step=0.01></TD><td>&nbsp;o&nbsp;</td><td>S<sub>CA</sub></td><td><INPUT TYPE="number" NAME="SCAc" step=0.01></TD><TD><INPUT TYPE="number" NAME="SCAv" step=0.01></TD></TR>
+		<tr><td>S<sub>CB</sub></td><td><INPUT TYPE="number" NAME="SCBc" step=0.01></TD><TD><INPUT TYPE="number" NAME="SCBv" step=0.01></TD><td>&nbsp;o&nbsp;</td><td>S<sub>BC</sub></td><td><INPUT TYPE="number" NAME="SBCc" step=0.01></TD><TD><INPUT TYPE="number" NAME="SBCv" step=0.01></TD></TR>
+	</TABLE>
+	<p align="center">
+	<INPUT TYPE="button"  VALUE="Calcular" ONCLICK="return calcat()">
+	<input type="button" onClick="return myFormResetat()" value="Reiniciar">
+	<input type="button" onClick="showDialog()" value="Instrucciones">	
+	</p>
+	</FORM>
+</div>
+<!-- Para arbitraje a plazos -->
+<div class="panel" title="Arbitraje a plazos" id="item4" data-footer="none">
+	<header>
+            <h1>Arbitraje a plazos</h1>
+            <a id="backButton" class="button backButton"  href="#menusolt2">Atrás</a><a class="button icon home" style="float:right" href="#menu"></a>
+    </header>
+	<p class="block" id="help4"> </p>
+	<p class="block" id="result4"></p>
+	<FORM NAME="inputap">
+	<TABLE>
+		<TR><TD>&nbsp;</td><td>C</td><td>V</td></tr>
+		<tr><td>	S<sub>DE€</sub></td><td><INPUT TYPE="number" NAME="SABc" step=0.01></TD><TD><INPUT TYPE="number" NAME="SABv" step=0.01></TD></TR>
+		<tr><td>F<sub>DE€</sub></td><td><INPUT TYPE="number" NAME="FABc" step=0.01></TD><TD><INPUT TYPE="number" NAME="FABv" step=0.01></TD></TR>
+		<tr><td>&nbsp;</td><td>D</TD><TD>A</TD></TR>
+		<tr><td>r<sub>€</sub></td><td><INPUT TYPE="number" NAME="rBd" step=0.01></TD><TD><INPUT TYPE="number" NAME="rBa" step=0.01></TD></TR>
+		<tr><td>r<sub>DE</sub></td><td><INPUT TYPE="number" NAME="rAd" step=0.01></TD><TD><INPUT TYPE="number" NAME="rAa" step=0.01></TD></TR>
+		<tr><td>&nbsp;</td></tr>
+		<tr><td>T</td><td><INPUT TYPE="number" NAME="t" step=1></TD></tr>
+	</TABLE>
+	<p align="center">
+	<INPUT TYPE="button"  VALUE="Calcular" ONCLICK="return calcap()">
+	<input type="button" onClick="return myFormResetap()" value="Reiniciar">
+	<input type="button" onClick="showDialog()" value="Instrucciones">	
+	</p>
+	</FORM>
+</div>
+<!-- Para cobertura -->
+<div class="panel" title="Cobertura" id="item5" data-footer="none">
+	<header>
+            <h1>Cobertura</h1>
+            <a id="backButton" class="button backButton" href="#menusolt2">Atrás</a><a class="button icon home" style="float:right" href="#menu"></a>
+    </header>
+	<p class="block" id="help5"></p>
+	<p class="block" id="result5"></p>
+	<FORM NAME="inputcob">
+		<TABLE>
+			<TR><TD>&nbsp;</td><td>C</td><td>V</td></tr>
+			<tr><td>S<sub>DE€</sub></td><td><INPUT TYPE="number" NAME="SABc" step=0.01></TD><TD><INPUT TYPE="number" NAME="SABv" step=0.01></TD></TR>
+			<tr><td>F<sub>DE€</sub></td><td><INPUT TYPE="number" NAME="FABc" step=0.01></TD><TD><INPUT TYPE="number" NAME="FABv" step=0.01></TD></TR>
+			<tr><td>&nbsp;</td><td>D</TD><TD>A</TD></TR>
+			<tr><td>r<sub>€</sub></td><td><INPUT TYPE="number" NAME="rBd" step=0.01></TD><TD><INPUT TYPE="number" NAME="rBa" step=0.01></TD></TR>
+			<tr><td>r<sub>DE</sub></td><td><INPUT TYPE="number" NAME="rAd" step=0.01></TD><TD><INPUT TYPE="number" NAME="rAa" step=0.01></TD></TR>
+			<tr><td>&nbsp;</td></tr>
+			<tr><td>Cantidad (DE)</td><td><INPUT TYPE="number" NAME="amount"></TD><td>DC<input type="radio" Name="tipo" value="DC">OP<input type="radio" Name="tipo" value="OP"></td></tr>
+			<tr><td>T</td><td><INPUT TYPE="number" NAME="t" step=1></TD></tr>
+		</TABLE>
+	<p align="center">	
+	<INPUT TYPE="button"  VALUE="Calcular"  ONCLICK="return calccob()">
+	<input type="button" onClick="return myFormResetcob()" value="Reiniciar">
+	<input type="button" onClick="showDialog()" value="Instrucciones">	
+	</p>
+	</FORM>
+</div>
+<!-- Para modificar cobertura -->
+<div class="panel" title="Reajuste de Cobertura" id="item6" data-footer="none">
+	<header>
+            <h1>Reajuste de Cobertura</h1>
+            <a id="backButton" class="button backButton" href="#menusolt2">Atrás</a><a class="button icon home" style="float:right" href="#menu"></a>
+    </header>
+ 	<p class="block" id="help6"></p>   
+	<p class="block" id="result6"></p>
+	<FORM NAME="inputrcob">
+	<table>
+		<TR><TD>DC<input type="radio" Name="tipo" value="DC">OP<input type="radio" Name="tipo" value="OP"></td></tr>
+	</table>
+	<table>
+		<TR><TD>&nbsp;</td><td>Inicial</td><td>Actual</td></tr>
+		<tr><td>Cantidad (DE)</td><td><INPUT TYPE="number" NAME="amount1"></TD><td><INPUT TYPE="number" NAME="amount2"></TD></tr>
+		<tr><td>T</td><td><INPUT TYPE="number" NAME="t1"></TD><td><INPUT TYPE="number" NAME="t2"></TD></tr>
+	</TABLE>
+	<TABLE>
+		<TR><TD>&nbsp;</td><td>C</td><td>V</td></tr>
+		<tr><td>S<sub>DE€</sub></td><td><INPUT TYPE="number" NAME="SABc" step=0.01></TD><TD><INPUT TYPE="number" NAME="SABv" step=0.01></TD></TR>
+	</table>
+	<p>T<sub>inicial</sub></p>
+	<table>
+		<tr><td>F<sub>DE€</sub></td><td><INPUT TYPE="number" NAME="FABc1" step=0.01></TD><TD><INPUT TYPE="number" NAME="FABv1" step=0.01></TD></TR>
+		<tr><td>&nbsp;</td><td>D</TD><TD>A</TD></TR>
+		<tr><td>r<sub>€</sub></td><td><INPUT TYPE="number" NAME="rBd1" step=0.01></TD><TD><INPUT TYPE="number" NAME="rBa1" step=0.01></TD></TR>
+		<tr><td>r<sub>DE</sub></td><td><INPUT TYPE="number" NAME="rAd1" step=0.01></TD><TD><INPUT TYPE="number" NAME="rAa1" step=0.01></TD></TR>
+	</table>
+	<p>T<sub>actual</sub></p>
+	<table>
+		<tr><td>F<sub>DE€</sub></td><td><INPUT TYPE="number" NAME="FABc2" step=0.01></TD><TD><INPUT TYPE="number" NAME="FABv2" step=0.01></TD></TR>
+		<tr><td>&nbsp;</td><td>D</TD><TD>A</TD></TR>
+		<tr><td>r<sub>€</sub></td><td><INPUT TYPE="number" NAME="rBd2" step=0.01></TD><TD><INPUT TYPE="number" NAME="rBa2" step=0.01></TD></TR>
+		<tr><td>r<sub>DE</sub></td><td><INPUT TYPE="number" NAME="rAd2" step=0.01></TD><TD><INPUT TYPE="number" NAME="rAa2" step=0.01></TD></TR>
+	</table>
+	<p align="center">
+	<INPUT TYPE="button"  VALUE="Calcular" ONCLICK="return calcrcob()">
+	<input type="button" onClick="return myFormResetrcob()" value="Reiniciar">
+	<input type="button" onClick="showDialog()" value="Instrucciones">	
+	</p>
+	</FORM>
+</div>
+<!-- Para swaps de divisas -->
+<div class="panel" title="Swaps de divisas" id="item8" data-footer="none">
+	<header>
+            <h1>Swaps de divisas</h1>
+            <a id="backButton" class="button backButton" href="#menusolt3">Atrás</a><a class="button icon home" style="float:right" href="#menu"></a>
+    </header>
+ 	<p class="block" id="help8"></p>   
+	<p class="block" id="result8a"></p>
+	<p class="block" id="result8b"></p>
+	<p class="block" id="result8c"></p>
+	<p class="block" id="result8d"></p>
+	<FORM NAME="inputswap">
+	<table>
+		<TR><TD>&nbsp;</td><td>Empresa X</td><td>Empresa Y</td></tr>
+		<tr><td>Tipo interés divisa A (F<sub>A</sub>)</td><td><INPUT TYPE="number" NAME="Fax"></TD><td><INPUT TYPE="number" NAME="Fay"></TD></tr>
+		<tr><td>Tipo interés divisa B (F<sub>B</sub>)</td><td><INPUT TYPE="number" NAME="Fbx"></TD><td><INPUT TYPE="number" NAME="Fby"></TD></tr>
+	</TABLE>
+	<hr>
+	<table>
+		<TR><TD>Tipo acordado en el swap divisa A (F<sub>wA</sub>)</td><td><INPUT TYPE="number" NAME="Faw0"></TD></tr>
+		<tr><td>% de beneficio del swap para empresa X</td><td><INPUT TYPE="number" NAME="benx"></TD></tr>
+	</table>
+	<p align="center">
+	<INPUT TYPE="button"  VALUE="Calcular" ONCLICK="return calcswap()">
+	<input type="button" onClick="return myFormResetswap()" value="Reiniciar">
+	<input type="button" onClick="showDialog()" value="Instrucciones">	
+	</p>
+	</FORM>
+</div>	
+<!-- Para arbitraje futuros -->
+<div class="panel" title="Futuros sobre divisas" id="item9" data-footer="none">
+	<header>
+            <h1>Arbitraje futuros sobre divisas</h1>
+            <a id="backButton" class="button backButton" href="#menusolt3">Atrás</a><a class="button icon home" style="float:right" href="#menu"></a>
+    </header>
+ 	<p class="block" id="help9"></p>   
+	<p class="block" id="result9"></p>
+	<FORM NAME="inputarbfd">
+	<table>
+		<tr><td>F<sub>AB,T</sub>(cotización futuro sobre B)</td><td><INPUT TYPE="number" NAME="FAB"></TD></tr>
+		<tr><td>S<sub>AB</sub></td><td><INPUT TYPE="number" NAME="SAB"></TD></tr>
+		<tr><td>Tipo interés divisa A</td><td><INPUT TYPE="number" NAME="ra"></TD></tr>
+		<tr><td>Tipo interés divisa B</td><td><INPUT TYPE="number" NAME="rb"></TD></tr>
+		<tr><td>Vencimiento del futuro (T)</td><td><INPUT TYPE="number" NAME="T"></TD></tr>
+	</TABLE>
+	<p align="center">
+	<INPUT TYPE="button"  VALUE="Calcular" ONCLICK="return calcarbfd()">
+	<input type="button" onClick="return myFormResetarbfd()" value="Reiniciar">
+	<input type="button" onClick="showDialog()" value="Instrucciones">	
+	</p>
+	</FORM>
+</div>
+<!-- Para opciones resultado básico -->
+<div class="panel" title="Opciones sobre divisas" id="item11" data-footer="none">
+	<header>
+            <h1>Opciones resultado</h1>
+            <a id="backButton" class="button backButton" href="#menusolt3">Atrás</a><a class="button icon home" style="float:right" href="#menu"></a>
+    </header>
+ 	<p class="block" id="help11"></p>   
+	<p class="block" id="result11"></p>
+	<FORM NAME="inputopbasic">
+	<table>
+		<tr><td>Compra<input type="radio" Name="operacion" value="C"> Venta<input type="radio" Name="operacion" value="V"></td></tr>
+		<tr><td>CALL<input type="radio" Name="tipo" value="Call"> PUT<input type="radio" Name="tipo" value="Put"></td></tr>
+		<tr><td>Prima</td><td><INPUT TYPE="number" NAME="prima"></TD></tr>
+		<tr><td>Precio de Ejercicio (K)</td><td><INPUT TYPE="number" NAME="K"></TD></tr>
+		<tr><td>Valor subyacente a vencimiento (S<sub>T</sub>)</td><td><INPUT TYPE="number" NAME="ST"></TD></tr>
+	</TABLE>
+	<p align="center">
+	<INPUT TYPE="button"  VALUE="Calcular" ONCLICK="return calcopbasic()">
+	<input type="button" onClick="return myFormResetopbasic()" value="Reiniciar">
+	<input type="button" onClick="showDialog()" value="Instrucciones">	
+	</p>
+	</FORM>
+</div>
+<!-- Para opciones binomial -->
+<div class="panel" title="Opciones sobre divisas" id="item12" data-footer="none">
+	<header>
+            <h1>Opciones binomial</h1>
+            <a id="backButton" class="button backButton" href="#menusolt3">Atrás</a><a class="button icon home" style="float:right" href="#menu"></a>
+    </header>
+ 	<p class="block" id="help12"></p>   
+	<p class="block" id="result12"></p>
+	<FORM NAME="inputopbin">
+	<table>
+		<tr><td>Precio del subyacente (S<sub>0</sub>)</td><td><INPUT TYPE="number" NAME="S0"></TD></tr>
+		<tr><td>Factor de subida (u)</td><td><INPUT TYPE="number" NAME="u" step="0.01"></TD></tr>
+		<tr><td>Factor de bajada (d)</td><td><INPUT TYPE="number" NAME="d" step="0.01"></TD></tr>
+		<tr><td>Precio de Ejercicio (K)</td><td><INPUT TYPE="number" NAME="K"></TD></tr>
+		<tr><td>Vencimiento de la opción (T)</td><td><INPUT TYPE="number" NAME="T"></TD></tr>
+		<tr><td>Tipo de interés (r)</td><td><INPUT TYPE="number" NAME="r"></TD></tr>
+		<tr><td>Pasos: 1<input type="radio" Name="pasos" value="1"> 2 <input type="radio" Name="pasos" value="2"></td></tr>
+	</TABLE>
+	<p align="center">
+	<INPUT TYPE="button"  VALUE="Calcular" ONCLICK="return calcopbin()">
+	<input type="button" onClick="return myFormResetopbin()" value="Reiniciar">
+	<input type="button" onClick="showDialog()" value="Instrucciones">	
+	</p>
+	</FORM>
+</div>
+<!-- Para opciones graficos -->
+<div class="panel" title="Opciones sobre divisas" id="item13" data-footer="none">
+	<header>
+            <h1>Gráficos de Opciones</h1>
+            <a id="backButton" class="button backButton" href="#menusolt3">Atrás</a><a class="button icon home" style="float:right" href="#menu"></a>
+    </header>
+ 	<p class="block" id="help13"></p>   
+<!--aqui empieza lo copiado-->
+    <div class="block">
+        <div id="chart_div" style="width: 90%; height: 30%; display:none; align=center;"></div>
+        <p><p>
+        <div id="asset-options">
+        	<form>
+                <table>
+                	<tr><td>Activo:</td><td><select id="graphTypeSelect">
+                      <option value="callOption">Call</option>
+                      <option value="putOption">Put</option>
+                      <option value="underlyingAsset">Subyacente</option>
+                    </select></td><td>Posición:</td><td><select id="positionSelect">
+                      <option value="long">Compra</option>
+                      <option value="short">Venta</option>
+                    </select></td></tr>
+                    <tr><td>Precio:</td><td><input type="number" id="inputPrice" placeholder=5 value=5></td><td>Precio Ejercicio:</td><td><input type="number" id="inputStrike" placeholder=100 value=100></td></tr>
+                </table>
+                <p align="center">
+                <button onclick="showdraw()">Mostrar</button>
+                <button onclick="addGraph()">Añadir Activo</button>
+                <button onClick="showDialog()">Instrucciones</button>	
+				</p>
+            </form>
+        </div>
+    </div> <!-- /container -->
+	<!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="./js/options-graphing.js"></script>
+    <script>
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        assets.push(new Asset());
+        drawAssetChart(document.getElementById('chart_div'));
+      }
+      $(function() {
+        $("form").submit(function() { return false; });
+      });
+	  </script>
+</div>
+</div>
+</div>
+</body>
+</html>

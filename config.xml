@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- config.xml reference: https://build.phonegap.com/docs/config-xml -->
+<widget xmlns     = "http://www.w3.org/ns/widgets"
+        xmlns:gap = "http://phonegap.com/ns/1.0"
+        id        = "com.phonegap.auditoriaI"
+        version   = "1.0.0">
+
+    <name>Finanzas Internacionales</name>
+
+    <description>
+        Finanzas Internacionales. App de apoyo a la asignatura en GCF de ULL
+    </description>
+
+    <author email="smorini@ull.edu.es">
+        Finanzas Internacionales
+    </author>
+    
+    <preference name="permissions" value="none"/>
+
+    <icon src="./icon.png" />
+    <gap:splash src="./splash.png" />
+   
+</widget>
+
+
