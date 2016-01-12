@@ -19,7 +19,7 @@ body {
     font-size:12px;
     display:-webkit-box;
     background: #000000;
-    margin-right:10px;
+    /*margin-right:10px;*/
     /* We want to layout our first container vertically */
     -webkit-box-orient: vertical;
     /* we want our child elements to stretch to fit the container */
@@ -1616,6 +1616,8 @@ body {
  	background:#000000;
  	color:#ffffff;
     	border-color:#808080;
+    	margin-left: 5px;
+    	margin-right: 5px;
 }
 
 #afui.android.light {
@@ -2365,9 +2367,9 @@ border-radius: 6px;
 	margin: 15px 5px 5px 15px;
 }
 
-#afui table {margin:0px;padding:10px;width:95%;text-align:center;
+table {margin:0px;padding:10px;width:95%;text-align:center;
 font-size:12px;}
-#afui table.result {
+table.result {
     box-sizing: border-box;
     font-size: 12px;
     font-weight: normal;
