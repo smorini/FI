@@ -17,7 +17,7 @@
         $.ui.launch();
         });
     </script>
-    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
     <script type="text/javascript" src="./js/options-graphing.js"></script>
     <script>
       google.load("visualization", "1", {packages:["corechart"]});
@@ -61,7 +61,11 @@ document.getElementById('help12').innerHTML ='';
 document.getElementById('help13').innerHTML ='';
 }
 function newwin() {              
- myWindow=window.open('https://build.phonegap.com/apps/1857371/share','actualizar','width=100%,height=100%')
+ myWindow=window.open('http://build.phonegap.com/apps/1857371/share','actualizar','width=100%,height=100%')
+}
+function openExternal(elem) {
+    window.open(elem.href, "_system");
+    return false; // Prevent execution of the default onClick handler 
 }
 </script>
 
@@ -1199,8 +1203,8 @@ function showdraw()
 </head>
   <body>  
     <div id="afui">
-<!--      <div id="content" style="">
- -->     	<div class="panel" title="Finanzas Internacionales" id="menu" data-footer="none" selected="True">
+      <div id="content" style="">
+     	<div class="panel" title="Finanzas Internacionales" id="menu" data-footer="none" selected="True">
   			<header>
             <h1>Finanzas Internacionales</h1>
           	</header>
@@ -1227,7 +1231,8 @@ function showdraw()
           Librerias y hojas de estilo: Appframework, jquery, API de Google.<br>
           Compilación: phonegap.<br> 
           Gráficas de opciones: código modificado a partir del de Boris Treskunov.<br><hr>
-          Puede encontrar actualizaciones de la app <a onclick='newwin ()'>aquí</a>
+<!--          Puede encontrar actualizaciones de la app <a onclick='newwin ()'>aquí</a> -->
+          Puede encontrar actualizaciones de la app <a href="http://build.phonegap.com/apps/1857371/share" onClick="javascript:return openExternal(this)"> aquí </a>
         <div class="panel" title="Solver Tema 2" id="menusolt2" data-footer="none" selected="false">
           <header>
             <h1>Solver Divisas</h1>
@@ -1582,11 +1587,11 @@ function showdraw()
 		            </p>
             </form>
         </div>
-    </div> <!-- /container -->
+    </div>
 	<!--Load the AJAX API-->
 
 </div>
-<!--</div>-->
+</div>
 </div>
 </body>
 </html>
