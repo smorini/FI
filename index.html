@@ -108,6 +108,7 @@ document.getElementById('resultado').innerHTML = 'No es posible calcular el tipo
 function myFormReset()
 {
 document.getElementById('help1').innerHTML ='';
+document.getElementById('resultado').innerHTML ='';
 document.inputstp.SAB.value = null;
 document.inputstp.SAC.value = null;
 document.inputstp.SBC.value = null;
@@ -181,7 +182,8 @@ if ((SABc.length>0) && (SABv.length>0) && (swc.length>0) && (swv.length>0) && (p
 
 function myFormResetsw()
 {
-document.getElementById('help7').innerHTML ='';  	
+document.getElementById('help7').innerHTML ='';
+document.getElementById('result7').innerHTML = '';
 document.inputsw.SABc.value = null;
 document.inputsw.SABv.value = null;
 document.inputsw.swc.value = null;
@@ -310,6 +312,7 @@ else if ((SCAc.length>0) && (SBCc.length>0)){
 function myFormResetat()
 {
 document.getElementById('help3').innerHTML ='';
+document.getElementById('result3').innerHTML = '';
 document.inputat.SABc.value = null;
 document.inputat.SABv.value = null;
 document.inputat.SACc.value = null;
@@ -992,6 +995,7 @@ else {
 function myFormResetswap()
 {
 document.getElementById('help8').innerHTML ='';
+document.getElementById('result8').innerHTML = '';
 document.inputswap.Fax.value = null;
 document.inputswap.Fbx.value = null;
 document.inputswap.Fay.value = null;
@@ -1183,8 +1187,8 @@ function showdraw()
 </head>
   <body>  
     <div id="afui">
-      <div id="content" style="">
-      	<div class="panel" title="Finanzas Internacionales" id="menu" data-footer="none" selected="True">
+<!--      <div id="content" style="">
+ -->     	<div class="panel" title="Finanzas Internacionales" id="menu" data-footer="none" selected="True">
   			<header>
             <h1>Finanzas Internacionales</h1>
           	</header>
@@ -1553,7 +1557,7 @@ function showdraw()
                       <option value="long">Compra</option>
                       <option value="short">Venta</option>
                     </select></td></tr>
-                    <tr><td>Precio:</td><td><input type="number" id="inputPrice" placeholder=5 value=5></td><td>Precio Ejercicio:</td><td><input type="number" id="inputStrike" placeholder=100 value=100></td></tr>
+                    <tr><td>Precio:</td><td><input type="number" id="inputPrice" placeholder=5></td><td>Precio Ejercicio:</td><td><input type="number" id="inputStrike" placeholder=100></td></tr>
                 </table>
                 <p align="center">
                 <button onclick="showdraw()">Mostrar</button>
@@ -1579,7 +1583,7 @@ function showdraw()
       });
 	  </script>
 </div>
-</div>
+<!--</div>-->
 </div>
 </body>
 </html>
