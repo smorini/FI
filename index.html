@@ -1009,7 +1009,10 @@ else {
 function myFormResetswap()
 {
 document.getElementById('help8').innerHTML ='';
-document.getElementById('result8').innerHTML = '';
+document.getElementById('result8a').innerHTML = '';
+document.getElementById('result8b').innerHTML = '';
+document.getElementById('result8c').innerHTML = '';
+document.getElementById('result8d').innerHTML = '';
 document.inputswap.Fax.value = null;
 document.inputswap.Fbx.value = null;
 document.inputswap.Fay.value = null;
@@ -1087,6 +1090,7 @@ else {
 	if (tipo=="Call"){
 		var breakeven = (parseFloat(K)+parseFloat(prima)).toFixed(2);
 		var rbruto = Math.max(0,(parseFloat(ST)-parseFloat(K)));
+		alert(rbruto);
 		if (operacion=="C"){
 			document.getElementById('result11').innerHTML = '<p>El resultado neto de la compra de call es ' + (rbruto-parseFloat(prima)).toFixed(2)+ '<br>El <i>breakeven</i> es ' +breakeven+ ' [precios del subyacente al vencimiento (S<sub>T</sub>) por encima de este valor generan beneficios]';
 		} else {
@@ -1271,8 +1275,8 @@ function showdraw()
 		            <a id='backButton' class='button backButton'  href="#menusolt2">Atrás</a>
 	                <a class="button icon home" style="float:right" href="#menu"></a>
 	       </header>
-	<p class="block" id="help2"> </p>
-	<p class="block" id="result2"> </p>
+	<p class="block" id="help2">
+	<p class="block" id="result2">
 	<FORM NAME="inputrec">
 		<TABLE>
 		<TR><TD>&nbsp;</td><td>C</td><td>V</td></tr>
@@ -1312,8 +1316,8 @@ function showdraw()
         <h1>Tipos cruzados</h1>
         <a id="backButton" class="button backButton" href="#menusolt2">Atrás</a><a class="button icon home" style="float:right" href="#menu"></a>
     </header>
-    <p class="block" id="help1"> </p>
-	<p class="block" id="resultado"> </p>
+    <p class="block" id="help1">
+	<p class="block" id="resultado">
 	<FORM NAME="inputstp">
 		<TABLE>
 			<TR><TD>
@@ -1353,7 +1357,7 @@ function showdraw()
     <tr><td>S<sub>BC</sub></td><td><INPUT TYPE="number" NAME="SBCc" step=0.01></TD><TD><INPUT TYPE="number" NAME="SBCv" step=0.01></TD></TR>
 	</TABLE>
 	<p align="center">
-	<INPUT TYPE="button"  VALUE="Calcular" ONCLICK="return calcat()">
+	<INPUT TYPE="button"  VALUE="Calcular" onClick="return calcat()">
 	<input type="button" onClick="return myFormResetat()" value="Reiniciar">
 	<input type="button" onClick="showDialog()" value="Instrucciones">	
 	</p>
