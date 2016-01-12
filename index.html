@@ -1,4 +1,4 @@
-﻿<html>
+<html>
   <head>
     <meta content="text/html; charset=utf-8" http-equiv="content-type">
     <title>Finanzas Internacionales</title>
@@ -16,6 +16,20 @@
         $(document).ready(function(){
         $.ui.launch();
         });
+    </script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="./js/options-graphing.js"></script>
+    <script>
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        assets.push(new Asset());
+        drawAssetChart(document.getElementById('chart_div'));
+      }
+      $(function() {
+        $("form").submit(function() { return false; });
+      });
     </script>
 <script>
 function showDialog(){
@@ -149,12 +163,7 @@ document.inputrec.SABv.value = null;
 </script>
 <!-- Calcula forward con puntos swap -->
 <script>
-function CountDecimalDigits(number)
-{
-  var char_array = number.toString().split(""); // split every single char
-  var not_decimal = char_array.lastIndexOf(".");
-  return (not_decimal<0)?0:char_array.length - not_decimal;
-}
+
 function calcsw(inputsw){
 var SABc = document.inputsw.SABc.value;
 var SABv = document.inputsw.SABv.value;
@@ -164,15 +173,17 @@ document.getElementById('help7').innerHTML ='';
 // Calcula
 
 if ((SABc.length>0) && (SABv.length>0) && (swc.length>0) && (swv.length>0) && (parseFloat(SABc) < parseFloat(SABv)) && (parseFloat(swc) != parseFloat(swv))){
-	var dec = CountDecimalDigits(parseFloat(SABc))-1;
-	var divisor = Math.pow(10, dec);
+	var largo = SABc.length;
+  var entero = (Math.floor(SABc)).toString().length;
+  var dec = largo-entero-1;
+  var divisor = Math.pow(10, dec);
 	if (parseFloat(swc)<parseFloat(swv)){
-		var Fc = (parseFloat(SABc) + (parseFloat(swc)/divisor)).toFixed(4);
-		var Fv = (parseFloat(SABv) + (parseFloat(swv)/divisor)).toFixed(4);
+		var Fc = (parseFloat(SABc) + (parseFloat(swc)/divisor)).toFixed(6);
+		var Fv = (parseFloat(SABv) + (parseFloat(swv)/divisor)).toFixed(6);
 		document.getElementById('result7').innerHTML = '<p>El Forward comprador es ' + Fc + '.<br>El forward vendedor es ' + Fv + '.';
 	} else {
-		var Fc = (parseFloat(SABc) - (parseFloat(swc)/divisor)).toFixed(4);
-		var Fv = (parseFloat(SABv) - (parseFloat(swv)/divisor)).toFixed(4);
+		var Fc = (parseFloat(SABc) - (parseFloat(swc)/divisor)).toFixed(6);
+		var Fv = (parseFloat(SABv) - (parseFloat(swv)/divisor)).toFixed(6);
 		document.getElementById('result7').innerHTML = '<p>El Forward comprador es ' + Fc + '.<br>El forward vendedor es ' + Fv + '.';
 	}
 } else {
@@ -273,6 +284,7 @@ else if ((SACc.length>0) && (SBCc.length>0)){
 	else {
 		document.getElementById('result3').innerHTML = 'No hay arbitraje';}
 }
+alert(SCAc.length);
 else if ((SCAc.length>0) && (SCBc.length>0)){
 	var IIc=(SCBc/SCAv).toFixed(4);
 	var IIv=(SCBv/SCAc).toFixed(4);
@@ -297,7 +309,7 @@ else if ((SCAc.length>0) && (SBCc.length>0)){
 	var nIIv=parseFloat(IIv);
 	var HTML = '<table class=result><tr><td></td><td>C</td><td>V</td></tr><tr class=top><td>ID<sub>AB</sub></td><td class=sol>'+(SABc).toFixed(4)+'</td><td>'+(SABv).toFixed(4)+'</td></tr><tr class=bottom><td>II<sub>AB_C</sub></td><td>'+IIc+'</td><td class=sol>'+IIv+'</td></tr><tr><td></td><td><small>Cobramos<br>(vendemos)</small></td><td><small>Pagamos<br>(compramos)</small></td></tr></table>';
 	document.getElementById('result3a').innerHTML = HTML;
-
+alert(IIC);
 	if (nSABc>nIIv){
 		var beneficio=(SABc-IIv).toFixed(4);
 		document.getElementById('result3').innerHTML = '<p>Hay arbitraje triangular<p>Compramos divisa B en Intercambio Indirecto (AxCxB) pagando ' + IIv + ' unidades de A y la vendemos en Intercambio Directo cobrando ' + SABc + ' unidades de A, obteniendo un beneficio de ' + beneficio + ' unidades de A por cada unidad de B en arbitraje';}
@@ -313,6 +325,7 @@ function myFormResetat()
 {
 document.getElementById('help3').innerHTML ='';
 document.getElementById('result3').innerHTML = '';
+document.getElementById('result3a').innerHTML = '';
 document.inputat.SABc.value = null;
 document.inputat.SABv.value = null;
 document.inputat.SACc.value = null;
@@ -977,7 +990,7 @@ else {
 				document.getElementById('result8d').innerHTML ='<p>La empresa X acuerda en el swap pagar a la empresa Y ' +(Faw0-posicion).toFixed(2)+ '% (sobre divisa B) y la empresa Y en el swap paga a la empresa X ' +(parseFloat(Faw0)).toFixed(2)+'% (sobre divisa A)';
 			}
 		}
-	} else {
+	} else if (parseFloat(difa)<parseFloat(difb)){
 		var HTML = '<table class=result><tr><td></td><td>X</td><td>Y</td></tr><tr class=top><td>Paga</td><td>'+Fbx+'+FAw</td><td>'+Fay+'+FBw</td></tr><tr class=bottom><td>Cobra</td><td>FBw</td><td>FAw</td></tr></table>';
 		document.getElementById('result8a').innerHTML = HTML +'<br>La empresa X elige financiarse con su banco en divisa B porque es donde tiene ventaja competitiva y la empresa Y elige financiarse con su banco en divisa A';
 		document.getElementById('result8b').innerHTML ='<p>La condición de la empresa X para negociar el swap con Y es: '+Fbx+'+FAw-FBw < '+Fax+'.<br>La condición de la empresa Y para negociar el swap con X es: '+Fay+'+FBw-FAw < '+Fby+'.<br>Por tanto, para que exista swap la relación entre ambos tipos de interés es: '+(Fay-Fby).toFixed(2)+'< FAw-FBw < ' +(Fax-Fbx).toFixed(2)+' cualquier valor de FAw y FBw que cumpla lo anterior genera beneficios (menor coste de financiación) para ambas empresas.<br>El beneficio del swap es ' +beneficio+'.';
@@ -988,8 +1001,7 @@ else {
 				document.getElementById('result8d').innerHTML ='<p>La empresa X acuerda en el swap pagar a la empresa Y ' +(parseFloat(Faw0)).toFixed(2)+ '% (sobre divisa A) y la empresa Y en el swap paga a la empresa X ' +(Faw0-posicion).toFixed(2)+ '% (sobre divisa B)';
 			}
 		}
-
-	}
+	} else {document.getElementById('result8d').innerHTML ='Es imposible un acuerdo swap';}
 }
 }
 function myFormResetswap()
@@ -1281,7 +1293,7 @@ function showdraw()
 		<FORM NAME="inputsw">
 		<TABLE>
 			<TR><TD>&nbsp;</td><td>C</td><td>V</td></tr>
-			<tr><td>S<sub>AB</sub></td><td><INPUT TYPE="number" NAME="SABc" step=0.01></TD><TD><INPUT TYPE="number" NAME="SABv" step=0.01></TD></TR>
+			<tr><td>S<sub>AB</sub></td><td><INPUT TYPE="text" NAME="SABc"></TD><TD><INPUT TYPE="text" NAME="SABv"></TD></TR>
 			<tr><td>sw<sub>AB</sub></td><td><INPUT TYPE="number" NAME="swc" step=0.01></TD><TD><INPUT TYPE="number" NAME="swv" step=0.01></TD></TR>
 		</TABLE>
 		<p align="center">
@@ -1328,10 +1340,14 @@ function showdraw()
 	<p class="block" id="result3"></p>
 	<FORM NAME="inputat">
 	<TABLE>
-		<TR><TD>&nbsp;</td><td>C</td><td>V</td><TD>&nbsp;</td><TD>&nbsp;</td><td>C</td><td>V</td></tr>
+		<TR><TD>&nbsp;</td><td>C</td><td>V</td></tr>
 		<tr><td>S<sub>AB</sub></td><td><INPUT TYPE="number" NAME="SABc" step=0.01></TD><TD><INPUT TYPE="number" NAME="SABv" step=0.01></TD></TR>
-		<tr><td>S<sub>AC</sub></td><td><INPUT TYPE="number" NAME="SACc" step=0.01></TD><TD>	<INPUT TYPE="number" NAME="SACv" step=0.01></TD><td>&nbsp;o&nbsp;</td><td>S<sub>CA</sub></td><td><INPUT TYPE="number" NAME="SCAc" step=0.01></TD><TD><INPUT TYPE="number" NAME="SCAv" step=0.01></TD></TR>
-		<tr><td>S<sub>CB</sub></td><td><INPUT TYPE="number" NAME="SCBc" step=0.01></TD><TD><INPUT TYPE="number" NAME="SCBv" step=0.01></TD><td>&nbsp;o&nbsp;</td><td>S<sub>BC</sub></td><td><INPUT TYPE="number" NAME="SBCc" step=0.01></TD><TD><INPUT TYPE="number" NAME="SBCv" step=0.01></TD></TR>
+		<tr><td>S<sub>AC</sub></td><td><INPUT TYPE="number" NAME="SACc" step=0.01></TD><TD>	<INPUT TYPE="number" NAME="SACv" step=0.01></TD></tr>
+    <tr><td></td><td>&nbsp;o&nbsp;</td><td>&nbsp;o&nbsp;</td></tr>
+    <tr><td>S<sub>CA</sub></td><td><INPUT TYPE="number" NAME="SCAc" step=0.01></TD><TD><INPUT TYPE="number" NAME="SCAv" step=0.01></TD></TR>
+		<tr><td>S<sub>CB</sub></td><td><INPUT TYPE="number" NAME="SCBc" step=0.01></TD><TD><INPUT TYPE="number" NAME="SCBv" step=0.01></TD></tr>
+    <tr><td></td><td>&nbsp;o&nbsp;</td><td>&nbsp;o&nbsp;</td></tr>
+    <tr><td>S<sub>BC</sub></td><td><INPUT TYPE="number" NAME="SBCc" step=0.01></TD><TD><INPUT TYPE="number" NAME="SBCv" step=0.01></TD></TR>
 	</TABLE>
 	<p align="center">
 	<INPUT TYPE="button"  VALUE="Calcular" ONCLICK="return calcat()">
@@ -1449,12 +1465,12 @@ function showdraw()
 	<FORM NAME="inputswap">
 	<table>
 		<TR><TD>&nbsp;</td><td>Empresa X</td><td>Empresa Y</td></tr>
-		<tr><td>Tipo interés divisa A (F<sub>A</sub>)</td><td><INPUT TYPE="number" NAME="Fax"></TD><td><INPUT TYPE="number" NAME="Fay"></TD></tr>
-		<tr><td>Tipo interés divisa B (F<sub>B</sub>)</td><td><INPUT TYPE="number" NAME="Fbx"></TD><td><INPUT TYPE="number" NAME="Fby"></TD></tr>
+		<tr><td>Tipo interés divisa A (F<sub>A</sub>)</td><td><INPUT TYPE="number" NAME="Fax" step="0.01"></TD><td><INPUT TYPE="number" NAME="Fay" step=0.01></TD></tr>
+		<tr><td>Tipo interés divisa B (F<sub>B</sub>)</td><td><INPUT TYPE="number" NAME="Fbx" step="0.01"></TD><td><INPUT TYPE="number" NAME="Fby" step=0.01></TD></tr>
 	</TABLE>
 	<hr>
 	<table>
-		<TR><TD>Tipo acordado en el swap divisa A (F<sub>wA</sub>)</td><td><INPUT TYPE="number" NAME="Faw0"></TD></tr>
+		<TR><TD>Tipo acordado en el swap divisa A (F<sub>wA</sub>)</td><td><INPUT TYPE="number" NAME="Faw0" step=0.01></TD></tr>
 		<tr><td>% de beneficio del swap para empresa X</td><td><INPUT TYPE="number" NAME="benx"></TD></tr>
 	</table>
 	<p align="center">
@@ -1474,10 +1490,10 @@ function showdraw()
 	<p class="block" id="result9"></p>
 	<FORM NAME="inputarbfd">
 	<table>
-		<tr><td>F<sub>AB,T</sub>(cotización futuro sobre B)</td><td><INPUT TYPE="number" NAME="FAB"></TD></tr>
-		<tr><td>S<sub>AB</sub></td><td><INPUT TYPE="number" NAME="SAB"></TD></tr>
-		<tr><td>Tipo interés divisa A</td><td><INPUT TYPE="number" NAME="ra"></TD></tr>
-		<tr><td>Tipo interés divisa B</td><td><INPUT TYPE="number" NAME="rb"></TD></tr>
+		<tr><td>F<sub>AB,T</sub>(cotización futuro sobre B)</td><td><INPUT TYPE="number" NAME="FAB" step=0.01></TD></tr>
+		<tr><td>S<sub>AB</sub></td><td><INPUT TYPE="number" NAME="SAB" step=0.01></TD></tr>
+		<tr><td>Tipo interés divisa A</td><td><INPUT TYPE="number" NAME="ra" step=0.01></TD></tr>
+		<tr><td>Tipo interés divisa B</td><td><INPUT TYPE="number" NAME="rb" step=0.01></TD></tr>
 		<tr><td>Vencimiento del futuro (T)</td><td><INPUT TYPE="number" NAME="T"></TD></tr>
 	</TABLE>
 	<p align="center">
@@ -1563,25 +1579,12 @@ function showdraw()
                 <button onclick="showdraw()">Mostrar</button>
                 <button onclick="addGraph()">Añadir Activo</button>
                 <button onClick="showDialog()">Instrucciones</button>	
-		</p>
+		            </p>
             </form>
         </div>
     </div> <!-- /container -->
 	<!--Load the AJAX API-->
-    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <script type="text/javascript" src="./js/options-graphing.js"></script>
-    <script>
-      google.load("visualization", "1", {packages:["corechart"]});
-      google.setOnLoadCallback(drawChart);
 
-      function drawChart() {
-        assets.push(new Asset());
-        drawAssetChart(document.getElementById('chart_div'));
-      }
-      $(function() {
-        $("form").submit(function() { return false; });
-      });
-	  </script>
 </div>
 <!--</div>-->
 </div>

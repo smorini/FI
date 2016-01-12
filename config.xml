@@ -17,11 +17,9 @@
         Finanzas Internacionales
     </author>
     
-    <preference name="permissions">
-         
-            
-    </preference>
-        <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <preference name="permissions" value="none" />
+    <feature name="http://api.phonegap.com/1.0/network" />
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
     <icon src="./icon.png" />
     <gap:splash src="./splash.png" />
 
