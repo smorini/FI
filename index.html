@@ -7,7 +7,8 @@
     <link rel="stylesheet" type="text/css" href="css/icons.css">
     <script type="text/javascript" charset="utf-8" src="js/jquery.min.js"></script>
     <script type="text/javascript" charset="utf-8" src="js/appframework.ui.min.js"></script>
-
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="/js/options-graphing.js"></script>
     <script>
 	$.feat.nativeTouchScroll=true;
         $.ui.autoLaunch = false; 
@@ -17,12 +18,9 @@
         $.ui.launch();
         });
     </script>
-    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
-    <script type="text/javascript" src="./js/options-graphing.js"></script>
     <script>
       google.load("visualization", "1", {packages:["corechart"]});
       google.setOnLoadCallback(drawChart);
-
       function drawChart() {
         assets.push(new Asset());
         drawAssetChart(document.getElementById('chart_div'));
@@ -88,38 +86,38 @@ if (SBC.length>0){count=count+1;}
 if (SBA.length>0){count=count+1;}
 if (SCA.length>0){count=count+1;}
 if (SCB.length>0){count=count+1;}
-if (count!=2){document.getElementById('resultado').innerHTML = 'No es posible calcular el tipo cruzado, por favor indique dos tipos de cambio';}
+if (count!=2){document.getElementById('resultado').innerHTML = '<p>No es posible calcular el tipo cruzado, por favor indique dos tipos de cambio';}
 
 else if ((SAB.length>0) && (SAC.length>0)){
-document.getElementById('resultado').innerHTML = 'El tipo cruzado S<sub>BC</sub> es ' + (SAC * (1/SAB)).toFixed(4) + '.<br>El tipo cruzado S<sub>CB</sub> es ' + (SAB / SAC).toFixed(4);
+document.getElementById('resultado').innerHTML = '<p>El tipo cruzado S<sub>BC</sub> es ' + (SAC * (1/SAB)).toFixed(4) + '.<br>El tipo cruzado S<sub>CB</sub> es ' + (SAB / SAC).toFixed(4);
 } else if ((SAB.length>0) && (SCA.length>0)){
-document.getElementById('resultado').innerHTML = 'El tipo cruzado S<sub>BC</sub> es ' + (1/(SAB * SCA)).toFixed(4) + '.<br>El tipo cruzado S<sub>CB</sub> es ' + (SAB * SCA).toFixed(4);
+document.getElementById('resultado').innerHTML = '<p>El tipo cruzado S<sub>BC</sub> es ' + (1/(SAB * SCA)).toFixed(4) + '.<br>El tipo cruzado S<sub>CB</sub> es ' + (SAB * SCA).toFixed(4);
 } else if ((SAB.length>0) && (SBA.length>0)){
-document.getElementById('resultado').innerHTML = 'No es posible calcular el tipo cruzado';
+document.getElementById('resultado').innerHTML = '<p>No es posible calcular el tipo cruzado';
 } else if ((SAB.length>0) && (SCB.length>0)){
-document.getElementById('resultado').innerHTML = 'El tipo cruzado S<sub>AC</sub> es ' + (SAB / SCB).toFixed(4) + '.<br>El tipo cruzado S<sub>CA</sub> es ' + (SCB / SAB).toFixed(4);
+document.getElementById('resultado').innerHTML = '<p>El tipo cruzado S<sub>AC</sub> es ' + (SAB / SCB).toFixed(4) + '.<br>El tipo cruzado S<sub>CA</sub> es ' + (SCB / SAB).toFixed(4);
 } else if ((SAB.length>0) && (SBC.length>0)){
-document.getElementById('resultado').innerHTML = 'El tipo cruzado S<sub>AC</sub> es ' + (SAB * SBC).toFixed(4) + '.<br>El tipo cruzado S<sub>CA</sub> es ' + (1/(SAB * SBC)).toFixed(4);
+document.getElementById('resultado').innerHTML = '<p>El tipo cruzado S<sub>AC</sub> es ' + (SAB * SBC).toFixed(4) + '.<br>El tipo cruzado S<sub>CA</sub> es ' + (1/(SAB * SBC)).toFixed(4);
 } else if ((SBA.length>0) && (SAC.length>0)){
-document.getElementById('resultado').innerHTML = 'El tipo cruzado S<sub>BC</sub> es ' + (SBA * SAC).toFixed(4) + '.<br>El tipo cruzado S<sub>CB</sub> es ' + (1/(SBA * SAC)).toFixed(4);
+document.getElementById('resultado').innerHTML = '<p>El tipo cruzado S<sub>BC</sub> es ' + (SBA * SAC).toFixed(4) + '.<br>El tipo cruzado S<sub>CB</sub> es ' + (1/(SBA * SAC)).toFixed(4);
 } else if ((SBA.length>0) && (SCA.length>0)){
-document.getElementById('resultado').innerHTML = 'El tipo cruzado S<sub>BC</sub> es ' + (SBA / SCA).toFixed(4) + '.<br>El tipo cruzado S<sub>CB</sub> es ' + (SCA / SBA).toFixed(4);
+document.getElementById('resultado').innerHTML = '<p>El tipo cruzado S<sub>BC</sub> es ' + (SBA / SCA).toFixed(4) + '.<br>El tipo cruzado S<sub>CB</sub> es ' + (SCA / SBA).toFixed(4);
 } else if ((SBA.length>0) && (SCB.length>0)){
-document.getElementById('resultado').innerHTML = 'El tipo cruzado S<sub>AC</sub> es ' + (1/(SCB * SBA)).toFixed(4) + '.<br>El tipo cruzado S<sub>CA</sub> es ' + (SCB * SBA).toFixed(4);
+document.getElementById('resultado').innerHTML = '<p>El tipo cruzado S<sub>AC</sub> es ' + (1/(SCB * SBA)).toFixed(4) + '.<br>El tipo cruzado S<sub>CA</sub> es ' + (SCB * SBA).toFixed(4);
 } else if ((SBA.length>0) && (SBC.length>0)){
-document.getElementById('resultado').innerHTML = 'El tipo cruzado S<sub>AC</sub> es ' + (SBC / SBA).toFixed(4) + '.<br>El tipo cruzado S<sub>CA</sub> es ' + (1/(SBC / SBA)).toFixed(4);
+document.getElementById('resultado').innerHTML = '<p>El tipo cruzado S<sub>AC</sub> es ' + (SBC / SBA).toFixed(4) + '.<br>El tipo cruzado S<sub>CA</sub> es ' + (1/(SBC / SBA)).toFixed(4);
 } else if ((SAC.length>0) && (SCA.length>0)){
-document.getElementById('resultado').innerHTML = 'No es posible calcular el tipo cruzado';
+document.getElementById('resultado').innerHTML = '<p>No es posible calcular el tipo cruzado';
 } else if ((SAC.length>0) && (SCB.length>0)){
-document.getElementById('resultado').innerHTML = 'El tipo cruzado S<sub>AB</sub> es ' + (SAC * SCB).toFixed(4) + '.<br>El tipo cruzado S<sub>BA</sub> es ' + (1 / (SAC * SCB)).toFixed(4);
+document.getElementById('resultado').innerHTML = '<p>El tipo cruzado S<sub>AB</sub> es ' + (SAC * SCB).toFixed(4) + '.<br>El tipo cruzado S<sub>BA</sub> es ' + (1 / (SAC * SCB)).toFixed(4);
 } else if ((SAC.length>0) && (SBC.length>0)){
-document.getElementById('resultado').innerHTML = 'El tipo cruzado S<sub>AB</sub> es ' + (SAC / SBC).toFixed(4) + '.<br>El tipo cruzado S<sub>CA</sub> es ' + (1/(SAC / SBC)).toFixed(4);
+document.getElementById('resultado').innerHTML = '<p>El tipo cruzado S<sub>AB</sub> es ' + (SAC / SBC).toFixed(4) + '.<br>El tipo cruzado S<sub>CA</sub> es ' + (1/(SAC / SBC)).toFixed(4);
 } else if ((SCA.length>0) && (SCB.length>0)){
-document.getElementById('resultado').innerHTML = 'El tipo cruzado S<sub>AB</sub> es ' + ((1/SCA) * SCB).toFixed(4) + '.<br>El tipo cruzado S<sub>BA</sub> es ' + (SCA * (1/SCB)).toFixed(4);
+document.getElementById('resultado').innerHTML = '<p>El tipo cruzado S<sub>AB</sub> es ' + ((1/SCA) * SCB).toFixed(4) + '.<br>El tipo cruzado S<sub>BA</sub> es ' + (SCA * (1/SCB)).toFixed(4);
 } else if ((SCA.length>0) && (SBC.length>0)){
-document.getElementById('resultado').innerHTML = 'El tipo cruzado S<sub>AB</sub> es ' + (SCA * SBC).toFixed(4) + '.<br>El tipo cruzado S<sub>CA</sub> es ' + (1/(SCA * SBC)).toFixed(4);
+document.getElementById('resultado').innerHTML = '<p>El tipo cruzado S<sub>AB</sub> es ' + (SCA * SBC).toFixed(4) + '.<br>El tipo cruzado S<sub>CA</sub> es ' + (1/(SCA * SBC)).toFixed(4);
 } else if ((SCB.length>0) && (SBC.length>0)){
-document.getElementById('resultado').innerHTML = 'No es posible calcular el tipo cruzado';
+document.getElementById('resultado').innerHTML = '<p>No es posible calcular el tipo cruzado';
 }
 }
 
@@ -248,20 +246,20 @@ if (SCBv.length>0){count=count+1;}
 
 if (count>6){document.getElementById('result3').innerHTML = 'Por favor revise los datos, indique sólo tres pares de tipos de cambio';}
 
-else if ((SABc==="") || (SABv==="")){document.getElementById('result3').innerHTML = 'Es necesario especificar el tipo de cambio de intercambio directo S<sub>AB</sub>';}
+else if ((SABc==="") || (SABv==="")){document.getElementById('result3').innerHTML = '<p>Es necesario especificar el tipo de cambio de intercambio directo S<sub>AB</sub>';}
 
-else if (((SACc==="")||(SACv==="")) && ((SCAc==="")||(SCAv===""))){document.getElementById('result3').innerHTML = 'Es necesario especificar el tipo de cambio entre la divisa A y la divisa C';}
+else if (((SACc==="")||(SACv==="")) && ((SCAc==="")||(SCAv===""))){document.getElementById('result3').innerHTML = '<p>Es necesario especificar el tipo de cambio entre la divisa A y la divisa C';}
 
-else if (((SBCc==="")||(SBCv==="")) && ((SCBc==="")||(SCBv===""))){document.getElementById('result3').innerHTML = 'Es necesario especificar el tipo de cambio entre la divisa B y la divisa C';}
+else if (((SBCc==="")||(SBCv==="")) && ((SCBc==="")||(SCBv===""))){document.getElementById('result3').innerHTML = '<p>Es necesario especificar el tipo de cambio entre la divisa B y la divisa C';}
 
-else if ((nSABc>nSABv)||(nSACc>nSACv)||(nSCAc>nSCAv)||(nSBCc>nSBCv)||(nSCBc>nSCBv)){document.getElementById('result3').innerHTML = 'Revise los datos, los tipos compradores no pueden ser superiores a los vendedores';}
+else if ((nSABc>nSABv)||(nSACc>nSACv)||(nSCAc>nSCAv)||(nSBCc>nSBCv)||(nSCBc>nSCBv)){document.getElementById('result3').innerHTML = '<p>Revise los datos, los tipos compradores no pueden ser superiores a los vendedores';}
 
 else if ((SACc.length>0) && (SCBc.length>0)){
 	var IIc=(SACc*SCBc).toFixed(4);
 	var IIv=(SACv*SCBv).toFixed(4);
 	var nIIc=parseFloat(IIc);
 	var nIIv=parseFloat(IIv);
-	var HTML = '<table class=result><tr><td></td><td>C</td><td>V</td></tr><tr class=top><td>ID<sub>AB</sub></td><td>'+(SABc).toFixed(4)+'</td><td>'+(SABv).toFixed(4)+'</td></tr><tr class=bottom><td>II<sub>AB_C</sub></td><td>'+IIc+'</td><td>'+IIv+'</td></tr><tr><td></td><td><small>Cobramos<br>(vendemos)</small></td><td><small>Pagamos<br>(compramos)</small></td></tr></table>';
+	var HTML = '<p><table class=result><tr><td></td><td>C</td><td>V</td></tr><tr class=top><td>ID<sub>AB</sub></td><td>'+(SABc).toFixed(4)+'</td><td>'+(SABv).toFixed(4)+'</td></tr><tr class=bottom><td>II<sub>AB_C</sub></td><td>'+IIc+'</td><td>'+IIv+'</td></tr><tr><td></td><td><small>Cobramos<br>(vendemos)</small></td><td><small>Pagamos<br>(compramos)</small></td></tr></table>';
 	document.getElementById('result3a').innerHTML = HTML;
 	if (nSABc>nIIv){
 		var beneficio=(SABc-IIv).toFixed(4);
@@ -321,7 +319,7 @@ alert(IIC);
 		var beneficio=(IIc-SABv).toFixed(4);
 		document.getElementById('result3').innerHTML = '<p>Hay arbitraje triangular<p>Compramos divisa B en Intercambio Directo  pagando ' + SABv + ' unidades de A y la vendemos en Intercambio Indirecto cobrando ' + IIc + ' unidades de A, obteniendo un beneficio de ' + beneficio + ' unidades de A por cada unidad de B en arbitraje';}
 	else {
-		document.getElementById('result3').innerHTML = 'No hay arbitraje';}
+		document.getElementById('result3').innerHTML = '<p>No hay arbitraje';}
 }
 }
 
@@ -369,9 +367,9 @@ if (rBa.length>0){count=count+1;}
 if (rAd.length>0){count=count+1;}
 if (rAa.length>0){count=count+1;}
 if (t.length>0){count=count+1;}
-if (count!=9){document.getElementById('result4').innerHTML = 'Es necesario indicar todos los datos para poder determinar si existe o no arbitraje a plazos.';}
+if (count!=9){document.getElementById('result4').innerHTML = '<p>Es necesario indicar todos los datos para poder determinar si existe o no arbitraje a plazos.';}
 
-else if ((parseFloat(SABc)>parseFloat(SABv))||(parseFloat(FABc)>parseFloat(FABv))||(parseFloat(rBd)>parseFloat(rBa))||(parseFloat(rAd)>parseFloat(rAa))){document.getElementById('result4').innerHTML = 'Revise los datos, los tipos compradores no pueden ser superiores a los vendedores, ni los tipos de interés deudores superiores a los acreedores';}
+else if ((parseFloat(SABc)>parseFloat(SABv))||(parseFloat(FABc)>parseFloat(FABv))||(parseFloat(rBd)>parseFloat(rBa))||(parseFloat(rAd)>parseFloat(rAa))){document.getElementById('result4').innerHTML = '<p>Revise los datos, los tipos compradores no pueden ser superiores a los vendedores, ni los tipos de interés deudores superiores a los acreedores';}
 
 else {
 	var DCAD=((SABc*(1+(rAd/100)*(t/12)))/FABv).toFixed(4);
@@ -384,7 +382,7 @@ else {
 		document.getElementById('result4').innerHTML = '<p>Hay arbitraje directo:Endeudamiento en €, €xDE, Depósito en DE, Venta a plazo de DE.<p>Nos endeudamos en € pagando ' + OPAD + ' € dentro de ' + t + ' meses (OP<sub>€,' + t + '</sub>), cambiamos el € por divisa extranjera (' + SABc + ' unidades de divisa extranjera) e invertimos durante ' + t + ' meses esa cantidad generando ' + (SABc*(1+(rAd/100)*(t/12))).toFixed(4) + ' unidades de divisa extranjera que vendemos en el mercado forward obteniendo ' + DCAD + ' euros (DC<sub>€,' + t + '</sub>). Por tanto, el beneficio por arbitraje es de ' + resultadoAD + ' € por cada € que se pida en préstamo';}
 	else if (resultadoAI>0){
 		document.getElementById('result4').innerHTML = '<p>Hay arbitraje indirecto: Endeudamiento en DE, DEx€, Depósito en €, Compra a plazo de DE.<p>Nos endeudamos en divisa extranjera y compramos a plazo la cantidad necesaria para pagar ese préstamo, para ello necesitamos ' + OPAI + ' € dentro de ' + t + ' meses (OP<sub>€,' + t + '</sub>). Cambiamos la divisa extranjera por € (' + (1/SABv).toFixed(4) + ' ) que invertimos durante ' + t + ' meses generando ' + DCAI + ' € (DC<sub>€,' + t + '</sub>). Por tanto, el beneficio por arbitraje es de ' + resultadoAI + ' € por cada unidad de divisa extranjera que se pida en préstamo';}
-	else {document.getElementById('result4').innerHTML = 'No hay arbitraje, el mercado está en equilibrio.';}
+	else {document.getElementById('result4').innerHTML = '<p>No hay arbitraje, el mercado está en equilibrio.';}
 }
 
 }
@@ -436,9 +434,9 @@ if (t.length>0){count=count+1;}
 if (tipo.length>0){count=count+1;}
 if (amount.length>0){count=count+1;}
 
-if (count!=11){document.getElementById('result5').innerHTML = 'Es necesario indicar todos los datos para poder calcular la cobertura.';}
+if (count!=11){document.getElementById('result5').innerHTML = '<p>Es necesario indicar todos los datos para poder calcular la cobertura.';}
 
-else if ((parseFloat(SABc)>parseFloat(SABv))||(parseFloat(FABc)>parseFloat(FABv))||(parseFloat(rBd)>parseFloat(rBa))||(parseFloat(rAd)>parseFloat(rAa))){document.getElementById('result5').innerHTML = 'Revise los datos, los tipos compradores no pueden ser superiores a los vendedores, ni los tipos de interés deudores superiores a los acreedores';}
+else if ((parseFloat(SABc)>parseFloat(SABv))||(parseFloat(FABc)>parseFloat(FABv))||(parseFloat(rBd)>parseFloat(rBa))||(parseFloat(rAd)>parseFloat(rAa))){document.getElementById('result5').innerHTML = '<p>Revise los datos, los tipos compradores no pueden ser superiores a los vendedores, ni los tipos de interés deudores superiores a los acreedores';}
 
 else if (tipo=="DC") {
 	var DCSCt=(amount/FABv).toFixed(2);
@@ -449,7 +447,7 @@ else if (tipo=="DC") {
 		document.getElementById('result5').innerHTML = '<p>La mejor alternativa es realizar la cobertura con el <b>seguro de cambio</b> (mercado a plazo de divisas).<p>La venta a plazo ' + t + ' meses de nuestro DC en divisa extranjera genera un DC en € dentro de ' + t + ' meses de <b>' + DCSCt+ ' €</b>, que equivalen a un DC hoy de <b>' + DCSC0 + ' €</b>.<p> La cobertura con el sintético, consistente en pedir hoy un préstamo en divisa extranjera por ' + prestamode + ' a devolver dentro de ' + t + ' meses y cambiar hoy esa cantidad por €, genera un DC en € de <b>' + DCSI0 + '</b>';}
 	else if (parseFloat(DCSC0) < parseFloat(DCSI0)){
 		document.getElementById('result5').innerHTML = '<p>La mejor alternativa es realizar la cobertura con el <b>sintético</b>.<p>La venta a plazo ' + t + ' meses de nuestro DC en divisa extranjera genera un DC en € dentro de ' + t + ' meses de <b>' + DCSCt+ ' €</b>, que equivalen a un DC hoy de <b>' + DCSC0 + ' €</b>.<p> La cobertura con el sintético, consistente en pedir hoy un préstamo en divisa extranjera por ' + prestamode + ' a devolver dentro de ' + t + ' meses y cambiar hoy esa cantidad por €, genera un DC en € de <b>' + DCSI0 + '</b>';}
-	else {document.getElementById('result5').innerHTML = 'Resulta indiferente realizar la cobertura en el mercado de divisas (seguro de cambio):venta de divisa extranjera a plazo o en los mercados monetarios (sintético): solicitar préstamo en divisa extranjera. En ambos casos se genera un DC en € hoy de <b>' + DCSI0 + '</b>';}
+	else {document.getElementById('result5').innerHTML = '<p>Resulta indiferente realizar la cobertura en el mercado de divisas (seguro de cambio):venta de divisa extranjera a plazo o en los mercados monetarios (sintético): solicitar préstamo en divisa extranjera. En ambos casos se genera un DC en € hoy de <b>' + DCSI0 + '</b>';}
 }
 else {
 	var OPSCt=(amount/FABc).toFixed(2);
@@ -460,7 +458,7 @@ else {
 		document.getElementById('result5').innerHTML = '<p>La mejor alternativa es realizar la cobertura con el <b>seguro de cambio</b> (mercado a plazo de divisas).<p>La compra a plazo ' + t + ' meses de nuestra OP en divisa extranjera genera una OP en € dentro de ' + t + ' meses de <b>' + OPSCt+ ' €</b>, que equivalen a una OP hoy de <b>' + OPSC0 + ' €</b>.<p> La cobertura con el sintético, consistente en invertir hoy ' + invertde + ' unidades de divisa extranjera en un depósito con vencimiento dentro de ' + t + ' meses, para poder efectuar la inversión debemos comprar hoy esa cantidad lo que supone pagar <b>' + OPSI0 + ' €</b>';}
 	else if (parseFloat(DCSC0) > parseFloat(DCSI0)){
 		document.getElementById('result5').innerHTML = '<p>La mejor alternativa es realizar la cobertura con el <b>sintético</b>.<p>La compra a plazo ' + t + ' meses de nuestra OP en divisa extranjera genera una OP en € dentro de ' + t + ' meses de <b>' + OPSCt+ ' €</b>, que equivalen a una OP hoy de <b>' + OPSC0 + ' €</b>.<p> La cobertura con el sintético, consistente en invertir hoy ' + invertde + ' unidades de divisa extranjera en un depósito con vencimiento dentro de ' + t + ' meses, para poder efectuar la inversión debemos comprar hoy esa cantidad lo que supone pagar <b>' + OPSI0 + ' €</b>';}
-	else {document.getElementById('result5').innerHTML = 'Resulta indiferente realizar la cobertura en el mercado de divisas (seguro de cambio): compra de divisa extranjera a plazo o en los mercados monetarios (sintético): realizar un depósito en divisa extranjera. En ambos casos se genera una OP en € hoy de <b>' + OPSI0 + '</b>';}
+	else {document.getElementById('result5').innerHTML = '<p>Resulta indiferente realizar la cobertura en el mercado de divisas (seguro de cambio): compra de divisa extranjera a plazo o en los mercados monetarios (sintético): realizar un depósito en divisa extranjera. En ambos casos se genera una OP en € hoy de <b>' + OPSI0 + '</b>';}
 }
 }
 
@@ -506,7 +504,7 @@ var tipo = document.inputrcob.tipo.value;
 var amount1 = document.inputrcob.amount1.value;
 var amount2 = document.inputrcob.amount2.value;
 document.getElementById('help6').innerHTML ='';
-if ((parseFloat(SABc)>parseFloat(SABv))||(parseFloat(FABc1)>parseFloat(FABv1))||(parseFloat(FABc2)>parseFloat(FABv2))||(parseFloat(rBd1)>parseFloat(rBa1))||(parseFloat(rAd1)>parseFloat(rAa1))||(parseFloat(rBd2)>parseFloat(rBa2))||(parseFloat(rAd2)>parseFloat(rAa2))){document.getElementById('result6').innerHTML = 'Revise los datos, los tipos compradores no pueden ser superiores a los vendedores, ni los tipos de interés deudores superiores a los acreedores';
+if ((parseFloat(SABc)>parseFloat(SABv))||(parseFloat(FABc1)>parseFloat(FABv1))||(parseFloat(FABc2)>parseFloat(FABv2))||(parseFloat(rBd1)>parseFloat(rBa1))||(parseFloat(rAd1)>parseFloat(rAa1))||(parseFloat(rBd2)>parseFloat(rBa2))||(parseFloat(rAd2)>parseFloat(rAa2))){document.getElementById('result6').innerHTML = '<p>Revise los datos, los tipos compradores no pueden ser superiores a los vendedores, ni los tipos de interés deudores superiores a los acreedores';
 	} else if (tipo=="DC") { 
 //solo cambia cantidad no plazo
 	if ((parseFloat(t1)==parseFloat(t2))&&(t1.length>0)){
@@ -929,7 +927,7 @@ if ((parseFloat(SABc)>parseFloat(SABv))||(parseFloat(FABc1)>parseFloat(FABv1))||
 	//Cierre cambia plazo
 	}	
 //Cierre de OP	
-} else {document.getElementById('result6').innerHTML = 'Por favor, determine si está modificando la cobertura de un DC o de una OP';
+} else {document.getElementById('result6').innerHTML = '<p>Por favor, determine si está modificando la cobertura de un DC o de una OP';
 }
 //Cierre de función
 }
@@ -976,15 +974,15 @@ if (Fax.length>0){count=count+1;}
 if (Fay.length>0){count=count+1;}
 if (Fbx.length>0){count=count+1;}
 if (Fby.length>0){count=count+1;}
-if (count!=4){document.getElementById('result8d').innerHTML = 'Tiene que completar al menos <b>todos</b> los datos de la tabla';}
+if (count!=4){document.getElementById('result8d').innerHTML = '<p>Tiene que completar al menos <b>todos</b> los datos de la tabla';}
 else {
 	document.getElementById('result8d').innerHTML ='';
 	var difa = parseFloat(Fay)-parseFloat(Fax);
 	var difb = parseFloat(Fby)-parseFloat(Fbx);
 	var beneficio=Math.abs(difa-difb);
-	if (beneficio==0) {document.getElementById('result8d').innerHTML ='Es imposible un acuerdo swap';}
+	if (beneficio==0) {document.getElementById('result8d').innerHTML ='<p>Es imposible un acuerdo swap';}
 	if (parseFloat(difa)>parseFloat(difb)){
-		var HTML = '<table class=result><tr><td></td><td>X</td><td>Y</td></tr><tr class=top><td>Paga</td><td>'+Fax+'+FBw</td><td>'+Fby+'+FAw</td></tr><tr class=bottom><td>Cobra</td><td>FAw</td><td>FBw</td></tr></table>';
+		var HTML = '<p><table class=result><tr><td></td><td>X</td><td>Y</td></tr><tr class=top><td>Paga</td><td>'+Fax+'+FBw</td><td>'+Fby+'+FAw</td></tr><tr class=bottom><td>Cobra</td><td>FAw</td><td>FBw</td></tr></table>';
 		document.getElementById('result8a').innerHTML = HTML +'<br>La empresa X elige financiarse con su banco en divisa A porque es donde tiene ventaja competitiva y la empresa Y elige financiarse con su banco en divisa B';
 		document.getElementById('result8b').innerHTML ='<p>La condición de la empresa X para negociar el swap con Y es: '+Fax+'+FBw-FAw < '+Fbx+'.<br>La condición de la empresa Y para negociar el swap con X es: '+Fby+'+FAw-FBw < '+Fay+'.<br>Por tanto, para que exista swap la relación entre ambos tipos de interés es: '+(Fax-Fbx).toFixed(2)+'< FAw-FBw < ' +(Fay-Fby).toFixed(2)+' cualquier valor de FAw y FBw que cumpla lo anterior genera beneficios (menor coste de financiación) para ambas empresas.<br>El beneficio del swap es ' +beneficio+'.';
 		if (benx.length>0){
@@ -995,7 +993,7 @@ else {
 			}
 		}
 	} else if (parseFloat(difa)<parseFloat(difb)){
-		var HTML = '<table class=result><tr><td></td><td>X</td><td>Y</td></tr><tr class=top><td>Paga</td><td>'+Fbx+'+FAw</td><td>'+Fay+'+FBw</td></tr><tr class=bottom><td>Cobra</td><td>FBw</td><td>FAw</td></tr></table>';
+		var HTML = '<p><table class=result><tr><td></td><td>X</td><td>Y</td></tr><tr class=top><td>Paga</td><td>'+Fbx+'+FAw</td><td>'+Fay+'+FBw</td></tr><tr class=bottom><td>Cobra</td><td>FBw</td><td>FAw</td></tr></table>';
 		document.getElementById('result8a').innerHTML = HTML +'<br>La empresa X elige financiarse con su banco en divisa B porque es donde tiene ventaja competitiva y la empresa Y elige financiarse con su banco en divisa A';
 		document.getElementById('result8b').innerHTML ='<p>La condición de la empresa X para negociar el swap con Y es: '+Fbx+'+FAw-FBw < '+Fax+'.<br>La condición de la empresa Y para negociar el swap con X es: '+Fay+'+FBw-FAw < '+Fby+'.<br>Por tanto, para que exista swap la relación entre ambos tipos de interés es: '+(Fay-Fby).toFixed(2)+'< FAw-FBw < ' +(Fax-Fbx).toFixed(2)+' cualquier valor de FAw y FBw que cumpla lo anterior genera beneficios (menor coste de financiación) para ambas empresas.<br>El beneficio del swap es ' +beneficio+'.';
 		if (benx.length>0){
@@ -1084,7 +1082,7 @@ if (prima.length>0){count=count+1;}
 if (K.length>0){count=count+1;}
 if (ST.length>0){count=count+1;}
 
-if (count!=5){document.getElementById('result11').innerHTML = 'Tiene que indicar <b>todos</b> los datos.';}
+if (count!=5){document.getElementById('result11').innerHTML = '<p>Tiene que indicar <b>todos</b> los datos.';}
 else {
 	if (tipo=="Call"){
 		var breakeven = (parseFloat(K)+parseFloat(prima)).toFixed(2);
@@ -1218,22 +1216,22 @@ function showdraw()
           
       	</div>
         <!--List View Page-->
-		<div class="panel" title="Acerca de" id="itemB" data-footer="none" selected="false">
+		<div class="panel" title="Acerca de" id="itemB" data-footer="none">
           <header>
             <h1>Acerca de</h1>
             <a id="backButton" class="button backButton">Atrás</a><a class="button icon home" style="float:right" href="#menu"></a> 
           </header>
-          <br align="justify">
-          App desarrollada por Sandra Morini para la asignatura Finanzas Internacionales del Grado de Contabilidad y Finanzas de la ULL.
-          <br>Cualquier sugerencia se puede hacer llegar a <a href = "mailto:smorini@ull.edu.es?subject=APP Finanzas Internacionales";>smorini@ull.edu.es</a>
+          
+          <p align="justify">App desarrollada por Sandra Morini para la asignatura Finanzas Internacionales del Grado de Contabilidad y Finanzas de la ULL.</p>
+          <p>Cualquier sugerencia se puede hacer llegar a <a href = "mailto:smorini@ull.edu.es?subject=APP Finanzas Internacionales";>smorini@ull.edu.es</a>
           <hr>
-          Créditos:
-          Librerias y hojas de estilo: Appframework, jquery, API de Google.<br>
-          Compilación: phonegap.<br> 
-          Gráficas de opciones: código modificado a partir del de Boris Treskunov.<br><hr>
+          <p>Créditos:
+          <ul>Librerias y hojas de estilo: Appframework, jquery, API de Google.</ul>
+          <ul>Compilación: phonegap.</ul> 
+          <ul>Gráficas de opciones: código modificado a partir del de Boris Treskunov.</ul><hr>
 <!--          Puede encontrar actualizaciones de la app <a onclick='newwin ()'>aquí</a> -->
-          Puede encontrar actualizaciones de la app <a href="http://build.phonegap.com/apps/1857371/share" onClick="javascript:return openExternal(this)"> aquí </a>
-        <div class="panel" title="Solver Tema 2" id="menusolt2" data-footer="none" selected="false">
+          <p>Puede encontrar actualizaciones de la app <a href="http://build.phonegap.com/apps/1857371/share" onClick="javascript:return openExternal(this)"> aquí </a>
+        <div class="panel" title="Solver Tema 2" id="menusolt2" data-footer="none">
           <header>
             <h1>Solver Divisas</h1>
             <a id="backButton" class="button backButton">Atrás</a><a class="button icon home" style="float:right" href="#menu"></a> 
@@ -1249,7 +1247,7 @@ function showdraw()
             <li><a class="icon target" href="#item6">Reajuste de cobertura</a></li>
            </ul>
         </div>
-        <div class="panel" title="Solver Tema 3" id="menusolt3" data-footer="none" selected="false">
+        <div class="panel" title="Solver Tema 3" id="menusolt3" data-footer="none">
           <header>
             <h1>Solver Derivados</h1>
             <a id="backButton" class="button backButton">Atrás</a><a class="button icon home" style="float:right" href="#menu"></a> 
@@ -1564,7 +1562,7 @@ function showdraw()
     </header>
  	<p class="block" id="help13"></p>   
 <!--aqui empieza lo copiado-->
-    <div class="block">
+    
         <div id="chart_div" style="width: 90%; height: 30%; display:none; align=center;"></div>
         <p><p>
         <div id="asset-options">
@@ -1587,7 +1585,7 @@ function showdraw()
 		            </p>
             </form>
         </div>
-    </div>
+    
 	<!--Load the AJAX API-->
 
 </div>
