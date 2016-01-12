@@ -3,6 +3,7 @@
 <!-- config.xml reference: https://build.phonegap.com/docs/config-xml -->
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
+        xmlns:android   = "http://schemas.android.com/apk/res/android"
         id        = "com.phonegap.FI"
         version   = "2.0.0">
 
@@ -16,11 +17,16 @@
         Finanzas Internacionales
     </author>
     
-    <preference name="permissions" value="none"/>
-
+    <preference name="permissions">
+         
+            
+    </preference>
+        <uses-permission android:name="android.permission.INTERNET"></uses-permission>
     <icon src="./icon.png" />
     <gap:splash src="./splash.png" />
+
    
 </widget>
+
 
 
