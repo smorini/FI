@@ -12,6 +12,7 @@
 	$.feat.nativeTouchScroll=true;
         $.ui.autoLaunch = false; 
         $.ui.backButtonText = "Atrás";
+        $.ui.useOSThemes=true;
         $(document).ready(function(){
         $.ui.launch();
         });
@@ -45,7 +46,9 @@ document.getElementById('help11').innerHTML ='';
 document.getElementById('help12').innerHTML ='';
 document.getElementById('help13').innerHTML ='';
 }
-
+function newwin() {              
+ myWindow=window.open('https://build.phonegap.com/apps/1857371/share','actualizar','width=100%,height=100%')
+}
 </script>
 
 <!-- Calcula el tipo cruzado -->
@@ -1195,7 +1198,7 @@ function showdraw()
           
       	</div>
         <!--List View Page-->
-		<div class="panel" title="Acerca de" id="itemB" data-footer="none" selected="true">
+		<div class="panel" title="Acerca de" id="itemB" data-footer="none" selected="false">
           <header>
             <h1>Acerca de</h1>
             <a id="backButton" class="button backButton">Atrás</a><a class="button icon home" style="float:right" href="#menu"></a> 
@@ -1208,9 +1211,8 @@ function showdraw()
           Librerias y hojas de estilo: Appframework, jquery, API de Google.<br>
           Compilación: phonegap.<br> 
           Gráficas de opciones: código modificado a partir del de Boris Treskunov.<br><hr>
-          Puede encontrar actualizaciones de la app <a onclick="navigator.app.loadUrl('https://google.com/', { openExternal:true });">aquí</a>
-
-        <div class="panel" title="Solver Tema 2" id="menusolt2" data-footer="none" selected="true">
+          Puede encontrar actualizaciones de la app <a onclick='newwin ()'>aquí</a>
+        <div class="panel" title="Solver Tema 2" id="menusolt2" data-footer="none" selected="false">
           <header>
             <h1>Solver Divisas</h1>
             <a id="backButton" class="button backButton">Atrás</a><a class="button icon home" style="float:right" href="#menu"></a> 
@@ -1226,7 +1228,7 @@ function showdraw()
             <li><a class="icon target" href="#item6">Reajuste de cobertura</a></li>
            </ul>
         </div>
-        <div class="panel" title="Solver Tema 3" id="menusolt3" data-footer="none" selected="true">
+        <div class="panel" title="Solver Tema 3" id="menusolt3" data-footer="none" selected="false">
           <header>
             <h1>Solver Derivados</h1>
             <a id="backButton" class="button backButton">Atrás</a><a class="button icon home" style="float:right" href="#menu"></a> 
@@ -1557,7 +1559,7 @@ function showdraw()
                 <button onclick="showdraw()">Mostrar</button>
                 <button onclick="addGraph()">Añadir Activo</button>
                 <button onClick="showDialog()">Instrucciones</button>	
-				</p>
+		</p>
             </form>
         </div>
     </div> <!-- /container -->
