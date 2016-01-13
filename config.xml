@@ -22,7 +22,8 @@
     <icon src="icon.png" />
     <gap:splash src="splash.png" />
 
-   
+   <access origin="http://*.google.com" />
+   <access origin="http://ajax.googleapis.com" />
 </widget>
 
 

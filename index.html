@@ -2,32 +2,20 @@
   <head>
     <meta content="text/html; charset=utf-8" http-equiv="content-type">
     <title>Finanzas Internacionales</title>
-    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0;">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
     <link rel="stylesheet" type="text/css" href="css/af.ui.css">
     <link rel="stylesheet" type="text/css" href="css/icons.css">
     <script type="text/javascript" charset="utf-8" src="js/jquery.min.js"></script>
+	<script src="js/jq.appframework.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript" charset="utf-8" src="js/appframework.ui.min.js"></script>
-    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
-    <script type="text/javascript" src="js/options-graphing.js"></script>
     <script>
 	$.feat.nativeTouchScroll=true;
         $.ui.autoLaunch = false; 
         $.ui.backButtonText = "Atrás";
-        $.ui.useOSThemes=true;
+        $.ui.useOSThemes=false;
         $(document).ready(function(){
         $.ui.launch();
         });
-    </script>
-    <script>
-      google.load("visualization", "1", {packages:["corechart"]});
-      google.setOnLoadCallback(drawChart);
-      function drawChart() {
-        assets.push(new Asset());
-        drawAssetChart(document.getElementById('chart_div'));
-      }
-      $(function() {
-        $("form").submit(function() { return false; });
-      });
     </script>
 <script>
 function showDialog(){
@@ -1580,5 +1568,18 @@ function showdraw()
 </div>
 </div>
 </div>
+	<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+	<script type="text/javascript" src="js/options-graphing.js"></script>
+    <script>
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        assets.push(new Asset());
+        drawAssetChart(document.getElementById('chart_div'));
+      }
+      $(function() {
+        $("form").submit(function() { return false; });
+      });
+    </script>
 </body>
 </html>
