@@ -102,7 +102,7 @@ document.getElementById('resultado').innerHTML = '<p>El tipo cruzado S<sub>BC</s
 } else if ((SBA.length>0) && (SCB.length>0)){
 document.getElementById('resultado').innerHTML = '<p>El tipo cruzado S<sub>AC</sub> es ' + (1/(SCB * SBA)).toFixed(4) + '.<br>El tipo cruzado S<sub>CA</sub> es ' + (SCB * SBA).toFixed(4);
 } else if ((SBA.length>0) && (SBC.length>0)){
-document.getElementById('resultado').innerHTML = '<p>El tipo cruzado S<sub>AC</sub> es ' + (SBC / SBA).toFixed(4) + '.<br>El tipo cruzado S<sub>CA</sub> es ' + (1/(SBC / SBA)).toFixed(4);
+document.getElementById('resultado').innerHTML = '<p>El tipo cruzado S<sub>AC</sub> es ' + (1/(SBA / SBC)).toFixed(4) + '.<br>El tipo cruzado S<sub>CA</sub> es ' + (SBA / SBC).toFixed(4);
 } else if ((SAC.length>0) && (SCA.length>0)){
 document.getElementById('resultado').innerHTML = '<p>No es posible calcular el tipo cruzado';
 } else if ((SAC.length>0) && (SCB.length>0)){
@@ -217,16 +217,16 @@ var SCAv = document.inputat.SCAv.value;
 var SCBc = document.inputat.SCBc.value;
 var SCBv = document.inputat.SCBv.value;
 var count = 0;
-var nSABc = parseFloat(document.inputat.SABc.value);
-var nSABv = parseFloat(document.inputat.SABv.value);
-var nSACc = parseFloat(document.inputat.SACc.value);
-var nSACv = parseFloat(document.inputat.SACv.value); 
-var nSBCc = parseFloat(document.inputat.SBCc.value);
-var nSBCv = parseFloat(document.inputat.SBCv.value);
-var nSCAc = parseFloat(document.inputat.SCAc.value);
-var nSCAv = parseFloat(document.inputat.SCAv.value); 
-var nSCBc = parseFloat(document.inputat.SCBc.value);
-var nSCBv = parseFloat(document.inputat.SCBv.value);
+/*var nSABc = parseFloat(SABc);
+var nSABv = parseFloat(SABv);
+var nSACc = parseFloat(SACc);
+var nSACv = parseFloat(SACv); 
+var nSBCc = parseFloat(SBCc);
+var nSBCv = parseFloat(SBCv);
+var nSCAc = parseFloat(SCAc);
+var nSCAv = parseFloat(SCAv); 
+var nSCBc = parseFloat(SCBc);
+var nSCBv = parseFloat(SCBv);*/
 document.getElementById('help3').innerHTML ='';
 
 // Calcula
@@ -243,83 +243,75 @@ if (SCBv.length>0){count=count+1;}
 
 if (count>6){document.getElementById('result3').innerHTML = 'Por favor revise los datos, indique sólo tres pares de tipos de cambio';}
 
-else if ((SABc==="") || (SABv==="")){document.getElementById('result3').innerHTML = '<p>Es necesario especificar el tipo de cambio de intercambio directo S<sub>AB</sub>';}
+else if ((SABc.length==0) || (SABv.length==0)){document.getElementById('result3').innerHTML = '<p>Es necesario especificar el tipo de cambio de intercambio directo S<sub>AB</sub>';}
 
-else if (((SACc==="")||(SACv==="")) && ((SCAc==="")||(SCAv===""))){document.getElementById('result3').innerHTML = '<p>Es necesario especificar el tipo de cambio entre la divisa A y la divisa C';}
+else if (((SACc.length==0)&&(SCAc.length==0)) || ((SACv.length==0)&&(SCAv.length==0))){document.getElementById('result3').innerHTML = '<p>Es necesario especificar el tipo de cambio entre la divisa A y la divisa C';}
 
-else if (((SBCc==="")||(SBCv==="")) && ((SCBc==="")||(SCBv===""))){document.getElementById('result3').innerHTML = '<p>Es necesario especificar el tipo de cambio entre la divisa B y la divisa C';}
+else if (((SBCc.length==0)&&(SCBc.length==0)) || ((SBCv.length==0)&&(SCBv.length==0))){document.getElementById('result3').innerHTML = '<p>Es necesario especificar el tipo de cambio entre la divisa B y la divisa C';}
 
-else if ((nSABc>nSABv)||(nSACc>nSACv)||(nSCAc>nSCAv)||(nSBCc>nSBCv)||(nSCBc>nSCBv)){document.getElementById('result3').innerHTML = '<p>Revise los datos, los tipos compradores no pueden ser superiores a los vendedores';}
+else if ((parseFloat(SABc)>parseFloat(SABv))||(parseFloat(SACc)>parseFloat(SACv))||(parseFloat(SCAc)>parseFloat(SCAv))||(parseFloat(SBCc)>parseFloat(SBCv))||(parseFloat(SCBc)>parseFloat(SCBv))){document.getElementById('result3').innerHTML = '<p>Revise los datos, los tipos compradores no pueden ser superiores a los vendedores';}
 
 else if ((SACc.length>0) && (SCBc.length>0)){
-	var IIc=(SACc*SCBc).toFixed(4);
+  var IIc=(SACc*SCBc).toFixed(4);
 	var IIv=(SACv*SCBv).toFixed(4);
-	var nIIc=parseFloat(IIc);
-	var nIIv=parseFloat(IIv);
-	var HTML = '<p><table class=result><tr><td></td><td>C</td><td>V</td></tr><tr class=top><td>ID<sub>AB</sub></td><td>'+(SABc).toFixed(4)+'</td><td>'+(SABv).toFixed(4)+'</td></tr><tr class=bottom><td>II<sub>AB_C</sub></td><td>'+IIc+'</td><td>'+IIv+'</td></tr><tr><td></td><td><small>Cobramos<br>(vendemos)</small></td><td><small>Pagamos<br>(compramos)</small></td></tr></table>';
-	document.getElementById('result3a').innerHTML = HTML;
-	if (nSABc>nIIv){
+  var HTML = '<p><table class=result><tr><td></td><td>C</td><td>V</td></tr><tr class=top><td>ID</td><td>'+(parseFloat(SABc)).toFixed(4)+'</td><td>'+(parseFloat(SABv)).toFixed(4)+'</td></tr><tr class=bottom><td>II</td><td>'+IIc+'</td><td>' +IIv+'</td></tr><td></td><td>Cobramos</td><td>Pagamos</td></tr></table>';
+  document.getElementById('result3a').innerHTML = HTML+'';
+	if (parseFloat(SABc)>parseFloat(IIv)){
 		var beneficio=(SABc-IIv).toFixed(4);
-		document.getElementById('result3').innerHTML = '<p>Hay arbitraje triangular<p>Compramos divisa B en Intercambio Indirecto (AxCxB) pagando ' + IIv + ' unidades de A y la vendemos en Intercambio Directo cobrando ' + SABc + ' unidades de A, obteniendo un beneficio de ' + beneficio + ' unidades de A por cada unidad de B en arbitraje';}
-	else if (nIIc>nSABv){
+		document.getElementById('result3').innerHTML = '<p>Hay arbitraje triangular<p>Compramos divisa B en Intercambio Indirecto (AxCxB) pagando ' + IIv + ' unidades de A y la vendemos en Intercambio Directo cobrando ' + (parseFloat(SABc)).toFixed(4) + ' unidades de A, obteniendo un beneficio de ' + beneficio + ' unidades de A por cada unidad de B en arbitraje';}
+	else if (parseFloat(IIc)>parseFloat(SABv)){
 		var beneficio=(IIc-SABv).toFixed(4);
-		document.getElementById('result3').innerHTML = '<p>Hay arbitraje triangular<p>Compramos divisa B en Intercambio Directo  pagando ' + SABv + ' unidades de A y la vendemos en Intercambio Indirecto cobrando ' + IIc + ' unidades de A, obteniendo un beneficio de ' + beneficio + ' unidades de A por cada unidad de B en arbitraje';}
+		document.getElementById('result3').innerHTML = '<p>Hay arbitraje triangular<p>Compramos divisa B en Intercambio Directo  pagando ' + (parseFloat(SABv)).toFixed(4) + ' unidades de A y la vendemos en Intercambio Indirecto cobrando ' + IIc + ' unidades de A, obteniendo un beneficio de ' + beneficio + ' unidades de A por cada unidad de B en arbitraje';}
 	else {
-		document.getElementById('result3').innerHTML = 'No hay arbitraje';}
+    document.getElementById('result3').innerHTML = '<p>No hay arbitraje';}
 }
 else if ((SACc.length>0) && (SBCc.length>0)){
 	var IIc=(SACc/SBCv).toFixed(4);
 	var IIv=(SACv/SBCc).toFixed(4);
-	var nIIc=parseFloat(IIc);
-	var nIIv=parseFloat(IIv);
-	var HTML = '<table class=result><tr><td></td><td>C</td><td>V</td></tr><tr class=top><td>ID<sub>AB</sub></td><td class=sol>'+(SABc).toFixed(4)+'</td><td>'+(SABv).toFixed(4)+'</td></tr><tr class=bottom><td>II<sub>AB_C</sub></td><td>'+IIc+'</td><td class=sol>'+IIv+'</td></tr><tr><td></td><td><small>Cobramos<br>(vendemos)</small></td><td><small>Pagamos<br>(compramos)</small></td></tr></table>';
-	document.getElementById('result3a').innerHTML = HTML;
-	if (nSABc>nIIv){
+  var HTML = '<p><table class=result><tr><td></td><td>C</td><td>V</td></tr><tr class=top><td>ID</td><td>'+(parseFloat(SABc)).toFixed(4)+'</td><td>'+(parseFloat(SABv)).toFixed(4)+'</td></tr><tr class=bottom><td>II</td><td>'+IIc+'</td><td>' +IIv+'</td></tr><td></td><td>Cobramos</td><td>Pagamos</td></tr></table>';
+	/*var HTML = '<table class=result><tr><td></td><td>C</td><td>V</td></tr><tr class=top><td>ID<sub>AB</sub></td><td class=sol>'+(SABc).toFixed(4)+'</td><td>'+(SABv).toFixed(4)+'</td></tr><tr class=bottom><td>II<sub>AB_C</sub></td><td>'+IIc+'</td><td class=sol>'+IIv+'</td></tr><tr><td></td><td><small>Cobramos<br>(vendemos)</small></td><td><small>Pagamos<br>(compramos)</small></td></tr></table>';*/
+	document.getElementById('result3a').innerHTML = HTML+'';
+	if (parseFloat(SABc)>parseFloat(IIv)){
 		var beneficio=(SABc-IIv).toFixed(4);
-		document.getElementById('result3').innerHTML = '<p>Hay arbitraje triangular<p>Compramos divisa B en Intercambio Indirecto (AxCxB) pagando ' + IIv + ' unidades de A y la vendemos en Intercambio Directo cobrando ' + SABc + ' unidades de A, obteniendo un beneficio de ' + beneficio + ' unidades de A por cada unidad de B en arbitraje';}
-	else if (nIIc>nSABv){
+		document.getElementById('result3').innerHTML = '<p>Hay arbitraje triangular<p>Compramos divisa B en Intercambio Indirecto (AxCxB) pagando ' + IIv + ' unidades de A y la vendemos en Intercambio Directo cobrando ' + (parseFloat(SABc)).toFixed(4) + ' unidades de A, obteniendo un beneficio de ' + beneficio + ' unidades de A por cada unidad de B en arbitraje';}
+	else if (parseFloat(IIc)>parseFloat(SABv)){
 		var beneficio=(IIc-SABv).toFixed(4);
-		document.getElementById('result3').innerHTML = '<p>Hay arbitraje triangular<p>Compramos divisa B en Intercambio Directo  pagando ' + SABv + ' unidades de A y la vendemos en Intercambio Indirecto cobrando ' + IIc + ' unidades de A, obteniendo un beneficio de ' + beneficio + ' unidades de A por cada unidad de B en arbitraje';}
+		document.getElementById('result3').innerHTML = '<p>Hay arbitraje triangular<p>Compramos divisa B en Intercambio Directo  pagando ' + (parseFloat(SABv)).toFixed(4) + ' unidades de A y la vendemos en Intercambio Indirecto cobrando ' + IIc + ' unidades de A, obteniendo un beneficio de ' + beneficio + ' unidades de A por cada unidad de B en arbitraje';}
 	else {
 		document.getElementById('result3').innerHTML = 'No hay arbitraje';}
 }
-alert(SCAc.length);
 else if ((SCAc.length>0) && (SCBc.length>0)){
 	var IIc=(SCBc/SCAv).toFixed(4);
 	var IIv=(SCBv/SCAc).toFixed(4);
-	var nIIc=parseFloat(IIc);
-	var nIIv=parseFloat(IIv);
-	var HTML = '<table class=result><tr><td></td><td>C</td><td>V</td></tr><tr class=top><td>ID<sub>AB</sub></td><td class=sol>'+(SABc).toFixed(4)+'</td><td>'+(SABv).toFixed(4)+'</td></tr><tr class=bottom><td>II<sub>AB_C</sub></td><td>'+IIc+'</td><td class=sol>'+IIv+'</td></tr><tr><td></td><td><small>Cobramos<br>(vendemos)</small></td><td><small>Pagamos<br>(compramos)</small></td></tr></table>';
-	document.getElementById('result3a').innerHTML = HTML;
+  var HTML = '<p><table class=result><tr><td></td><td>C</td><td>V</td></tr><tr class=top><td>ID</td><td>'+(parseFloat(SABc)).toFixed(4)+'</td><td>'+(parseFloat(SABv)).toFixed(4)+'</td></tr><tr class=bottom><td>II</td><td>'+IIc+'</td><td>' +IIv+'</td></tr><td></td><td>Cobramos</td><td>Pagamos</td></tr></table>';
+	/*var HTML = '<table class=result><tr><td></td><td>C</td><td>V</td></tr><tr class=top><td>ID<sub>AB</sub></td><td class=sol>'+(SABc).toFixed(4)+'</td><td>'+(SABv).toFixed(4)+'</td></tr><tr class=bottom><td>II<sub>AB_C</sub></td><td>'+IIc+'</td><td class=sol>'+IIv+'</td></tr><tr><td></td><td><small>Cobramos<br>(vendemos)</small></td><td><small>Pagamos<br>(compramos)</small></td></tr></table>';*/
+	document.getElementById('result3a').innerHTML = HTML+'';
 
-	if (nSABc>nIIv){
+	if (parseFloat(SABc)>parseFloat(IIv)){
 		var beneficio=(SABc-IIv).toFixed(4);
-		document.getElementById('result3').innerHTML = '<p>Hay arbitraje triangular<p>Compramos divisa B en Intercambio Indirecto (AxCxB) pagando ' + IIv + ' unidades de A y la vendemos en Intercambio Directo cobrando ' + SABc + ' unidades de A, obteniendo un beneficio de ' + beneficio + ' unidades de A por cada unidad de B en arbitraje';}
-	else if (nIIc>nSABv){
+		document.getElementById('result3').innerHTML = '<p>Hay arbitraje triangular<p>Compramos divisa B en Intercambio Indirecto (AxCxB) pagando ' + IIv + ' unidades de A y la vendemos en Intercambio Directo cobrando ' + (parseFloat(SABc)).toFixed(4) + ' unidades de A, obteniendo un beneficio de ' + beneficio + ' unidades de A por cada unidad de B en arbitraje';}
+	else if (parseFloat(IIc)>parseFloat(SABv)){
 		var beneficio=(IIc-SABv).toFixed(4);
-		document.getElementById('result3').innerHTML = '<p>Hay arbitraje triangular<p>Compramos divisa B en Intercambio Directo  pagando ' + SABv + ' unidades de A y la vendemos en Intercambio Indirecto cobrando ' + IIc + ' unidades de A, obteniendo un beneficio de ' + beneficio + ' unidades de A por cada unidad de B en arbitraje';}
+		document.getElementById('result3').innerHTML = '<p>Hay arbitraje triangular<p>Compramos divisa B en Intercambio Directo  pagando ' + (parseFloat(SABv)).toFixed(4) + ' unidades de A y la vendemos en Intercambio Indirecto cobrando ' + IIc + ' unidades de A, obteniendo un beneficio de ' + beneficio + ' unidades de A por cada unidad de B en arbitraje';}
 	else {
 		document.getElementById('result3').innerHTML = 'No hay arbitraje';}
 }
 else if ((SCAc.length>0) && (SBCc.length>0)){
 	var IIc=(1/(SCAv*SBCv)).toFixed(4);
 	var IIv=(1/(SCAc*SBCc)).toFixed(4);
-	var nIIc=parseFloat(IIc);
-	var nIIv=parseFloat(IIv);
-	var HTML = '<table class=result><tr><td></td><td>C</td><td>V</td></tr><tr class=top><td>ID<sub>AB</sub></td><td class=sol>'+(SABc).toFixed(4)+'</td><td>'+(SABv).toFixed(4)+'</td></tr><tr class=bottom><td>II<sub>AB_C</sub></td><td>'+IIc+'</td><td class=sol>'+IIv+'</td></tr><tr><td></td><td><small>Cobramos<br>(vendemos)</small></td><td><small>Pagamos<br>(compramos)</small></td></tr></table>';
-	document.getElementById('result3a').innerHTML = HTML;
-alert(IIC);
-	if (nSABc>nIIv){
+  var HTML = '<p><table class=result><tr><td></td><td>C</td><td>V</td></tr><tr class=top><td>ID</td><td>'+(parseFloat(SABc)).toFixed(4)+'</td><td>'+(parseFloat(SABv)).toFixed(4)+'</td></tr><tr class=bottom><td>II</td><td>'+IIc+'</td><td>' +IIv+'</td></tr><td></td><td>Cobramos</td><td>Pagamos</td></tr></table>';
+	/*var HTML = '<table class=result><tr><td></td><td>C</td><td>V</td></tr><tr class=top><td>ID<sub>AB</sub></td><td class=sol>'+(SABc).toFixed(4)+'</td><td>'+(SABv).toFixed(4)+'</td></tr><tr class=bottom><td>II<sub>AB_C</sub></td><td>'+IIc+'</td><td class=sol>'+IIv+'</td></tr><tr><td></td><td><small>Cobramos<br>(vendemos)</small></td><td><small>Pagamos<br>(compramos)</small></td></tr></table>';*/
+	document.getElementById('result3a').innerHTML = HTML+'';
+	if (parseFloat(SABc)>parseFloat(IIv)){
 		var beneficio=(SABc-IIv).toFixed(4);
-		document.getElementById('result3').innerHTML = '<p>Hay arbitraje triangular<p>Compramos divisa B en Intercambio Indirecto (AxCxB) pagando ' + IIv + ' unidades de A y la vendemos en Intercambio Directo cobrando ' + SABc + ' unidades de A, obteniendo un beneficio de ' + beneficio + ' unidades de A por cada unidad de B en arbitraje';}
+		document.getElementById('result3').innerHTML = '<p>Hay arbitraje triangular<p>Compramos divisa B en Intercambio Indirecto (AxCxB) pagando ' + IIv + ' unidades de A y la vendemos en Intercambio Directo cobrando ' + (parseFloat(SABc)).toFixed(4) + ' unidades de A, obteniendo un beneficio de ' + beneficio + ' unidades de A por cada unidad de B en arbitraje';}
 	else if (nIIc>nSABv){
 		var beneficio=(IIc-SABv).toFixed(4);
-		document.getElementById('result3').innerHTML = '<p>Hay arbitraje triangular<p>Compramos divisa B en Intercambio Directo  pagando ' + SABv + ' unidades de A y la vendemos en Intercambio Indirecto cobrando ' + IIc + ' unidades de A, obteniendo un beneficio de ' + beneficio + ' unidades de A por cada unidad de B en arbitraje';}
+		document.getElementById('result3').innerHTML = '<p>Hay arbitraje triangular<p>Compramos divisa B en Intercambio Directo  pagando ' + (parseFloat(SABv)).toFixed(4) + ' unidades de A y la vendemos en Intercambio Indirecto cobrando ' + IIc + ' unidades de A, obteniendo un beneficio de ' + beneficio + ' unidades de A por cada unidad de B en arbitraje';}
 	else {
 		document.getElementById('result3').innerHTML = '<p>No hay arbitraje';}
 }
 }
-
 function myFormResetat()
 {
 document.getElementById('help3').innerHTML ='';
@@ -1087,7 +1079,6 @@ else {
 	if (tipo=="Call"){
 		var breakeven = (parseFloat(K)+parseFloat(prima)).toFixed(2);
 		var rbruto = Math.max(0,(parseFloat(ST)-parseFloat(K)));
-		alert(rbruto);
 		if (operacion=="C"){
 			document.getElementById('result11').innerHTML = '<p>El resultado neto de la compra de call es ' + (rbruto-parseFloat(prima)).toFixed(2)+ '<br>El <i>breakeven</i> es ' +breakeven+ ' [precios del subyacente al vencimiento (S<sub>T</sub>) por encima de este valor generan beneficios]';
 		} else {
