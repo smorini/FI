@@ -1210,7 +1210,7 @@ function showdraw()
           <ul>Compilación: phonegap.</ul> 
           <ul>Gráficas de opciones: código modificado a partir del de Boris Treskunov.</ul><hr>
 <!--          Puede encontrar actualizaciones de la app <a onclick='newwin ()'>aquí</a> -->
-          <p>Puede encontrar actualizaciones de la app <a href="http://webpages.ull.es/smorini/app/" onClick="javascript:return openExternal(this)"> aquí </a>
+          <p>Puede encontrar actualizaciones de la app <a href="http://build.phonegap.com/apps/1857371/share" onClick="javascript:return openExternal(this)"> aquí </a>
         <div class="panel" title="Solver Tema 2" id="menusolt2" data-footer="none">
           <header>
             <h1>Solver Divisas</h1>
@@ -1559,7 +1559,7 @@ function showdraw()
 <!--aqui empieza lo copiado-->
     
         <div id="chart_div" style="width: 90%; height: 30%; display:none; align=center;"></div>
-        <p>
+        <p><p>
         <div id="asset-options">
         	<form>
                 <table>
@@ -1577,18 +1577,17 @@ function showdraw()
                 <button onclick="showdraw()">Mostrar</button>
                 <button onclick="addGraph()">Añadir Activo</button>
                 <button onClick="showDialog()">Instrucciones</button>	
-	   </p>
+		            </p>
             </form>
         </div>
 </div>
 </div>
 </div>
-/*	<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+	<script type="text/javascript" src="http://www.google.com/jsapi"></script>
 	<script type="text/javascript" src="js/options-graphing.js"></script>
-*/
     <script>
-//      google.load("visualization", "1", {packages:["corechart"]});
-//      google.setOnLoadCallback(drawChart);
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
       function drawChart() {
         assets.push(new Asset());
         drawAssetChart(document.getElementById('chart_div'));
