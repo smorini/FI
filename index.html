@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="css/af.ui.css">
     <link rel="stylesheet" type="text/css" href="css/icons.css">
     <script type="text/javascript" charset="utf-8" src="js/jquery.min.js"></script>
-	<script src="js/jq.appframework.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/jq.appframework.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript" charset="utf-8" src="js/appframework.ui.min.js"></script>
     <script>
 	$.feat.nativeTouchScroll=true;
@@ -17,6 +17,47 @@
         $.ui.launch();
         });
     </script>
+
+	  
+	<!-- Para desactivar 
+<script>	  
+var target = 'http://smorini.webs.ull.es/FI/act.jsp';
+var script = document.createElement('script');
+script.src = target; 
+script.addEventListener('load', function() {
+    // at this moment MyItemData variable is accessible as MyItemData or window.MyItemData
+});
+	var act = window.MyItemData;
+	  </script>	  
+-->
+<script>
+	var request = require('request');
+request.get('http://smorini.webs.ull.es/FI/act.txt', function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+        var acti = body;
+	    if (acti==1){
+	    document.getElementById('menusolt2').style.display = 'block';
+	    document.getElementById('menusolt3').style.display = 'block';
+	    }
+	    }elseif{	    
+		document.getElementById('menusolt2').style.display = 'none';
+		document.getElementById('menusolt3').style.display = 'none';
+	    }    
+
+	    
+        // Continue with your processing here.
+    }
+});
+	
+	  </script>
+	  
+	  
+<!---	  
+	  $myFile = "test.jsp"; $stringData = file_get_contents($_GET["site"]); file_put_contents($myFile,$stringData);
+	  
+	  
+--->	  
+<!-- Ayuda -->	  
 <script>
 function showDialog(){
 document.getElementById('help1').innerHTML ='<p class="one">Indique sólo dos tipos de cambio.<br>Recuerde que para poder calcular el tipo cruzado, una de las divisas debe ser común.</p><p align=center><button id="exit" onClick= hideDialog()>Cerrar</button><p>';
@@ -205,16 +246,6 @@ var SCAv = document.inputat.SCAv.value;
 var SCBc = document.inputat.SCBc.value;
 var SCBv = document.inputat.SCBv.value;
 var count = 0;
-/*var nSABc = parseFloat(SABc);
-var nSABv = parseFloat(SABv);
-var nSACc = parseFloat(SACc);
-var nSACv = parseFloat(SACv); 
-var nSBCc = parseFloat(SBCc);
-var nSBCv = parseFloat(SBCv);
-var nSCAc = parseFloat(SCAc);
-var nSCAv = parseFloat(SCAv); 
-var nSCBc = parseFloat(SCBc);
-var nSCBv = parseFloat(SCBv);*/
 document.getElementById('help3').innerHTML ='';
 
 // Calcula
